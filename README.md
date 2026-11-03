@@ -21,7 +21,7 @@ robots.txt            Excluye /dashboard y /api de buscadores
 
 1. Sube el contenido de esta carpeta a la raíz del repositorio de GitHub.
 2. En Vercel: **Add New → Project**, importa el repositorio. Framework: **Other**. Sin comando de build. Output: `/`.
-3. Base de datos: en el proyecto de Vercel, **Storage → Create → Upstash (Redis)**, plan gratuito, y conéctala al proyecto. Vercel añade solo `KV_REST_API_URL` y `KV_REST_API_TOKEN`.
+3. Base de datos: en el proyecto de Vercel, **Storage → Create** una base Redis y conéctala al proyecto. Sirven las dos opciones: **Redis** (Vercel añade `REDIS_URL`) o **Upstash for Redis** (añade `KV_REST_API_URL` y `KV_REST_API_TOKEN`). Si existen las dos, se usa Upstash.
 4. **Settings → Environment Variables**, añade:
    - `DASHBOARD_PASSWORD`: contraseña para entrar en /dashboard.
    - `CRON_SECRET`: cualquier texto largo aleatorio. Vercel lo usa para autorizar el cron.

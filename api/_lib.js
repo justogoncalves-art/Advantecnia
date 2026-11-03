@@ -1,12 +1,84 @@
 const crypto = require('crypto');
 
+const net = require('net');
+const tls = require('tls');
+
 const RURL = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
 const RTOK = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+const REDIS_URL = process.env.REDIS_URL;
 const TZ = 'Europe/Madrid';
 const DAY_TTL = 60 * 60 * 24 * 400;
 
+// Ejecuta una lista de comandos y devuelve sus resultados en orden.
+// Admite Upstash (API REST: KV_REST_API_URL + KV_REST_API_TOKEN) o un Redis normal (REDIS_URL, redis:// o rediss://).
 async function redis(cmds) {
-  if (!RURL || !RTOK) throw new Error('Base de datos no configurada (faltan KV_REST_API_URL / KV_REST_API_TOKEN)');
+  if (RURL && RTOK) return redisRest(cmds);
+  if (REDIS_URL) return redisTcp(cmds);
+  throw new Error('Base de datos no configurada (falta REDIS_URL o KV_REST_API_URL / KV_REST_API_TOKEN)');
+}
+
+// Redis por TCP con el protocolo RESP, sin dependencias: una conexión por petición (funciones serverless).
+function redisTcp(cmds) {
+  const u = new URL(REDIS_URL);
+  const pre = [];
+  const user = decodeURIComponent(u.username || ''), pass = decodeURIComponent(u.password || '');
+  if (pass) pre.push(user && user !== 'default' ? ['AUTH', user, pass] : ['AUTH', pass]);
+  const db = parseInt((u.pathname || '').slice(1), 10);
+  if (db > 0) pre.push(['SELECT', db]);
+  const all = pre.concat(cmds);
+  const enc = cmd => {
+    const parts = [Buffer.from('*' + cmd.length + '\r\n')];
+    for (const a of cmd) { const b = Buffer.from(String(a)); parts.push(Buffer.from('$' + b.length + '\r\n'), b, Buffer.from('\r\n')); }
+    return Buffer.concat(parts);
+  };
+  const port = parseInt(u.port, 10) || 6379;
+  return new Promise((resolve, reject) => {
+    const sock = u.protocol === 'rediss:' ? tls.connect({ host: u.hostname, port, servername: u.hostname }) : net.connect({ host: u.hostname, port });
+    let buf = Buffer.alloc(0), pos = 0, done = false;
+    const out = [];
+    const finish = (err, val) => { if (done) return; done = true; sock.destroy(); err ? reject(err) : resolve(val); };
+    sock.setTimeout(8000, () => finish(new Error('Redis: tiempo de espera agotado')));
+    sock.on('error', e => finish(new Error('Redis: ' + e.message)));
+    sock.on('close', () => finish(new Error('Redis: conexión cerrada')));
+    sock.once(u.protocol === 'rediss:' ? 'secureConnect' : 'connect', () => sock.write(Buffer.concat(all.map(enc))));
+    sock.on('data', chunk => {
+      buf = Buffer.concat([buf, chunk]);
+      let r;
+      while (out.length < all.length && (r = respParse(buf, pos))) { out.push(r[0]); pos = r[1]; }
+      if (out.length < all.length) return;
+      const errs = out.filter(x => x && x.error);
+      if (errs.length) return finish(new Error(errs[0].error));
+      finish(null, out.slice(pre.length));
+    });
+  });
+}
+
+// Lee una respuesta RESP desde buf[i]. Devuelve [valor, siguienteÍndice] o null si aún no ha llegado completa.
+function respParse(buf, i) {
+  if (i >= buf.length) return null;
+  const e = buf.indexOf('\r\n', i);
+  if (e < 0) return null;
+  const t = String.fromCharCode(buf[i]), line = buf.toString('utf8', i + 1, e);
+  if (t === '+') return [line, e + 2];
+  if (t === '-') return [{ error: line }, e + 2];
+  if (t === ':') return [parseInt(line, 10), e + 2];
+  if (t === '$') {
+    const n = parseInt(line, 10);
+    if (n < 0) return [null, e + 2];
+    if (buf.length < e + 4 + n) return null;
+    return [buf.toString('utf8', e + 2, e + 2 + n), e + 4 + n];
+  }
+  if (t === '*') {
+    const n = parseInt(line, 10);
+    if (n < 0) return [null, e + 2];
+    const arr = []; let j = e + 2;
+    for (let k = 0; k < n; k++) { const r = respParse(buf, j); if (!r) return null; arr.push(r[0]); j = r[1]; }
+    return [arr, j];
+  }
+  throw new Error('Redis: respuesta no reconocida');
+}
+
+async function redisRest(cmds) {
   const r = await fetch(RURL.replace(/\/$/, '') + '/pipeline', {
     method: 'POST',
     headers: { Authorization: 'Bearer ' + RTOK, 'Content-Type': 'application/json' },
