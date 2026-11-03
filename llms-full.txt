@@ -1,0 +1,135 @@
+# Advantecnia: información completa
+
+> Fabricante español (ACE Business Group) de sistemas de llamada paciente-enfermera, monitorización de pacientes sin cámaras y soluciones Smart Hospital gobernadas por Connect.IA, su inteligencia artificial propia. Más de 400 hospitales, más de 30.000 habitaciones digitalizadas, más de 20 años de experiencia.
+
+## Preguntas frecuentes
+
+### ¿Qué es Advantecnia?
+Advantecnia es una empresa española de ACE Business Group que diseña y fabrica tecnología para hospitales y residencias: sistemas de llamada paciente-enfermera, monitorización sin cámaras, gestión de la operación y red hospitalaria. Su ecosistema SmartHospital está gobernado por Connect.IA, su inteligencia artificial propia, y ya funciona en más de 400 hospitales.
+
+### ¿Qué es Connect.IA?
+Connect.IA es la inteligencia artificial desarrollada por Advantecnia. A través del Servidor MQTT recoge en tiempo real las señales de habitaciones, sensores, dispositivos y sistemas del hospital, las interpreta con el contexto del paciente y los protocolos del centro, y lleva cada aviso a la persona adecuada en el momento adecuado.
+
+### ¿Qué es un sistema de llamada paciente-enfermera?
+Es el sistema que permite al paciente pedir ayuda desde la cama, el baño o la habitación y que el aviso llegue al personal de enfermería con su ubicación y prioridad. La familia AdvantCare incluye pulsadores de cama y pera, llamada de emergencia, consola de enfermería VoIP, app móvil y pantallas de pasillo, con alimentación PoE o inalámbrica.
+
+### ¿Se integra con los sistemas que ya tiene el hospital?
+Sí. Connect.IA y el Servidor MQTT ofrecen más de 200 interfaces: control de accesos, cámaras, localización RTLS, detección de caídas, alarmas de incendio, BMS, domótica y otros sistemas de llamada enfermera como Tunstall, Televic o Austco. No hace falta sustituir lo que ya funciona ni parar el hospital.
+
+### ¿Cómo se monitoriza a los pacientes sin cámaras?
+Con AdvantSense, que combina sensores de nano-movimiento e inteligencia artificial para detectar caídas, salidas de cama, frecuencia cardíaca y respiratoria y calidad del sueño sin contacto y sin cámaras. Cuando detecta un riesgo avisa automáticamente al personal, respetando la intimidad del paciente y de su familia.
+
+### ¿Qué es NurIA?
+NurIA es el asistente de voz con inteligencia artificial de Advantecnia. Acompaña al paciente las 24 horas: puede pedir por voz agua, comida, medicación, limpieza, información o una emergencia sin pulsar nada, lo que libera al personal de enfermería de tareas repetitivas para que dedique su tiempo a cuidar.
+
+### ¿Qué certificaciones tiene Advantecnia?
+Advantecnia está certificada en gestión de la calidad según la norma ISO 9001:2015 y cuenta con certificación UL para equipos de señalización hospitalaria y llamada enfermera (expediente E480716). Sus productos llevan marcado CE y, según el equipo, cumplen CE-EMC, IEC 60601 y FCC. Fabrica en España.
+
+### ¿En qué hospitales trabaja Advantecnia?
+Advantecnia está presente en más de 400 hospitales, con más de 30.000 habitaciones digitalizadas y más de 10 millones de usuarios al año. Entre sus proyectos están el Hospital Gregorio Marañón y el Hospital Enfermera Isabel Zendal en Madrid, el Hospital de Salamanca y el Nuevo Hospital Cedimat en República Dominicana, además de centros en Latinoamérica e Israel.
+
+### ¿Cómo se implanta un Smart Hospital?
+Por fases. Primero se hace un diagnóstico del entorno, los procesos y la red; después se diseña la arquitectura; se despliegan SmartRoom y la red; se integra todo con SmartCore y el Servidor MQTT; y en la fase de operación Connect.IA monitoriza y mejora con soporte del equipo de Advantecnia. Se puede empezar por una sola habitación.
+
+### ¿Por dónde empiezo?
+Solicita una auditoría gratuita. Un asesor experto analiza tu hospital y te muestra qué soluciones pueden llevarlo al siguiente nivel, con prioridades claras y sin compromiso. Respondemos en menos de 24 horas laborables. También puedes escribir a info@advantecnia.com o llamar al +34 637 49 57 57.
+
+## Soluciones
+
+### SmartRoom
+La habitación que cuida: llamada paciente-enfermera, comunicación, experiencia y acompañamiento del paciente.
+
+### SmartSense
+Monitorización sin cámaras y sin contacto: caídas, salidas de cama, respiración y latido, con aviso inmediato al personal.
+
+### SmartFlow
+Operación, seguridad y gestión de todas las áreas del hospital: turnos, megafonía, accesos y edificio.
+
+### SmartCore
+La plataforma que integra todos los sistemas (Servidor MQTT, más de 200 interfaces) y la red que lo sostiene.
+
+### Connect.IA
+Inteligencia artificial de Advantecnia que escucha, entiende, actúa y mejora sobre todo el ecosistema SmartHospital.
+
+### NurIA
+Asistente de voz con IA que atiende las peticiones del paciente las 24 horas sin pulsar nada.
+
+## Proyectos
+
+- Hospital Gregorio Marañón (Madrid, España): Es un hospital público localizado en Madrid, que destaca por su dotación tecnológica. Tiene más de 1.700 camas instaladas. 14 camas. Sistemas: Sistema de Llamada Paciente Enfermera de Advantecnia.
+- Hospital de Salamanca (Salamanca, España · ~1.000 camas): Es uno de los más importantes Hospitales de España y el más importante de Castilla y León, en su finalización contará con más de 190.000 m2 de superficie construida y todos los servicios de Hospitalización, Cirugía, Urgencias, Laboratorios, Consultas y Radiología entre otros. 1.000 camas (Hospitalización y Boxes). Sistemas: Sistema de Llamada Paciente Enfermera AdvantCall de Advantecnia, Intercomunicación.
+- Hospital Enfermera Isabel Zendal (Madrid, España): El Hospital de Emergencias Enfermera Isabel Zendal es un centro sanitario monográfico para crisis pandémicas que da apoyo a toda la red hospitalaria del Servicio Madrileño de Salud ante cualquier emergencia, crisis sanitaria o necesidad asistencial. Sistemas: Sistema de Llamada Paciente Enfermera de Advantecnia, Sistema de sincronización horaria, Sistema de megafonía, CCTV, Sistema de control de accesos.
+- Hospital Marina Salud Denia (Alicante, España): Es un hospital de nueva construcción localizado en Denia, Alicante, que tiene un área de 42.500 m2 y 280 camas. Se inauguró en el año 2009. 50 camas. Sistemas: Sistema de Llamada Paciente Enfermera de Advantecnia.
+- Hospital de Laredo (Cantabria, España): Es uno de los hospitales públicos más importantes de Cantabria que pertenece a la red asistencial del Servicio Cántabro de Salud. Tiene 132 camas de hospitalización. 66 camas. Sistemas: Intercomunicadores.
+- Hospital de Alcoy (Alicante, España): El Hospital Virgen de los Lirios es un moderno complejo sanitario con 6 quirófanos, más de 300 camas y avanzados recursos técnicos para el diagnóstico y tratamiento de enfermedades. Está localizado en Alcoy, Comunidad Valenciana. Sistemas: Sistema de Llamada Paciente Enfermera de Advantecnia.
+- Hospital Virgen Vega (Salamanca, España): Es un hospital público localizado en Salamanca, Castilla y León. Sistemas: Sistema de Llamada Paciente Enfermera de Advantecnia.
+- Hospital Los Montalvos (Salamanca, España): Es un hospital público localizado en Salamanca, Castilla y León. Sistemas: Sistema Wireless de Llamada Paciente Enfermera de Advantecnia.
+- Residencia Grupo Orpea (España · Red de residencias): El Grupo Orpea es uno de los operadores del sector más importantes a nivel mundial. En España, tiene implantados 43 centros geriátricos y más de 7.334 camas. Cuatro de sus centros socio-sanitarios en La Comunidad de Madrid tienen ya instalados los sistemas comunicación hospitalaria de Advantecnia. 550 camas. Sistemas: Sistema de Llamada Paciente Enfermera de Advantecnia, Cámaras.
+- AMAS (Agencia Madrileña de Atención Social) (Madrid, España): La Agencia Madrileña de Atención Social es un organismo que gestiona 25 Residencias Geriátricas en la Comunidad de Madrid. Más de 8 centros socio-sanitarios ya tienen implantados los sistemas de comunicación hospitalaria de Advantecnia. Más de 1.700 camas. Sistemas: Sistema de Llamada Paciente Enfermera, Sistema de Comunicaciones DECT, Sistemas de Seguridad, Intercomunicadores.
+- Nuevo Hospital Cedimat (República Dominicana)
+- Ciudad de la Salud (Panamá)
+- Centro Médico Caribe (Panamá)
+- Clínica BUPA Santiago (Chile)
+- Hospital Altosur (El Alto, Bolivia)
+- Hospital de Chuquisaca (Bolivia)
+- Hospital de Montero (Bolivia)
+- Hospital de Metztitlán (México)
+- Hospital de Tláhuac (Ciudad de México)
+- Hospital de Machala (Ecuador)
+- Omni Hospital (Guayaquil, Ecuador)
+- Hospital de la Policía (Lima, Perú)
+- TLV Medical Center (Tel Aviv, Israel)
+- Wolfson Hospital (Holon, Israel)
+
+## Artículos del blog (español)
+
+- [Big data en salud](https://advantecnia.com/blog/big-data-en-salud) (2025-03-05): El Big data en salud optimiza diagnósticos, personaliza tratamientos y mejora la gestión hospitalaria. Descubre sus beneficios clave.
+- [Monitorización de pacientes](https://advantecnia.com/blog/monitorizacion-de-pacientes) (2025-03-05): La monitorización de pacientes mejora la atención médica con datos en tiempo real, reduciendo riesgos y optimizando tratamientos.
+- [¿Cómo funciona una habitación inteligente en un hospital?](https://advantecnia.com/blog/como-funciona-una-habitacion-inteligente-en-un-hospital) (2025-01-27): Descubre cómo una habitación inteligente en un hospital mejora la seguridad, confort y atención médica con tecnología avanzada.
+- [Inteligencia artificial en hospitales](https://advantecnia.com/blog/inteligencia-artificial-en-hospitales) (2025-01-27): Descubre cómo la inteligencia artificial en hospitales mejora diagnósticos, optimiza la gestión y reduce costos en el sector salud.
+- [Asistencia al paciente: innovaciones tecnológicas que transforman la atención médica](https://advantecnia.com/blog/asistencia-al-paciente) (2024-12-31): Descubre cómo la tecnología mejora la asistencia al paciente, optimizando la experiencia y la eficiencia sanitaria.
+- [Cerradura para puerta inteligente: beneficios en el ámbito hospitalario](https://advantecnia.com/blog/cerradura-para-puerta-inteligente) (2024-12-31): Descubre cómo una cerradura para puerta inteligente optimiza la gestión en hospitales, garantizando privacidad y eficiencia.
+- [¿Qué es una smart room en un hospital?](https://advantecnia.com/blog/que-es-una-smart-room-en-un-hospital) (2024-11-27): Smart room en un hospital: tecnología que transforma la experiencia del paciente y optimiza el trabajo del personal.
+- [Transformación digital en salud](https://advantecnia.com/blog/transformacion-digital-en-salud) (2024-11-27): Transformación digital en salud: optimización de servicios y recursos para garantizar atención médica accesible, personalizada y de calidad.
+- [Comunicación efectiva con el paciente](https://advantecnia.com/blog/comunicacion-efectiva-con-el-paciente) (2024-10-31): Claves para la comunicación efectiva con el paciente: construye un vínculo de confianza, empatía y claridad en cada visita al consultorio.
+- [Digitalización de la medicina](https://advantecnia.com/blog/digitalizacion-de-la-medicina) (2024-10-31): La digitalización de la medicina potencia la relación médico-paciente, mejorando diagnósticos y facilitando la atención en salud.
+- [Tipos de NTP](https://advantecnia.com/blog/tipos-de-ntp) (2024-09-25): Como ingeniero de telecomunicaciones, necesitas conocer los distintos tipos de NTP que puedes implementar, te los explicamos.
+- [PROFINETS vs. PROFIBUS](https://advantecnia.com/blog/profinets-vs-profibus) (2024-09-25): ¿Estás buscando un protocolo de comunicación hospitalaria? Seguro que ya debes haberte planteado la comparación PROFINETS vs. PROFIBUS.
+- [Protocolo PROFINET](https://advantecnia.com/blog/protocolo-profinet) (2024-08-21): El protocolo PROFINET ha marcado un antes y un después en lo que respecta a los sistemas de comunicaciones hospitalarias.
+- [Colchones hospitalarios tipos](https://advantecnia.com/blog/colchones-hospitalarios-tipos) (2024-08-21): Los colchones hospitalarios se suelen clasificar atendiendo al tipo de paciente a quien se dirigen. Teexplicamos como aquí.
+- [Tipos de comunicación en enfermería](https://advantecnia.com/blog/tipos-de-comunicacion-en-enfermeria) (2024-07-22): En este artículo, exploraremos los Tipos de comunicación en enfermería, las características de un buen sistema de comunicación.
+- [Índice de eficiencia energética](https://advantecnia.com/blog/indice-de-eficiencia-energetica) (2024-07-19): Las nuevas tecnologías en hoteles ofrecen grandes beneficios. Conoce cuales son las tendecias y en que áreas son de ayuda. Descubre más aquí.
+- [Tecnología en hoteles](https://advantecnia.com/blog/tecnologia-en-hoteles) (2024-07-04): Las nuevas tecnologías en hoteles ofrecen grandes beneficios. Conoce cuales son las tendecias y en que áreas son de ayuda. Descubre más aquí.
+- [Tipos de camas articuladas](https://advantecnia.com/blog/tipos-de-camas-articuladas) (2024-07-01): Las camas articuladas son ideales para personas con problemas de distinto origen.Conoce los tipos de camas articuladas que existen aqui.
+- [Telecuidado](https://advantecnia.com/blog/telecuidado) (2024-05-20): El telecuidado ha evolucionado mucho en poco tiempo, y lo ha hecho debido al gran avance tecnológico que se ha conseguido.
+- [Hospitales inteligentes](https://advantecnia.com/blog/hospitales-inteligentes) (2024-05-20): Aunque los hospitales inteligentes parecen cosa del futuro, lo cierto es que ya son una realidad, te lo contamos en nuestro blog.
+- [Megafonía IP](https://advantecnia.com/blog/megafonia-ip) (2024-04-22): El uso de la Megafonía IP está muy extendido porque se trata de un tipo de comunicación muy flexible, ágil y eficiente.
+- [Cómo se podría aplicar el blockchain en el área de salud](https://advantecnia.com/blog/como-se-podria-aplicar-el-blockchain-en-el-area-de-salud) (2024-04-22): ¿Has oído hablar del sistema robótico Da Vinci? Te contamos todo lo que tienes que saber en nuestro blog, no te lo puedes perder.
+- [Sistema de seguridad CCTV](https://advantecnia.com/blog/sistema-de-seguridad-cctv) (2024-03-25): ¿Has oído hablar del sistema robótico Da Vinci? Te contamos todo lo que tienes que saber en nuestro blog, no te lo puedes perder.
+- [Qué es un control de acceso en seguridad privada](https://advantecnia.com/blog/que-es-un-control-de-acceso-en-seguridad-privada) (2024-03-18): ¿Has oído hablar del sistema robótico Da Vinci? Te contamos todo lo que tienes que saber en nuestro blog, no te lo puedes perder.
+- [Sistema robótico Da Vinci](https://advantecnia.com/blog/sistema-robotico-da-vinci) (2024-02-28): ¿Has oído hablar del sistema robótico Da Vinci? Te contamos todo lo que tienes que saber en nuestro blog, no te lo puedes perder.
+- [Sistemas de gestión hospitalaria](https://advantecnia.com/blog/sistemas-de-gestion-hospitalaria) (2024-02-28): Los sistemas de gestión hospitalaria proporcionan todo lo que se necesita en entornos hospitalarios para gestionar el día a día.
+- [Liderazgo en hospitales](https://advantecnia.com/blog/liderazgo-en-hospitales) (2024-01-23): En las siguientes líneas desgranaremos las características particulares del liderazgo en hospitales, entra en nuestro blog y descúbrelo.
+- [Impresión 3D en medicina](https://advantecnia.com/blog/impresion-3d-en-medicina) (2024-01-23): La impresión 3D en medicina se está convirtiendo en una herramienta muy interesante por la que cada vez se apuesta más.
+- [Apps para médicos](https://advantecnia.com/blog/apps-para-medicos) (2023-12-28): Las apps para médicos ofrecen miles de ventajas para estos ya que hacen que su día a día en la consulta sea un poco más fácil.
+- [Alimentación PoE](https://advantecnia.com/blog/alimentacion-poe) (2023-12-28): La alimentación PoE es cada vez más utilizada para disminuir los costes y dificultad en muchos sistemas informáticos.
+- [Ventajas de la telemedicina](https://advantecnia.com/blog/ventajas-de-la-telemedicina) (2023-11-23): Es muy común oír hablar de las ventajas de la telemedicina, hoy te las contamos en este blog, entra y descúbrelas.
+- [Cómo funciona PoE](https://advantecnia.com/blog/como-funciona-poe) (2023-11-23): A continuación, veremos cómo funciona PoE y sus principales aplicaciones, sobre todo en centros sociosanitarios.
+- [Stand alone: qué es](https://advantecnia.com/blog/stand-alone-que-es) (2023-10-27): Explora el software stand alone, una tecnología versátil que impulsa la eficiencia empresarial brindando soluciones innovadoras.
+- [Sistemas asistenciales](https://advantecnia.com/blog/sistemas-asistenciales) (2023-10-27): Descubre como los sistemas asistenciales están revolucionando la atención en la medicina y la calidad de vida.
+- [Llamadas VoIP: qué es](https://advantecnia.com/blog/llamadas-voip-que-es) (2023-10-03): Las llamadas VoIP han emergido como una de las innovaciones más destacadas en la forma en que realizamos esta comunicación.
+- [Qué es la cartelería digital y cómo funciona](https://advantecnia.com/blog/que-es-la-carteleria-digital-y-como-funciona) (2023-10-03): Tener claro qué es la cartelería digital y cómo funciona es una de las formas más eficientes que existen de generar beneficios.
+- [Tipos de PROFIBUS](https://advantecnia.com/blog/tipos-de-profibus) (2023-08-25): Vamos a explicarte cuáles son los tipos de PROFIBUS y cómo funcionan, entra en nuestra última entrada de blog y descúbrelo.
+- [Eficiencia energética en edificios: normativa](https://advantecnia.com/blog/eficiencia-energetica-en-edificios-normativa) (2023-08-14): La eficiencia energética en edificios responde a una normativa que ha cambiado recientemente, descúbrelo aquí.
+- [Funciones de una enfermera en un hospital](https://advantecnia.com/blog/funciones-de-una-enfermera-en-un-hospital) (2023-07-28): Funciones de una enfermera en un hospital: qué responsabilidades tienen las enfermeras y qué tipos de funciones cumplen.
+- [Tipos de cables de red y sus características](https://advantecnia.com/blog/tipos-de-cables-de-red-y-sus-caracteristicas) (2023-07-28): Todo lo que necesitas saber sobre los tipos de cables de red sanitarias, sus características y la normativa existente. Contacta con nosotros.
+- [Protocolo PROFIBUS: qué es y cómo funciona](https://advantecnia.com/blog/protocolo-profibus-que-es-y-como-funciona) (2023-07-28): Qué es el protocolo PROFIBUS, cómo funciona y cuáles son sus características. Te detallamos todos los beneficios que tiene.
+- [Tipos de buses de comunicación](https://advantecnia.com/blog/tipos-de-buses-de-comunicacion) (2023-06-29): Descubre los diferentes tipos de buses de comunicación: una guía completa para entender cómo se interconectan los dispositivos y sistemas.
+- [Ahorro y eficiencia energética en hospitales](https://advantecnia.com/blog/ahorro-y-eficiencia-energetica-en-hospitales) (2023-06-29): Ahorro y eficiencia energética en hospitales: Mejorando la atención médica mientras reducimos costos y protegemos el medio ambiente…
+- [Qué es la DIN VDE 0834](https://advantecnia.com/blog/que-es-la-din-vde-0834) (2022-12-02): Los timbres para habitaciones hospitalarias componen el grupo de dispositivos donde hay más variedad a la hora de elegir, te lo contamos.
+- [Timbres para habitaciones hospitalarias](https://advantecnia.com/blog/timbres-para-habitaciones-hospitalarias) (2022-12-02): Los timbres para habitaciones hospitalarias componen el grupo de dispositivos donde hay más variedad a la hora de elegir, te lo contamos.
+- [Llamador de enfermería inalámbrico](https://advantecnia.com/blog/llamador-de-enfermeria-inalambrico) (2022-11-08): Os descubrimos las ventajas que presentael llamador de enfermería inalámbrico para las personas que se encuentran bajo nuestro cuidado.
+- [Llamador de enfermería en residencias](https://advantecnia.com/blog/llamador-de-enfermeria-en-residencias) (2022-09-14): Advantecnia te ofrece llamador de enfermería en residencias, los mejores productos para las mejores instalaciones. Contacta con nosotros.
+- [Qué es la comunicación asistencial](https://advantecnia.com/blog/que-es-la-comunicacion-asistencial) (2022-07-13): Te enseñamos qué es la comunicacion asistencial, todas sus características y ventajas. En Advantecnia estamos para ayudarte. Contacta.
+- [Sistema de llamada en baños accesibles](https://advantecnia.com/blog/sistema-de-llamada-en-banos-accesibles) (2022-06-08): La seguridad en la utilización de los aseos accesibles depende de que estén dotados de un sistema de llamada en baños accesibles. Descúbrelo.
+- [Cómo funciona un sistema de llamada paciente enfermera](https://advantecnia.com/blog/como-funciona-un-sistema-de-llamada-paciente-enfermera) (2022-04-19): Quieres saber cómo funciona un sistema de llamada paciente enfermera. Te lo explicamos todo en nuestro blog de referencia en el sector.

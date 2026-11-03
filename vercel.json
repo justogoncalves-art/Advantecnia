@@ -1,0 +1,908 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/dashboard",
+      "destination": "/dashboard.dc.html"
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/refresh?days=3",
+      "schedule": "0 6 * * *"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/at.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        }
+      ]
+    },
+    {
+      "source": "/dashboard(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/blog/img/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        }
+      ]
+    },
+    {
+      "source": "/llms(.*).txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p",
+          "value": "soluciones"
+        },
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "en"
+        }
+      ],
+      "destination": "/en/soluciones",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p",
+          "value": "soluciones"
+        }
+      ],
+      "destination": "/soluciones",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p",
+          "value": "proyectos"
+        },
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "en"
+        }
+      ],
+      "destination": "/en/proyectos",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p",
+          "value": "proyectos"
+        }
+      ],
+      "destination": "/proyectos",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p",
+          "value": "empresa"
+        },
+        {
+          "type": "query",
+          "key": "lang",
+          "value": "en"
+        }
+      ],
+      "destination": "/en/empresa",
+      "permanent": true
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "p",
+          "value": "empresa"
+        }
+      ],
+      "destination": "/empresa",
+      "permanent": true
+    },
+    {
+      "source": "/big-data-en-salud",
+      "destination": "/blog/big-data-en-salud",
+      "permanent": true
+    },
+    {
+      "source": "/monitorizacion-de-pacientes",
+      "destination": "/blog/monitorizacion-de-pacientes",
+      "permanent": true
+    },
+    {
+      "source": "/como-funciona-una-habitacion-inteligente-en-un-hospital",
+      "destination": "/blog/como-funciona-una-habitacion-inteligente-en-un-hospital",
+      "permanent": true
+    },
+    {
+      "source": "/inteligencia-artificial-en-hospitales",
+      "destination": "/blog/inteligencia-artificial-en-hospitales",
+      "permanent": true
+    },
+    {
+      "source": "/asistencia-al-paciente",
+      "destination": "/blog/asistencia-al-paciente",
+      "permanent": true
+    },
+    {
+      "source": "/cerradura-para-puerta-inteligente",
+      "destination": "/blog/cerradura-para-puerta-inteligente",
+      "permanent": true
+    },
+    {
+      "source": "/que-es-una-smart-room-en-un-hospital",
+      "destination": "/blog/que-es-una-smart-room-en-un-hospital",
+      "permanent": true
+    },
+    {
+      "source": "/transformacion-digital-en-salud",
+      "destination": "/blog/transformacion-digital-en-salud",
+      "permanent": true
+    },
+    {
+      "source": "/comunicacion-efectiva-con-el-paciente",
+      "destination": "/blog/comunicacion-efectiva-con-el-paciente",
+      "permanent": true
+    },
+    {
+      "source": "/digitalizacion-de-la-medicina",
+      "destination": "/blog/digitalizacion-de-la-medicina",
+      "permanent": true
+    },
+    {
+      "source": "/tipos-de-ntp",
+      "destination": "/blog/tipos-de-ntp",
+      "permanent": true
+    },
+    {
+      "source": "/profinets-vs-profibus",
+      "destination": "/blog/profinets-vs-profibus",
+      "permanent": true
+    },
+    {
+      "source": "/protocolo-profinet",
+      "destination": "/blog/protocolo-profinet",
+      "permanent": true
+    },
+    {
+      "source": "/colchones-hospitalarios-tipos",
+      "destination": "/blog/colchones-hospitalarios-tipos",
+      "permanent": true
+    },
+    {
+      "source": "/tipos-de-comunicacion-en-enfermeria",
+      "destination": "/blog/tipos-de-comunicacion-en-enfermeria",
+      "permanent": true
+    },
+    {
+      "source": "/indice-de-eficiencia-energetica",
+      "destination": "/blog/indice-de-eficiencia-energetica",
+      "permanent": true
+    },
+    {
+      "source": "/tecnologia-en-hoteles",
+      "destination": "/blog/tecnologia-en-hoteles",
+      "permanent": true
+    },
+    {
+      "source": "/tipos-de-camas-articuladas",
+      "destination": "/blog/tipos-de-camas-articuladas",
+      "permanent": true
+    },
+    {
+      "source": "/telecuidado",
+      "destination": "/blog/telecuidado",
+      "permanent": true
+    },
+    {
+      "source": "/hospitales-inteligentes",
+      "destination": "/blog/hospitales-inteligentes",
+      "permanent": true
+    },
+    {
+      "source": "/megafonia-ip",
+      "destination": "/blog/megafonia-ip",
+      "permanent": true
+    },
+    {
+      "source": "/como-se-podria-aplicar-el-blockchain-en-el-area-de-salud",
+      "destination": "/blog/como-se-podria-aplicar-el-blockchain-en-el-area-de-salud",
+      "permanent": true
+    },
+    {
+      "source": "/sistema-de-seguridad-cctv",
+      "destination": "/blog/sistema-de-seguridad-cctv",
+      "permanent": true
+    },
+    {
+      "source": "/que-es-un-control-de-acceso-en-seguridad-privada",
+      "destination": "/blog/que-es-un-control-de-acceso-en-seguridad-privada",
+      "permanent": true
+    },
+    {
+      "source": "/sistema-robotico-da-vinci",
+      "destination": "/blog/sistema-robotico-da-vinci",
+      "permanent": true
+    },
+    {
+      "source": "/sistemas-de-gestion-hospitalaria",
+      "destination": "/blog/sistemas-de-gestion-hospitalaria",
+      "permanent": true
+    },
+    {
+      "source": "/liderazgo-en-hospitales",
+      "destination": "/blog/liderazgo-en-hospitales",
+      "permanent": true
+    },
+    {
+      "source": "/impresion-3d-en-medicina",
+      "destination": "/blog/impresion-3d-en-medicina",
+      "permanent": true
+    },
+    {
+      "source": "/apps-para-medicos",
+      "destination": "/blog/apps-para-medicos",
+      "permanent": true
+    },
+    {
+      "source": "/alimentacion-poe",
+      "destination": "/blog/alimentacion-poe",
+      "permanent": true
+    },
+    {
+      "source": "/ventajas-de-la-telemedicina",
+      "destination": "/blog/ventajas-de-la-telemedicina",
+      "permanent": true
+    },
+    {
+      "source": "/como-funciona-poe",
+      "destination": "/blog/como-funciona-poe",
+      "permanent": true
+    },
+    {
+      "source": "/stand-alone-que-es",
+      "destination": "/blog/stand-alone-que-es",
+      "permanent": true
+    },
+    {
+      "source": "/sistemas-asistenciales",
+      "destination": "/blog/sistemas-asistenciales",
+      "permanent": true
+    },
+    {
+      "source": "/llamadas-voip-que-es",
+      "destination": "/blog/llamadas-voip-que-es",
+      "permanent": true
+    },
+    {
+      "source": "/que-es-la-carteleria-digital-y-como-funciona",
+      "destination": "/blog/que-es-la-carteleria-digital-y-como-funciona",
+      "permanent": true
+    },
+    {
+      "source": "/tipos-de-profibus",
+      "destination": "/blog/tipos-de-profibus",
+      "permanent": true
+    },
+    {
+      "source": "/eficiencia-energetica-en-edificios-normativa",
+      "destination": "/blog/eficiencia-energetica-en-edificios-normativa",
+      "permanent": true
+    },
+    {
+      "source": "/funciones-de-una-enfermera-en-un-hospital",
+      "destination": "/blog/funciones-de-una-enfermera-en-un-hospital",
+      "permanent": true
+    },
+    {
+      "source": "/tipos-de-cables-de-red-y-sus-caracteristicas",
+      "destination": "/blog/tipos-de-cables-de-red-y-sus-caracteristicas",
+      "permanent": true
+    },
+    {
+      "source": "/protocolo-profibus-que-es-y-como-funciona",
+      "destination": "/blog/protocolo-profibus-que-es-y-como-funciona",
+      "permanent": true
+    },
+    {
+      "source": "/tipos-de-buses-de-comunicacion",
+      "destination": "/blog/tipos-de-buses-de-comunicacion",
+      "permanent": true
+    },
+    {
+      "source": "/ahorro-y-eficiencia-energetica-en-hospitales",
+      "destination": "/blog/ahorro-y-eficiencia-energetica-en-hospitales",
+      "permanent": true
+    },
+    {
+      "source": "/que-es-la-din-vde-0834",
+      "destination": "/blog/que-es-la-din-vde-0834",
+      "permanent": true
+    },
+    {
+      "source": "/timbres-para-habitaciones-hospitalarias",
+      "destination": "/blog/timbres-para-habitaciones-hospitalarias",
+      "permanent": true
+    },
+    {
+      "source": "/llamador-de-enfermeria-inalambrico",
+      "destination": "/blog/llamador-de-enfermeria-inalambrico",
+      "permanent": true
+    },
+    {
+      "source": "/llamador-de-enfermeria-en-residencias",
+      "destination": "/blog/llamador-de-enfermeria-en-residencias",
+      "permanent": true
+    },
+    {
+      "source": "/que-es-la-comunicacion-asistencial",
+      "destination": "/blog/que-es-la-comunicacion-asistencial",
+      "permanent": true
+    },
+    {
+      "source": "/sistema-de-llamada-en-banos-accesibles",
+      "destination": "/blog/sistema-de-llamada-en-banos-accesibles",
+      "permanent": true
+    },
+    {
+      "source": "/como-funciona-un-sistema-de-llamada-paciente-enfermera",
+      "destination": "/blog/como-funciona-un-sistema-de-llamada-paciente-enfermera",
+      "permanent": true
+    },
+    {
+      "source": "/en/queue-management-system-how-it-works",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/how-a-nurse-call-system-works",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/hospital-security-2",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/hospital-bed-head-units",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/software-for-health",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/accessible-bathroom-call-system",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/types-of-intercom-systems",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-healthcare-communication",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-hospital-engineering",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/electronic-queue-management-systems-what-they-consist-of",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/nurse-call-system-in-care-homes",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/queue-management-in-pharmacies",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/public-address-system-with-loudspeakers",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-types-of-hospital-beds-exist",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/wireless-nurse-call-system",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/how-to-comply-with-accessible-bathroom-regulations",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/hospital-room-call-buttons",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-din-vde-0834",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/how-does-an-intercom-work",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-trends-are-there-in-big-data-in-healthcare",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-hospital-management",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/hospital-security",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/digital-queue-management-system",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/tetra-communications",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/his-ris-and-pacs",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/industrial-communication-buses",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/accessibility-regulations-for-bathrooms",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-a-relay-and-how-does-it-work",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-the-range-of-a-security-camera",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/can-bus-protocol",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/energy-savings-and-energy-efficiency-in-hospitals",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/types-of-communication-buses",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/profibus-protocol",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/types-of-network-cables",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/functions-of-a-nurse-in-a-hospital",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/energy-efficiency-in-buildings-regulations",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/types-of-profibus",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-digital-signage-and-how-does-it-work",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/voip-calls-what-is-it",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/assistance-systems",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/stand-alone-what-is-it",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/how-poe-works",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/benefits-of-telemedicine",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/poe-power-supply",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/apps-for-doctors",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/3d-printing-in-medicine",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/hospital-leadership",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/hospital-management-systems",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/da-vinci-robotic-system",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-an-access-control-system-in-private-security",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/cctv-security-system",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/how-could-blockchain-be-applied-in-the-healthcare-sector",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/ip-public-address-system",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/smart-hospitals",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/telecare",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/types-of-adjustable-beds",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/energy-efficiency-index",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/technology-in-hotels",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/types-of-communication-in-nursing",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/hospital-mattresses-types",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/profinet-protocol",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/profinet-vs-profibus",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/types-of-ntp",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/digitization-of-medicine",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/effective-communication-with-the-patient",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/digital-transformation-in-healthcare",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/what-is-a-smart-room-in-a-hospital",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/smart-door-lock-benefits-in-the-hospital-environment",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/patient-care-technological-innovations-transforming-healthcare",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/artificial-intelligence-in-hospitals",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/how-does-a-smart-hospital-room-work",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/en/patient-monitoring",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/protocolo-can-bus-que-es-y-como-funciona",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/cual-es-el-alcance-de-una-camara-de-seguridad",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/que-es-un-rele-y-como-funciona",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/normativa-de-accesibilidad-para-banos",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/buses-de-comunicacion-industrial-aspectos-fundamentales",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/his-ris-y-pacs",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/tetra-comunicaciones-en-que-consiste",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/dispensador-de-turnos-digital",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/seguridad-en-hospitales",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/que-es-la-gestion-hospitalaria",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/que-tendencias-hay-en-big-data-en-salud",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/como-funciona-un-intercomunicador",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/como-cumplir-con-la-normativa-de-banos-accesibles",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/que-tipos-de-camas-hospitalarias-existen",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/sistema-de-megafonia-con-altavoces",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/gestion-de-turnos-en-farmacias",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/turneros-electronicos-en-que-consisten",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/que-es-la-ingenieria-hospitalaria",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/tipos-de-sistemas-de-intercomunicacion",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/software-para-la-salud",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/cabeceros-hospitalarios-en-que-consisten",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/seguridad-hospitalaria-en-que-consiste",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/sistema-de-gestion-de-turnos-como-funciona",
+      "destination": "/blog",
+      "permanent": false
+    },
+    {
+      "source": "/contacto",
+      "destination": "/#auditoria",
+      "permanent": true
+    },
+    {
+      "source": "/en/contact",
+      "destination": "/?lang=en#auditoria",
+      "permanent": true
+    }
+  ]
+}

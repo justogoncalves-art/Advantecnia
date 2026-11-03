@@ -1,0 +1,86 @@
+{
+ "es": [
+  [
+   "¿Qué es Advantecnia?",
+   "Advantecnia es una empresa española de ACE Business Group que diseña y fabrica tecnología para hospitales y residencias: sistemas de llamada paciente-enfermera, monitorización sin cámaras, gestión de la operación y red hospitalaria. Su ecosistema SmartHospital está gobernado por Connect.IA, su inteligencia artificial propia, y ya funciona en más de 400 hospitales."
+  ],
+  [
+   "¿Qué es Connect.IA?",
+   "Connect.IA es la inteligencia artificial desarrollada por Advantecnia. A través del Servidor MQTT recoge en tiempo real las señales de habitaciones, sensores, dispositivos y sistemas del hospital, las interpreta con el contexto del paciente y los protocolos del centro, y lleva cada aviso a la persona adecuada en el momento adecuado."
+  ],
+  [
+   "¿Qué es un sistema de llamada paciente-enfermera?",
+   "Es el sistema que permite al paciente pedir ayuda desde la cama, el baño o la habitación y que el aviso llegue al personal de enfermería con su ubicación y prioridad. La familia AdvantCare incluye pulsadores de cama y pera, llamada de emergencia, consola de enfermería VoIP, app móvil y pantallas de pasillo, con alimentación PoE o inalámbrica."
+  ],
+  [
+   "¿Se integra con los sistemas que ya tiene el hospital?",
+   "Sí. Connect.IA y el Servidor MQTT ofrecen más de 200 interfaces: control de accesos, cámaras, localización RTLS, detección de caídas, alarmas de incendio, BMS, domótica y otros sistemas de llamada enfermera como Tunstall, Televic o Austco. No hace falta sustituir lo que ya funciona ni parar el hospital."
+  ],
+  [
+   "¿Cómo se monitoriza a los pacientes sin cámaras?",
+   "Con AdvantSense, que combina sensores de nano-movimiento e inteligencia artificial para detectar caídas, salidas de cama, frecuencia cardíaca y respiratoria y calidad del sueño sin contacto y sin cámaras. Cuando detecta un riesgo avisa automáticamente al personal, respetando la intimidad del paciente y de su familia."
+  ],
+  [
+   "¿Qué es NurIA?",
+   "NurIA es el asistente de voz con inteligencia artificial de Advantecnia. Acompaña al paciente las 24 horas: puede pedir por voz agua, comida, medicación, limpieza, información o una emergencia sin pulsar nada, lo que libera al personal de enfermería de tareas repetitivas para que dedique su tiempo a cuidar."
+  ],
+  [
+   "¿Qué certificaciones tiene Advantecnia?",
+   "Advantecnia está certificada en gestión de la calidad según la norma ISO 9001:2015 y cuenta con certificación UL para equipos de señalización hospitalaria y llamada enfermera (expediente E480716). Sus productos llevan marcado CE y, según el equipo, cumplen CE-EMC, IEC 60601 y FCC. Fabrica en España."
+  ],
+  [
+   "¿En qué hospitales trabaja Advantecnia?",
+   "Advantecnia está presente en más de 400 hospitales, con más de 30.000 habitaciones digitalizadas y más de 10 millones de usuarios al año. Entre sus proyectos están el Hospital Gregorio Marañón y el Hospital Enfermera Isabel Zendal en Madrid, el Hospital de Salamanca y el Nuevo Hospital Cedimat en República Dominicana, además de centros en Latinoamérica e Israel."
+  ],
+  [
+   "¿Cómo se implanta un Smart Hospital?",
+   "Por fases. Primero se hace un diagnóstico del entorno, los procesos y la red; después se diseña la arquitectura; se despliegan SmartRoom y la red; se integra todo con SmartCore y el Servidor MQTT; y en la fase de operación Connect.IA monitoriza y mejora con soporte del equipo de Advantecnia. Se puede empezar por una sola habitación."
+  ],
+  [
+   "¿Por dónde empiezo?",
+   "Solicita una auditoría gratuita. Un asesor experto analiza tu hospital y te muestra qué soluciones pueden llevarlo al siguiente nivel, con prioridades claras y sin compromiso. Respondemos en menos de 24 horas laborables. También puedes escribir a info@advantecnia.com o llamar al +34 637 49 57 57."
+  ]
+ ],
+ "en": [
+  [
+   "What is Advantecnia?",
+   "Advantecnia is a Spanish company within ACE Business Group that designs and manufactures technology for hospitals and care homes: nurse call systems, camera-free monitoring, operations management and hospital networks. Its SmartHospital ecosystem is governed by Connect.IA, its own artificial intelligence, and already runs in more than 400 hospitals."
+  ],
+  [
+   "What is Connect.IA?",
+   "Connect.IA is the artificial intelligence developed by Advantecnia. Through the MQTT Server it collects real-time signals from rooms, sensors, devices and hospital systems, interprets them with the patient context and the facility protocols, and routes every alert to the right person at the right moment."
+  ],
+  [
+   "What is a nurse call system?",
+   "It is the system that lets a patient ask for help from the bed, the bathroom or the room, so the alert reaches nursing staff with its location and priority. The AdvantCare family includes bed and pear push buttons, emergency call, VoIP nurse console, mobile app and corridor displays, with PoE or wireless power."
+  ],
+  [
+   "Does it integrate with the systems the hospital already has?",
+   "Yes. Connect.IA and the MQTT Server offer more than 200 interfaces: access control, cameras, RTLS location, fall detection, fire alarms, BMS, home automation and other nurse call systems such as Tunstall, Televic or Austco. There is no need to replace what already works or to stop the hospital."
+  ],
+  [
+   "How can patients be monitored without cameras?",
+   "With AdvantSense, which combines nano-movement sensors and artificial intelligence to detect falls, bed exits, heart and breathing rate and sleep quality with no contact and no cameras. When it detects a risk it alerts staff automatically, respecting the privacy of patients and their families."
+  ],
+  [
+   "What is NurIA?",
+   "NurIA is the Advantecnia AI voice assistant. It supports the patient 24 hours a day: they can ask by voice for water, food, medication, cleaning, information or an emergency without pressing anything, which frees nursing staff from repetitive tasks so they can spend their time caring."
+  ],
+  [
+   "Which certifications does Advantecnia hold?",
+   "Advantecnia is certified for quality management under ISO 9001:2015 and holds UL certification for hospital signaling and nurse call equipment (file E480716). Its products carry CE marking and, depending on the device, meet CE-EMC, IEC 60601 and FCC. It manufactures in Spain."
+  ],
+  [
+   "Which hospitals does Advantecnia work with?",
+   "Advantecnia is present in more than 400 hospitals, with more than 30,000 digitised rooms and over 10 million users a year. Projects include Gregorio Marañón Hospital and Isabel Zendal Hospital in Madrid, Salamanca Hospital and the New Cedimat Hospital in the Dominican Republic, plus facilities in Latin America and Israel."
+  ],
+  [
+   "How is a Smart Hospital rolled out?",
+   "In phases. First a diagnosis of the environment, processes and network; then the architecture design; SmartRoom and the network are deployed; everything is integrated with SmartCore and the MQTT Server; and during operation Connect.IA monitors and improves with support from the Advantecnia team. You can start with a single room."
+  ],
+  [
+   "Where do I start?",
+   "Request a free audit. An expert advisor analyses your hospital and shows you which solutions can take it to the next level, with clear priorities and no commitment. We reply within 24 business hours. You can also email info@advantecnia.com or call +34 637 49 57 57."
+  ]
+ ]
+}

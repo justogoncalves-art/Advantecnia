@@ -1,0 +1,34 @@
+# Advantecnia
+
+> Fabricante español (ACE Business Group) de sistemas de llamada paciente-enfermera, monitorización de pacientes sin cámaras y soluciones Smart Hospital gobernadas por Connect.IA, su inteligencia artificial propia. Más de 400 hospitales, más de 30.000 habitaciones digitalizadas, más de 20 años de experiencia.
+
+Datos clave:
+- Sede: C/ Colada de Pozuelo 20, 28925 Alcorcón (Madrid), España. Contacto: info@advantecnia.com, +34 637 49 57 57.
+- Certificaciones: ISO 9001:2015; UL Hospital Signaling and Nurse Call Equipment (E480716); marcado CE; según producto CE-EMC, IEC 60601 y FCC.
+- Presencia: Europa, Estados Unidos, Latinoamérica y Oriente Medio.
+- Familias de producto: SmartRoom (habitación y llamada paciente-enfermera), SmartSense (monitorización sin cámaras), SmartFlow (operación y seguridad), SmartCore (plataforma de integración y red). IA: Connect.IA y NurIA (asistente de voz).
+
+## Páginas principales
+- [Inicio](https://advantecnia.com/): propuesta de valor, cifras y auditoría gratuita
+- [Soluciones](https://advantecnia.com/soluciones): SmartRoom, SmartSense, SmartFlow, SmartCore, Connect.IA y NurIA
+- [Proyectos](https://advantecnia.com/proyectos): hospitales y residencias donde están instalados los sistemas
+- [Empresa](https://advantecnia.com/empresa): quiénes somos, certificaciones y áreas de especialidad
+- [Preguntas frecuentes](https://advantecnia.com/preguntas-frecuentes): respuestas directas sobre productos, integración y certificaciones
+- [Blog](https://advantecnia.com/blog): 50 guías sobre comunicación asistencial, seguridad y gestión hospitalaria
+- [English version](https://advantecnia.com/en/soluciones)
+
+## Guías destacadas del blog
+- [Cómo funciona un sistema de llamada paciente enfermera](https://advantecnia.com/blog/como-funciona-un-sistema-de-llamada-paciente-enfermera): Quieres saber cómo funciona un sistema de llamada paciente enfermera. Te lo explicamos todo en nuestro blog de referencia en el sector.
+- [Qué es la DIN VDE 0834](https://advantecnia.com/blog/que-es-la-din-vde-0834): Los timbres para habitaciones hospitalarias componen el grupo de dispositivos donde hay más variedad a la hora de elegir, te lo contamos.
+- [Sistema de llamada en baños accesibles](https://advantecnia.com/blog/sistema-de-llamada-en-banos-accesibles): La seguridad en la utilización de los aseos accesibles depende de que estén dotados de un sistema de llamada en baños accesibles. Descúbrelo.
+- [Llamador de enfermería en residencias](https://advantecnia.com/blog/llamador-de-enfermeria-en-residencias): Advantecnia te ofrece llamador de enfermería en residencias, los mejores productos para las mejores instalaciones. Contacta con nosotros.
+- [Llamador de enfermería inalámbrico](https://advantecnia.com/blog/llamador-de-enfermeria-inalambrico): Os descubrimos las ventajas que presentael llamador de enfermería inalámbrico para las personas que se encuentran bajo nuestro cuidado.
+- [¿Cómo funciona una habitación inteligente en un hospital?](https://advantecnia.com/blog/como-funciona-una-habitacion-inteligente-en-un-hospital): Descubre cómo una habitación inteligente en un hospital mejora la seguridad, confort y atención médica con tecnología avanzada.
+- [¿Qué es una smart room en un hospital?](https://advantecnia.com/blog/que-es-una-smart-room-en-un-hospital): Smart room en un hospital: tecnología que transforma la experiencia del paciente y optimiza el trabajo del personal.
+- [Inteligencia artificial en hospitales](https://advantecnia.com/blog/inteligencia-artificial-en-hospitales): Descubre cómo la inteligencia artificial en hospitales mejora diagnósticos, optimiza la gestión y reduce costos en el sector salud.
+- [Monitorización de pacientes](https://advantecnia.com/blog/monitorizacion-de-pacientes): La monitorización de pacientes mejora la atención médica con datos en tiempo real, reduciendo riesgos y optimizando tratamientos.
+- [Qué es la comunicación asistencial](https://advantecnia.com/blog/que-es-la-comunicacion-asistencial): Te enseñamos qué es la comunicacion asistencial, todas sus características y ventajas. En Advantecnia estamos para ayudarte. Contacta.
+
+## Optional
+- [Texto completo para modelos de lenguaje](https://advantecnia.com/llms-full.txt)
+- [Sitemap](https://advantecnia.com/sitemap.xml)

@@ -1,0 +1,60 @@
+{
+ "es": [
+  {
+   "t": "Big data en salud",
+   "u": "/blog/big-data-en-salud",
+   "img": "/blog/img/big-data-en-salud/destacada_advantecnia-cabecera-blog-880x480px-1-720.webp",
+   "alt": "Big data en salud",
+   "c": "Automatización y seguridad",
+   "d": "5 de marzo de 2025",
+   "m": "6 min de lectura"
+  },
+  {
+   "t": "Monitorización de pacientes",
+   "u": "/blog/monitorizacion-de-pacientes",
+   "img": "/blog/img/monitorizacion-de-pacientes/destacada_advantecnia-cabecera-blog-880x480px-720.webp",
+   "alt": "Monitorización de pacientes",
+   "c": "Comunicación asistencial",
+   "d": "5 de marzo de 2025",
+   "m": "5 min de lectura"
+  },
+  {
+   "t": "¿Cómo funciona una habitación inteligente en un hospital?",
+   "u": "/blog/como-funciona-una-habitacion-inteligente-en-un-hospital",
+   "img": "/blog/img/como-funciona-una-habitacion-inteligente-en-un-hospital/destacada_advantecnia-cabecera-blog-880x480px-1-720.webp",
+   "alt": "¿Cómo funciona una habitación inteligente en un hospital?",
+   "c": "Automatización y seguridad",
+   "d": "27 de enero de 2025",
+   "m": "5 min de lectura"
+  }
+ ],
+ "en": [
+  {
+   "t": "Big data en salud",
+   "u": "/blog/big-data-en-salud",
+   "img": "/blog/img/big-data-en-salud/destacada_advantecnia-cabecera-blog-880x480px-1-720.webp",
+   "alt": "Big data en salud",
+   "c": "Automation and security",
+   "d": "March 5, 2025",
+   "m": "6 min read"
+  },
+  {
+   "t": "Monitorización de pacientes",
+   "u": "/blog/monitorizacion-de-pacientes",
+   "img": "/blog/img/monitorizacion-de-pacientes/destacada_advantecnia-cabecera-blog-880x480px-720.webp",
+   "alt": "Monitorización de pacientes",
+   "c": "Assistance communication",
+   "d": "March 5, 2025",
+   "m": "5 min read"
+  },
+  {
+   "t": "¿Cómo funciona una habitación inteligente en un hospital?",
+   "u": "/blog/como-funciona-una-habitacion-inteligente-en-un-hospital",
+   "img": "/blog/img/como-funciona-una-habitacion-inteligente-en-un-hospital/destacada_advantecnia-cabecera-blog-880x480px-1-720.webp",
+   "alt": "¿Cómo funciona una habitación inteligente en un hospital?",
+   "c": "Automation and security",
+   "d": "January 27, 2025",
+   "m": "5 min read"
+  }
+ ]
+}

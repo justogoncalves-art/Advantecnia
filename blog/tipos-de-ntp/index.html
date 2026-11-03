@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tipos de NTP | Advantecnia</title>
+<meta name="description" content="Como ingeniero de telecomunicaciones, necesitas conocer los distintos tipos de NTP que puedes implementar, te los explicamos.">
+<link rel="canonical" href="https://advantecnia.com/blog/tipos-de-ntp">
+
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#16374D">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Advantecnia">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Tipos de NTP | Advantecnia">
+<meta property="og:description" content="Como ingeniero de telecomunicaciones, necesitas conocer los distintos tipos de NTP que puedes implementar, te los explicamos.">
+<meta property="og:url" content="https://advantecnia.com/blog/tipos-de-ntp">
+<meta property="og:image" content="https://advantecnia.com/blog/og/tipos-de-ntp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tipos de NTP | Advantecnia">
+<meta name="twitter:description" content="Como ingeniero de telecomunicaciones, necesitas conocer los distintos tipos de NTP que puedes implementar, te los explicamos.">
+<meta name="twitter:image" content="https://advantecnia.com/blog/og/tipos-de-ntp.jpg">
+<link rel="icon" href="/assets/adv-logo-color.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/blog/blog.css">
+<meta property="article:published_time" content="2024-09-25T11:36:27"><meta property="article:modified_time" content="2024-09-25T11:36:27"><meta property="article:section" content="Comunicación asistencial"><link rel="preload" as="image" href="/blog/img/tipos-de-ntp/destacada_advantecnia-cabecera-blog-880x480px-1-1600.webp">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Tipos de NTP", "description": "Como ingeniero de telecomunicaciones, necesitas conocer los distintos tipos de NTP que puedes implementar, te los explicamos.", "image": ["https://advantecnia.com/blog/og/tipos-de-ntp.jpg", "https://advantecnia.com/blog/img/tipos-de-ntp/destacada_advantecnia-cabecera-blog-880x480px-1-1600.webp"], "datePublished": "2024-09-25T11:36:27", "dateModified": "2024-09-25T11:36:27", "author": {"@type": "Organization", "name": "Redacción Advantecnia"}, "publisher": {"@type": "Organization", "name": "Advantecnia", "url": "https://advantecnia.com", "logo": "https://advantecnia.com/assets/adv-logo-color.svg", "parentOrganization": {"@type": "Organization", "name": "ACE Business Group International SA"}}, "mainEntityOfPage": "https://advantecnia.com/blog/tipos-de-ntp", "inLanguage": "es", "articleSection": "Comunicación asistencial", "keywords": "Tipos de NTP", "wordCount": 989, "speakable": {"@type": "SpeakableSpecification", "cssSelector": ["h1", ".lead"]}, "about": {"@type": "Thing", "name": "Comunicación asistencial"}, "isPartOf": {"@type": "Blog", "name": "Blog de Advantecnia", "url": "https://advantecnia.com/blog"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://advantecnia.com/"}, {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://advantecnia.com/blog"}, {"@type": "ListItem", "position": 3, "name": "Comunicación asistencial", "item": "https://advantecnia.com/blog/categoria/comunicacion-asistencial"}, {"@type": "ListItem", "position": 4, "name": "Tipos de NTP", "item": "https://advantecnia.com/blog/tipos-de-ntp"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "es", "mainEntity": [{"@type": "Question", "name": "¿Qué es NTP?", "acceptedAnswer": {"@type": "Answer", "text": "NTP (Network Time Protocol) es un protocolo de sincronización horaria que permite coordinar los relojes de varios sistemas informáticos para que funcionen correctamente. De este modo, toda la red de dispositivos (ordenadores, servidores, teléfonos, switches , firewalls , etc.) compartirán una misma hora. Desde luego, el Network Time Protocol no es el único protocolo de Internet que nos permite sincronizar los relojes de los sistemas informáticos. Otros protocolos que también cumplen esta función son Simple Network Time Protocol (SNTP) y Precision Time Protocol (PTP). Lo que sí es cierto es…"}}, {"@type": "Question", "name": "¿Cómo funciona el NTP?", "acceptedAnswer": {"@type": "Answer", "text": "Los protocolos son conjuntos de normas que los dispositivos conectados (clientes) deben seguir cuando se comunican entre sí. En el caso del NTP, estas reglas compartidas se refieren al tiempo. Cuando los equipamientos necesitan saber qué hora es, se lo consultan a un servidor NTP y este, a su vez, obtiene dicha información de un reloj atómico (UTC)."}}]}</script>
+<script>document.documentElement.classList.add('js')</script>
+<script src="/assets/at.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="/" aria-label="Advantecnia, inicio"><img src="/assets/adv-logo-color.svg" alt="Advantecnia" width="176" height="40"></a>
+    <nav class="nav" aria-label="Principal"><a href="/">Inicio</a><a href="/soluciones">Soluciones</a><a href="/proyectos">Proyectos</a><a href="/empresa">Empresa</a><a href="/blog" aria-current="page">Blog</a></nav>
+    <div class="head-end">
+      <div class="lang"><a href="/blog" hreflang="es" aria-current="true">ES</a><span aria-hidden="true">|</span><a href="/?lang=en" hreflang="en">EN</a></div>
+      <a class="btn head-cta" href="/#auditoria" data-track="Blog: cabecera auditoria">Solicita tu auditoría</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Abrir menú"><svg width="20" height="20" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224 128a8 8 0 0 1-8 8H40a8 8 0 0 1 0-16h176a8 8 0 0 1 8 8ZM40 72h176a8 8 0 0 0 0-16H40a8 8 0 0 0 0 16Zm176 112H40a8 8 0 0 0 0 16h176a8 8 0 0 0 0-16Z"/></svg></button>
+    </div>
+  </div>
+  <nav class="mobile-nav" id="mnav" aria-label="Móvil"><a href="/">Inicio</a><a href="/soluciones">Soluciones</a><a href="/proyectos">Proyectos</a><a href="/empresa">Empresa</a><a href="/blog" aria-current="page">Blog</a><a class="btn" href="/#auditoria">Solicita tu auditoría</a></nav>
+</header>
+<div class="progress" aria-hidden="true"></div>
+<main id="contenido">
+<article>
+<header class="post-head">
+  <div class="wrap">
+    <nav aria-label="Breadcrumb"><ol class="crumbs"><li><a href="/">Inicio</a></li><li><a href="/blog">Blog</a></li><li><a href="/blog/categoria/comunicacion-asistencial">Comunicación asistencial</a></li></ol></nav>
+    <div class="inner">
+      <a class="cat" href="/blog/categoria/comunicacion-asistencial">Comunicación asistencial</a>
+      <h1>Tipos de NTP</h1>
+      <p class="lead">Como ingeniero de telecomunicaciones, necesitas conocer los distintos tipos de NTP que puedes implementar, te los explicamos.</p>
+      <div class="meta"><span>Por <span class="who">Redacción Advantecnia</span></span><time datetime="2024-09-25">25 de septiembre de 2024</time><span>5 min de lectura</span></div>
+    </div>
+    <figure class="hero-img"><img src="/blog/img/tipos-de-ntp/destacada_advantecnia-cabecera-blog-880x480px-1-1600.webp" alt="Tipos de NTP" width="880" height="480" fetchpriority="high"></figure>
+  </div>
+</header>
+<div class="wrap post-layout">
+  <div>
+    <details class="toc-mobile"><summary>En este artículo<svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66 101.66l-80 80a8 8 0 0 1-11.32 0l-80-80a8 8 0 0 1 11.32-11.32L128 164.69l74.34-74.35a8 8 0 0 1 11.32 11.32Z"/></svg></summary><ol><li><a href="#%C2%BFQue_es_NTP">¿Qué es NTP?</a></li><li><a href="#%C2%BFComo_funciona_el_NTP">¿Cómo funciona el NTP?</a></li><li><a href="#Cuales_son_los_beneficios_de_usar_NTP">Cuáles son los beneficios de usar NTP</a></li><li><a href="#Tipos_de_NTP_segun_su_titular_publicos_y_locales">Tipos de NTP según su titular: públicos y locales</a></li><li><a href="#NTP_unidifusion_y_multidifusion">NTP unidifusión y multidifusión</a></li></ol></details>
+    <div class="prose">
+<p>Para servir a sus fines con eficiencia y seguridad, los hospitales y residencias deben sincronizar correctamente todos los elementos de la red. Es por ello que, como ingeniero de telecomunicaciones, necesitas conocer los distintos <strong>tipos de NTP</strong> que puedes implementar.</p>
+<p>Un sector tan crítico como el sanitario requiere de <strong>una coordinación ultraprecisa.</strong> En este punto, contar con un <a href="/">software </a>que integre todos los sistemas o con un protocolo NTP que sincronice los relojes marca una gran diferencia. No por nada, los responsables de las comunicaciones asistenciales hilan muy fino a la hora de elegir tales herramientas.</p>
+<figure><img alt="Tipos de NTP" decoding="async" height="576" loading="lazy" src="/blog/img/tipos-de-ntp/1-1-1024x576.webp" width="1024"/></figure>
+<h2 id="%C2%BFQue_es_NTP">¿Qué es NTP?</h2>
+<p>NTP (Network Time Protocol) es un<strong> protocolo de sincronización horaria </strong>que permite coordinar los relojes de varios sistemas informáticos para que funcionen correctamente. De este modo, toda la red de dispositivos (ordenadores, servidores, teléfonos, <em>switches</em>, <em>firewalls</em>, etc.) compartirán una misma hora.</p>
+<p>Desde luego, el Network Time Protocol no es el único protocolo de Internet que nos permite sincronizar los relojes de los sistemas informáticos. Otros protocolos que también cumplen esta función son Simple Network Time Protocol (SNTP) y Precision Time Protocol (PTP). Lo que sí es cierto es que se trata del <strong>más veterano </strong>(nació en 1981 y va por la cuarta versión), siendo ampliamente utilizados en ferrocarriles, hospitales, universidades y redes informáticas.</p>
+<figure><img alt="¿Qué es NTP?" decoding="async" height="576" loading="lazy" src="/blog/img/tipos-de-ntp/2-1-1024x576.webp" width="1024"/></figure>
+<h2 id="%C2%BFComo_funciona_el_NTP">¿Cómo funciona el NTP?</h2>
+<p>Los protocolos son conjuntos de normas que los dispositivos conectados (clientes) deben seguir cuando se comunican entre sí. En el caso del NTP, estas reglas compartidas se refieren al tiempo. Cuando los equipamientos <strong>necesitan saber qué hora es,</strong> se lo consultan a un servidor NTP y este, a su vez, obtiene dicha información de un reloj atómico (UTC).</p>
+<p>Todos los tipos de NTP emplean el<strong><a href="https://es.wikipedia.org/wiki/Protocolo_de_datagramas_de_usuario" rel="noopener" target="_blank"> protocolo UDP</a> en el puerto 123, tanto en el origen como en el destino. </strong>La comunicación clientes-servidores se basa en una sucesión de solicitudes y respuestas:</p>
+<ol>
+<li>El cliente envía una solicitud NTP al servidor y sella cuándo lo hace.</li>
+<li>El servidor sella el momento de recepción.</li>
+<li>El servidor emite la respuesta y sella cuándo lo hace.</li>
+<li>El cliente sella el momento en el que recibe la respuesta.</li>
+</ol>
+<p>El hecho de que este proceso demore algunos microsegundos <strong>no produce descoordinación</strong> alguna. El dispositivo puede saber cuánto tiempo de retraso lleva la respuesta para recalcular su reloj interno.</p>
+<p>Cuando la red sea muy compleja y haya muchos dispositivos integrados en ella, servidores y clientes se organizan jerárquicamente. Se trata de un sistema de <strong>niveles o estratos </strong>dotado de un funcionamiento piramidal.</p>
+<figure><img alt="¿Cómo funciona el NTP?" decoding="async" height="576" loading="lazy" src="/blog/img/tipos-de-ntp/3-1-1024x576.webp" width="1024"/></figure>
+<h2 id="Cuales_son_los_beneficios_de_usar_NTP">Cuáles son los beneficios de usar NTP</h2>
+<h3 id="Popular">Popular</h3>
+<p>Que existan varios tipos de NTP confiere a este protocolo una gran versatilidad. Esa es la razón por la que se trata del protocolo de sincronización horaria <strong>más utilizado, </strong>no ya solo en ámbitos industriales, sino también en los domésticos. Merece la pena destacar su alto nivel de compatibilidad con todo tipo de dispositivos y sistemas operativos.</p>
+<h3 id="Preciso">Preciso</h3>
+<p>Cuando se trata de sincronizar el tiempo, el Network Time Protocol dota a los dispositivos de un<strong> alto grado de precisión. </strong>Lograrlo apenas le lleva unos pocos milisegundos. Aún cuando existen retrasos en la red o desviaciones horarias, sigue ofreciendo gran exactitud.</p>
+<h3 id="Escalable">Escalable</h3>
+<p>Es posible aplicar el protocolo NTP a cualquier red con independencia de su tamaño. De hecho, se desenvuelve con particular eficiencia en las de mayor complejidad, Ya mencionamos antes como puede <strong>procesar eficazmente grandes volúmenes de solicitudes</strong> mediante estratos.</p>
+<h3 id="Flexible">Flexible</h3>
+<p>La personalización es una de las grandes virtudes del Network Time Protocol. No en vano, <strong>su código fuente es de acceso abierto. </strong>Los usuarios pueden emplear múltiples fuentes de tiempo y elegir entre varios niveles de estratos, a fin de reforzar su exactitud.</p>
+<p>Este protocolo resulta especialmente útil a la hora de sincronizar el tiempo en distintas <strong>zonas horarias. </strong>Esto resulta muy conveniente en el caso de industrias con presencia internacional.</p>
+<h3 id="Tipos_de_NTP">Tipos de NTP</h3>
+<p>Las redes que utilizan este protocolo tienen distintas formas de implementar la sincronización horaria. Así, los tipos de NTP nos permiten clasificar este protocolo en función de su propietario (público/local) o de cómo difunde la información (unidifusión/ multidifusión).</p>
+<h2 id="Tipos_de_NTP_segun_su_titular_publicos_y_locales">Tipos de NTP según su titular: públicos y locales</h2>
+<div class="table"><table>
+<tbody>
+<tr>
+<td></td>
+<td> Público</td>
+<td> Locales</td>
+</tr>
+<tr>
+<td><strong>Titularidad y gestión</strong></td>
+<td>De terceros</td>
+<td>Del cliente</td>
+</tr>
+<tr>
+<td><strong>Seguridad </strong></td>
+<td>Baja (requiere un puerto abierto en el <em>firewall</em>).</td>
+<td>Alta (mantiene el <em>firewall </em>“cerrado”).</td>
+</tr>
+<tr>
+<td>La sincronización depende de la <strong>conexión a Internet</strong></td>
+<td>Sí</td>
+<td>No</td>
+</tr>
+<tr>
+<td> Posibilidad de <strong>sobrecarga</strong></td>
+<td>Sí, debido a su uso compartido.</td>
+<td>No, porque solo lo utiliza su usuario.</td>
+</tr>
+<tr>
+<td><strong>Retrasos </strong>en la recepción de información</td>
+<td>Posibles</td>
+<td>Mínimos</td>
+</tr>
+<tr>
+<td><strong>Limitaciones </strong>en el tiempo de uso y en el número de clientes</td>
+<td>Sí</td>
+<td>No</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="NTP_unidifusion_y_multidifusion">NTP unidifusión y multidifusión</h2>
+<div class="table"><table>
+<tbody>
+<tr>
+<td></td>
+<td>Unidifusión</td>
+<td>Multidifusión</td>
+</tr>
+<tr>
+<td><strong>Recepción </strong>hora (regular) / información de zona horaria (opcional)</td>
+<td>El reloj esclavo las consulta del reloj maestro.</td>
+<td>El reloj maestro las envía a una dirección de grupo para que los relojes esclavos puedan recibirlas automáticamente.</td>
+</tr>
+<tr>
+<td><strong>Tipo de comunicación</strong></td>
+<td>Unidireccional</td>
+<td>Bidireccional</td>
+</tr>
+<tr>
+<td><strong>Dirección IP del reloj esclavo</strong></td>
+<td>Cada reloj esclavo tiene la suya propia (asignada por servidor DHCP o administrador de red).</td>
+<td>La administración y asignación de direcciones IP es innecesaria.</td>
+</tr>
+<tr>
+<td><strong>Sobrecarga de red</strong></td>
+<td>Prácticamente nula (1 paquete llega a todo el grupo).</td>
+<td>Significativamente mayor que en unidifusión.</td>
+</tr>
+<tr>
+<td>Los <strong>retrasos en la red afectan a la precisión de los relojes esclavos</strong></td>
+<td> Sí (cambio WLAN / LAN: 100 ms posibles).</td>
+<td>No, siempre que sean simétricos (puede compensar el tiempo de ejecución).</td>
+</tr>
+<tr>
+<td><strong>Cómo envían los paquetes</strong></td>
+<td>A través de los límites de la red (enrutador) por IGMP.</td>
+<td>A través de los límites de la red (enrutador).</td>
+</tr>
+</tbody>
+</table></div>
+<p>Conocer los diversos tipos de NTP solo es el primer paso: todavía queda escoger una solución que esté a la altura de tus necesidades. En Advantecnia ponemos en tus manos <strong>AdvantClock: lo último en sincronización horaria y relojería industrial vía GPS. </strong>Impleméntalo ya en tu hospital, residencia o centro sanitario poniéndote en <a href="/#auditoria">contacto</a> con nosotros.</p>
+
+    </div>
+    <section class="post-faq" aria-labelledby="faq-h"><h2 id="faq-h">Preguntas que resuelve este artículo</h2><details><summary>¿Qué es NTP?<svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66 101.66l-80 80a8 8 0 0 1-11.32 0l-80-80a8 8 0 0 1 11.32-11.32L128 164.69l74.34-74.35a8 8 0 0 1 11.32 11.32Z"/></svg></summary><p>NTP (Network Time Protocol) es un protocolo de sincronización horaria que permite coordinar los relojes de varios sistemas informáticos para que funcionen correctamente. De este modo, toda la red de dispositivos (ordenadores, servidores, teléfonos, switches , firewalls , etc.) compartirán una misma hora. Desde luego, el Network Time Protocol no es el único protocolo de Internet que nos permite sincronizar los relojes de los sistemas informáticos. Otros protocolos que también cumplen esta función son Simple Network Time Protocol (SNTP) y Precision Time Protocol (PTP). Lo que sí es cierto es…</p></details><details><summary>¿Cómo funciona el NTP?<svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66 101.66l-80 80a8 8 0 0 1-11.32 0l-80-80a8 8 0 0 1 11.32-11.32L128 164.69l74.34-74.35a8 8 0 0 1 11.32 11.32Z"/></svg></summary><p>Los protocolos son conjuntos de normas que los dispositivos conectados (clientes) deben seguir cuando se comunican entre sí. En el caso del NTP, estas reglas compartidas se refieren al tiempo. Cuando los equipamientos necesitan saber qué hora es, se lo consultan a un servidor NTP y este, a su vez, obtiene dicha información de un reloj atómico (UTC).</p></details></section>
+    <a class="sol-box" href="/soluciones#smartcore" data-track="Blog: solución SmartCore"><span class="cat">Solución relacionada</span><strong>SmartCore</strong><span>El cerebro y la red. La plataforma que integra todo y la red que lo sostiene.</span><span class="more">Ver la solución<svg width="17" height="17" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z"/></svg></span></a>
+    <div class="share"><p>Compartir</p>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fadvantecnia.com%2Fblog%2Ftipos-de-ntp" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M216 24H40a16 16 0 0 0-16 16v176a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V40a16 16 0 0 0-16-16Zm0 192H40V40h176v176ZM96 112v64a8 8 0 0 1-16 0v-64a8 8 0 0 1 16 0Zm88 28v36a8 8 0 0 1-16 0v-36a20 20 0 0 0-40 0v36a8 8 0 0 1-16 0v-64a8 8 0 0 1 15.79-1.78A36 36 0 0 1 184 140Zm-84-56a12 12 0 1 1-12-12 12 12 0 0 1 12 12Z"/></svg></a>
+      <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fadvantecnia.com%2Fblog%2Ftipos-de-ntp&amp;text=Tipos%20de%20NTP" target="_blank" rel="noopener" aria-label="X"><svg width="17" height="17" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M214.75 211.71l-62.6-98.38 61.77-67.95a8 8 0 0 0-11.84-10.76l-58.84 64.72-40.49-63.63A8 8 0 0 0 96 32H48a8 8 0 0 0-6.75 12.3l62.6 98.37-61.77 68a8 8 0 1 0 11.84 10.76l58.84-64.72 40.49 63.63A8 8 0 0 0 160 224h48a8 8 0 0 0 6.75-12.29ZM164.39 208 62.57 48h29l101.86 160Z"/></svg></a>
+      <a href="mailto:?subject=Tipos%20de%20NTP&amp;body=https%3A%2F%2Fadvantecnia.com%2Fblog%2Ftipos-de-ntp" aria-label="Email"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224 48H32a8 8 0 0 0-8 8v136a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a8 8 0 0 0-8-8Zm-96 85.15L52.57 64h150.86ZM98.71 128 40 181.81V74.19Zm11.84 10.85 12 11.05a8 8 0 0 0 10.82 0l12-11.05 58 53.15H52.57ZM157.29 128 216 74.18v107.64Z"/></svg></a>
+      <button type="button" data-copy="https://advantecnia.com/blog/tipos-de-ntp" aria-label="Copiar enlace"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240 88.23a54.43 54.43 0 0 1-16 37L189.25 160a54.27 54.27 0 0 1-38.63 16h-.05A54.63 54.63 0 0 1 96 119.84a8 8 0 0 1 16 .45A38.62 38.62 0 0 0 150.58 160a38.39 38.39 0 0 0 27.31-11.31l34.75-34.75a38.63 38.63 0 0 0-54.63-54.63l-11 11A8 8 0 0 1 135.7 59l11-11a54.65 54.65 0 0 1 77.3 0 54.86 54.86 0 0 1 16 40.23Zm-131 97.43-11 11A38.4 38.4 0 0 1 70.6 208a38.63 38.63 0 0 1-27.29-65.94L78 107.31A38.63 38.63 0 0 1 144 135.71a8 8 0 0 0 16 .45A54.86 54.86 0 0 0 144 96a54.65 54.65 0 0 0-77.27 0L32 130.75A54.62 54.62 0 0 0 70.56 224a54.28 54.28 0 0 0 38.64-16l11-11a8 8 0 0 0-11.2-11.34Z"/></svg></button>
+      <span class="copied" aria-live="polite" data-msg="Enlace copiado"></span>
+    </div>
+    <div class="author-box"><span class="av" aria-hidden="true">RA</span><p><strong>Redacción Advantecnia</strong>Equipo de Advantecnia, más de 20 años desarrollando sistemas para hospitales y residencias.</p></div>
+  </div>
+  <aside class="aside"><div class="aside-inner">
+    <nav class="toc" aria-label="En este artículo"><h2>En este artículo</h2><ol><li><a href="#%C2%BFQue_es_NTP">¿Qué es NTP?</a></li><li><a href="#%C2%BFComo_funciona_el_NTP">¿Cómo funciona el NTP?</a></li><li><a href="#Cuales_son_los_beneficios_de_usar_NTP">Cuáles son los beneficios de usar NTP</a></li><li><a href="#Tipos_de_NTP_segun_su_titular_publicos_y_locales">Tipos de NTP según su titular: públicos y locales</a></li><li><a href="#NTP_unidifusion_y_multidifusion">NTP unidifusión y multidifusión</a></li></ol></nav>
+    <a class="sol-box sol-aside" href="/soluciones#smartcore" data-track="Blog: solución SmartCore"><span class="cat">Solución relacionada</span><strong>SmartCore</strong><span>El cerebro y la red. La plataforma que integra todo y la red que lo sostiene.</span><span class="more">Ver la solución<svg width="17" height="17" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z"/></svg></span></a>
+    <div class="aside-cta"><h2>¿Quieres aplicarlo en tu centro?</h2><p>Un asesor experto analiza tu hospital sin compromiso.</p><a class="btn" href="/#auditoria" data-track="Blog: lateral asesor">Hablar con un asesor experto</a></div>
+  </div></aside>
+</div>
+</article>
+<section class="related" aria-labelledby="rel-h">
+  <div class="wrap">
+    <h2 id="rel-h">Sigue leyendo</h2>
+    <div class="grid"><a class="card" href="/blog/profinets-vs-profibus" data-cat="asistencial" data-q="profinets vs. profibus ¿estás buscando un protocolo de comunicación hospitalaria? entonces, seguro que ya debes haberte planteado la comparación profinets vs. profibus. desde luego, merece la pena que te tomes unos minutos para descubrir las diferencias existentes entre ambos sistemas: el bienestar de los pacientes depende de ello. quienes se encargan de elegir los sistemas de comunicaciones saben…" data-reveal>
+  <div class="card-media"><img src="/blog/img/profinets-vs-profibus/destacada_advantecnia-cabecera-blog-880x480px-720.webp" alt="PROFINETS vs. PROFIBUS" width="720" height="393" loading="lazy" decoding="async"></div>
+  <span class="cat">Comunicación asistencial</span>
+  <h3>PROFINETS vs. PROFIBUS</h3>
+  <p>¿Estás buscando un protocolo de comunicación hospitalaria? Entonces, seguro que ya debes haberte planteado la comparación PROFINETS vs. PROFIBUS. Desde luego, merece la pena que te tomes unos minutos para descubrir las diferencias existentes entre ambos sistemas: el bienestar de los pacientes depende de ello. Quienes se encargan de elegir los sistemas de comunicaciones saben…</p>
+  <div class="meta"><time datetime="2024-09-25">25 de septiembre de 2024</time><span>5 min de lectura</span></div>
+</a><a class="card" href="/blog/protocolo-profinet" data-cat="asistencial" data-q="protocolo profinet el protocolo profinet ha marcado un antes y un después en lo que respecta a los sistemas de comunicaciones hospitalarias. ciertamente, su rapidez y eficacia son muy de agradecer cuando lo que está en juego es la salud de los pacientes. a la hora de elegir redes de comunicaciones para hospitales, residencias y centros sanitarios…" data-reveal>
+  <div class="card-media"><img src="/blog/img/protocolo-profinet/destacada_advantecnia-cabecera-blog-880x480px-3-720.webp" alt="Protocolo PROFINET" width="720" height="393" loading="lazy" decoding="async"></div>
+  <span class="cat">Comunicación asistencial</span>
+  <h3>Protocolo PROFINET</h3>
+  <p>El protocolo PROFINET ha marcado un antes y un después en lo que respecta a los sistemas de comunicaciones hospitalarias. Ciertamente, su rapidez y eficacia son muy de agradecer cuando lo que está en juego es la salud de los pacientes. A la hora de elegir redes de comunicaciones para hospitales, residencias y centros sanitarios…</p>
+  <div class="meta"><time datetime="2024-08-21">21 de agosto de 2024</time><span>5 min de lectura</span></div>
+</a><a class="card" href="/blog/colchones-hospitalarios-tipos" data-cat="asistencial" data-q="colchones hospitalarios tipos los colchones hospitalarios se suelen clasificar atendiendo al tipo de paciente a quien se dirigen. sin embargo, a veces se les clasifica como a los colchones de uso doméstico, en función de los materiales que los componen, porque determinan características importantes como son la dureza o la capacidad de disipar calor. hoy vamos a hablar…" data-reveal>
+  <div class="card-media"><img src="/blog/img/colchones-hospitalarios-tipos/destacada_advantecnia-cabecera-blog-880x480px-1-720.webp" alt="Colchones hospitalarios tipos" width="720" height="393" loading="lazy" decoding="async"></div>
+  <span class="cat">Comunicación asistencial</span>
+  <h3>Colchones hospitalarios tipos</h3>
+  <p>Los colchones hospitalarios se suelen clasificar atendiendo al tipo de paciente a quien se dirigen. Sin embargo, a veces se les clasifica como a los colchones de uso doméstico, en función de los materiales que los componen, porque determinan características importantes como son la dureza o la capacidad de disipar calor. Hoy vamos a hablar…</p>
+  <div class="meta"><time datetime="2024-08-21">21 de agosto de 2024</time><span>5 min de lectura</span></div>
+</a></div>
+    <a class="btn btn-ghost all" href="/blog">Ver todos los artículos</a>
+  </div>
+</section>
+</main>
+<section class="cta-band">
+  <div class="wrap">
+    <div><h2>¿Por dónde empezar? Te lo decimos gratis.</h2><p>Un asesor experto analiza tu hospital y te muestra qué soluciones pueden llevarlo al siguiente nivel, sin compromiso.</p></div>
+    <a class="btn btn-light" href="/#auditoria" data-track="Blog: banda asesor">Hablar con un asesor experto<svg width="17" height="17" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32Z"/></svg></a>
+  </div>
+</section>
+<div class="foot-rule"></div>
+<footer class="site-foot">
+  <div class="wrap cols">
+    <div class="brand"><img src="/assets/advantecnia-logo-reverse.png" alt="Advantecnia" width="196" height="45" loading="lazy"><p>Tecnología al servicio de las personas. Una marca de ACE Business Group.</p></div>
+    <div><h2>Navegación</h2><ul>
+      <li><a href="/">Inicio</a></li><li><a href="/soluciones">Soluciones</a></li><li><a href="/proyectos">Proyectos</a></li><li><a href="/empresa">Empresa</a></li><li><a href="/blog">Blog</a></li><li><a href="/preguntas-frecuentes">Preguntas frecuentes</a></li>
+    </ul></div>
+    <div><h2>Contacto</h2><ul><li><a href="mailto:info@advantecnia.com">info@advantecnia.com</a></li><li><a href="tel:+34637495757">+34 637 49 57 57</a></li></ul></div>
+    <div><h2>Presencia</h2><ul><li>Europa, EEUU, LATAM y Middle East</li></ul></div>
+  </div>
+  <div class="bottom"><div class="wrap">
+    <div><span>CE-EMC</span><span>IEC 60601</span><span>FCC</span><span>Fabricado en España</span></div>
+    <div><a href="https://www.linkedin.com/company/advantecnia/home/" target="_blank" rel="noopener">LinkedIn</a><a href="/?p=legal&amp;t=aviso">Aviso Legal</a><a href="/?p=legal&amp;t=privacidad">Política de Privacidad</a><a href="/?p=legal&amp;t=cookies">Política de Cookies</a></div>
+  </div></div>
+</footer>
+<script src="/blog/blog.js" defer></script>
+</body>
+</html>
