@@ -1,8 +1,9 @@
-const { redis, daysBack, authed, aggregate, readDay, json, DAY_TTL } = require('./_lib');
+const { redis, daysBack, authed, aggregate, readDay, json, DAY_TTL, hasModule } = require('./_lib');
 
 module.exports = async (req, res) => {
   const who = await authed(req);
   if (!who) return json(res, 401, { error: 'No autorizado' });
+  if (who !== 'cron' && !hasModule(who, 'analitica')) return json(res, 403, { error: 'Tu cuenta no tiene habilitada la analítica.' });
   const by = who === 'cron' ? 'cron' : 'manual';
   const n = Math.max(1, Math.min(400, parseInt((req.query && req.query.days) || '3', 10) || 3));
   try {

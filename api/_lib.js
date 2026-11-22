@@ -106,6 +106,16 @@ function safeEq(a, b) {
 }
 
 // ---------- Usuarios, contraseñas y sesiones ----------
+// Módulos que se habilitan por usuario. Para añadir uno: agrégalo aquí y su parte en el panel.
+const MODULES = [
+  { key: 'analitica', label: 'Analítica web' },
+  { key: 'presentaciones', label: 'Presentaciones' }
+];
+const MODULE_KEYS = MODULES.map(m => m.key);
+const cleanModules = list => (Array.isArray(list) ? list : []).filter((k, i, a) => MODULE_KEYS.includes(k) && a.indexOf(k) === i);
+// who: 'cron', un objeto de usuario (con role y modules) o null.
+const hasModule = (who, key) => !!who && who !== 'cron' && (who.role === 'admin' || (who.modules || []).includes(key));
+
 const COOKIE = 'adv_sess';
 const SESS_MS = 1000 * 60 * 60 * 24 * 7; // 7 días
 const normEmail = e => String(e || '').trim().toLowerCase();
@@ -166,14 +176,15 @@ async function getUser(email) {
 }
 const isAdminUser = u => !!u && (u.role === 'admin' || adminEmails().includes(u.email));
 function publicUser(u) {
-  return { email: u.email, name: u.name || u.email, role: isAdminUser(u) ? 'admin' : 'user', folder: folderOf(u.email) };
+  const admin = isAdminUser(u);
+  return { email: u.email, name: u.name || u.email, role: admin ? 'admin' : 'user', folder: folderOf(u.email), modules: admin ? MODULE_KEYS : cleanModules(u.modules) };
 }
 
 // Devuelve 'cron' (tarea programada), o un objeto { email, name, role, folder } (usuario o clave de administración), o null.
 async function authed(req) {
   const pw = process.env.DASHBOARD_PASSWORD;
   const k = req.headers['x-dash-key'];
-  if (pw && k && safeEq(k, pw)) return { email: null, name: 'Administración', role: 'admin', folder: null, key: true };
+  if (pw && k && safeEq(k, pw)) return { email: null, name: 'Administración', role: 'admin', folder: null, key: true, modules: MODULE_KEYS };
   const cs = process.env.CRON_SECRET;
   if (cs && req.headers.authorization === 'Bearer ' + cs) return 'cron';
   const email = readSession(req);
@@ -319,5 +330,5 @@ function json(res, code, body) {
 module.exports = {
   redis, dayOf, hourOf, daysBack, authed, BOT, parseUA, sha, aggregate, readDay, merge, json, DAY_TTL,
   COOKIE, normEmail, folderOf, adminEmails, setSessionCookie, clearSessionCookie, getUser, isAdminUser,
-  publicUser, hashPassword, verifyPassword, parseBody
+  publicUser, hashPassword, verifyPassword, parseBody, MODULES, MODULE_KEYS, cleanModules, hasModule
 };

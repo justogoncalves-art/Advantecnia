@@ -1,7 +1,9 @@
-const { redis, daysBack, dayOf, authed, merge, json } = require('./_lib');
+const { redis, daysBack, dayOf, authed, merge, json, hasModule } = require('./_lib');
 
 module.exports = async (req, res) => {
-  if (!(await authed(req))) return json(res, 401, { error: 'No autorizado' });
+  const who = await authed(req);
+  if (!who) return json(res, 401, { error: 'No autorizado' });
+  if (!hasModule(who, 'analitica')) return json(res, 403, { error: 'Tu cuenta no tiene habilitada la analítica.' });
   const n = Math.max(1, Math.min(365, parseInt((req.query && req.query.days) || '30', 10) || 30));
   try {
     const cur = daysBack(n);

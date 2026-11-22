@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 const { del } = require('@vercel/blob');
-const { redis, authed, json, parseBody } = require('./_lib');
+const { redis, authed, json, parseBody, hasModule } = require('./_lib');
 
 const HOST_RE = /\.blob\.vercel-storage\.com$/;
 const TITLE_MAX = 120;
@@ -14,6 +14,7 @@ const safeToken = t => String(t || '').replace(/[^A-Za-z0-9_-]/g, '');
 module.exports = async (req, res) => {
   const who = await authed(req);
   if (!who || who === 'cron') return json(res, 401, { error: 'No autorizado' });
+  if (!hasModule(who, 'presentaciones')) return json(res, 403, { error: 'Tu cuenta no tiene habilitadas las presentaciones.' });
 
   try {
     if (req.method === 'GET') {

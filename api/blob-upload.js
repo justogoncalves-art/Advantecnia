@@ -1,5 +1,5 @@
 const { handleUpload } = require('@vercel/blob/client');
-const { authed, json, parseBody } = require('./_lib');
+const { authed, json, parseBody, hasModule } = require('./_lib');
 
 const MAX_BYTES = 100 * 1024 * 1024; // 100 MB
 const TYPES = [
@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return json(res, 405, { error: 'Método no permitido' });
   const who = await authed(req);
   if (!who || who === 'cron') return json(res, 401, { error: 'Inicia sesión para subir presentaciones.' });
+  if (!hasModule(who, 'presentaciones')) return json(res, 403, { error: 'Tu cuenta no tiene habilitadas las presentaciones.' });
   if (!who.email) return json(res, 403, { error: 'Para subir presentaciones necesitas una cuenta de usuario.' });
 
   try {

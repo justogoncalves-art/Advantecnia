@@ -1,4 +1,4 @@
-const { redis, authed, json, parseBody, normEmail, hashPassword, getUser, publicUser } = require('./_lib');
+const { redis, authed, json, parseBody, normEmail, hashPassword, getUser, publicUser, MODULES, cleanModules } = require('./_lib');
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MIN_PW = 10;
@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
         const u = JSON.parse(v);
         return Object.assign(publicUser(u), { created: u.created || null });
       }).sort((a, b) => (a.created || '') < (b.created || '') ? -1 : 1);
-      return json(res, 200, { items });
+      return json(res, 200, { items, modules: MODULES });
     }
 
     if (req.method === 'POST') {
@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
       if (!EMAIL_RE.test(email)) return json(res, 400, { error: 'El email no es válido.' });
       if (password.length < MIN_PW) return json(res, 400, { error: 'La contraseña debe tener al menos ' + MIN_PW + ' caracteres.' });
       if (await getUser(email)) return json(res, 409, { error: 'Ya existe una cuenta con ese email.' });
-      const u = { email, name: name || email, role, hash: await hashPassword(password), created: new Date().toISOString() };
+      const u = { email, name: name || email, role, modules: cleanModules(b.modules), hash: await hashPassword(password), created: new Date().toISOString() };
       await redis([['SET', 'user:' + email, JSON.stringify(u)], ['SADD', 'users', email]]);
       return json(res, 201, { user: Object.assign(publicUser(u), { created: u.created }) });
     }
@@ -45,6 +45,7 @@ module.exports = async (req, res) => {
       if (!u) return json(res, 404, { error: 'No existe esa cuenta.' });
       if (b.name !== undefined) u.name = String(b.name || '').trim().slice(0, 80) || u.email;
       if (b.role !== undefined) u.role = b.role === 'admin' ? 'admin' : 'user';
+      if (b.modules !== undefined) u.modules = cleanModules(b.modules);
       if (b.password) {
         if (String(b.password).length < MIN_PW) return json(res, 400, { error: 'La contraseña debe tener al menos ' + MIN_PW + ' caracteres.' });
         u.hash = await hashPassword(b.password);
