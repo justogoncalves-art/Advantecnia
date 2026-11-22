@@ -28,17 +28,90 @@ function daysBack(n, endDay) {
   return out;
 }
 
-function authed(req) {
-  const pw = process.env.DASHBOARD_PASSWORD;
-  const k = req.headers['x-dash-key'];
-  if (pw && k && safeEq(k, pw)) return 'manual';
-  const cs = process.env.CRON_SECRET;
-  if (cs && req.headers.authorization === 'Bearer ' + cs) return 'cron';
-  return null;
-}
 function safeEq(a, b) {
   const x = Buffer.from(String(a)), y = Buffer.from(String(b));
   return x.length === y.length && crypto.timingSafeEqual(x, y);
+}
+
+// ---------- Usuarios, contraseñas y sesiones ----------
+const COOKIE = 'adv_sess';
+const SESS_MS = 1000 * 60 * 60 * 24 * 7; // 7 días
+const normEmail = e => String(e || '').trim().toLowerCase();
+const folderOf = email => sha(normEmail(email)).slice(0, 16);
+const adminEmails = () => (process.env.ADMIN_EMAILS || '').split(',').map(s => normEmail(s)).filter(Boolean);
+
+function sessSecret() {
+  const s = process.env.SESSION_SECRET;
+  if (!s || s.length < 16) throw new Error('Falta la variable SESSION_SECRET (mínimo 16 caracteres)');
+  return s;
+}
+function parseCookies(req) {
+  const out = {};
+  (req.headers.cookie || '').split(';').forEach(p => {
+    const i = p.indexOf('=');
+    if (i > 0) out[p.slice(0, i).trim()] = decodeURIComponent(p.slice(i + 1).trim());
+  });
+  return out;
+}
+function signSession(email) {
+  const body = Buffer.from(JSON.stringify({ e: email, x: Date.now() + SESS_MS })).toString('base64url');
+  const mac = crypto.createHmac('sha256', sessSecret()).update(body).digest('base64url');
+  return body + '.' + mac;
+}
+function readSession(req) {
+  const raw = parseCookies(req)[COOKIE];
+  if (!raw || raw.indexOf('.') < 0) return null;
+  const cut = raw.lastIndexOf('.');
+  const body = raw.slice(0, cut), mac = raw.slice(cut + 1);
+  try {
+    if (!safeEq(mac, crypto.createHmac('sha256', sessSecret()).update(body).digest('base64url'))) return null;
+    const p = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
+    return p.x > Date.now() && p.e ? p.e : null;
+  } catch (e) { return null; }
+}
+function setSessionCookie(res, email) {
+  res.setHeader('Set-Cookie', COOKIE + '=' + signSession(email) + '; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=' + Math.floor(SESS_MS / 1000));
+}
+function clearSessionCookie(res) {
+  res.setHeader('Set-Cookie', COOKIE + '=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0');
+}
+
+const scryptP = (pw, salt) => new Promise((resolve, reject) =>
+  crypto.scrypt(String(pw), salt, 64, { N: 16384, r: 8, p: 1 }, (e, k) => (e ? reject(e) : resolve(k))));
+async function hashPassword(pw) {
+  const salt = crypto.randomBytes(16);
+  return 'scrypt$' + salt.toString('hex') + '$' + (await scryptP(pw, salt)).toString('hex');
+}
+async function verifyPassword(pw, stored) {
+  const [alg, s, h] = String(stored || '').split('$');
+  if (alg !== 'scrypt' || !s || !h) return false;
+  return safeEq((await scryptP(pw, Buffer.from(s, 'hex'))).toString('hex'), h);
+}
+
+async function getUser(email) {
+  const [v] = await redis([['GET', 'user:' + normEmail(email)]]);
+  return v ? JSON.parse(v) : null;
+}
+const isAdminUser = u => !!u && (u.role === 'admin' || adminEmails().includes(u.email));
+function publicUser(u) {
+  return { email: u.email, name: u.name || u.email, role: isAdminUser(u) ? 'admin' : 'user', folder: folderOf(u.email) };
+}
+
+// Devuelve 'cron' (tarea programada), o un objeto { email, name, role, folder } (usuario o clave de administración), o null.
+async function authed(req) {
+  const pw = process.env.DASHBOARD_PASSWORD;
+  const k = req.headers['x-dash-key'];
+  if (pw && k && safeEq(k, pw)) return { email: null, name: 'Administración', role: 'admin', folder: null, key: true };
+  const cs = process.env.CRON_SECRET;
+  if (cs && req.headers.authorization === 'Bearer ' + cs) return 'cron';
+  const email = readSession(req);
+  if (!email) return null;
+  const u = await getUser(email);
+  return u ? publicUser(u) : null;
+}
+function parseBody(req) {
+  if (req.body && typeof req.body === 'object') return req.body;
+  try { return JSON.parse(req.body || '{}'); } catch (e) { return {}; }
 }
 
 const BOT = /bot|crawl|spider|slurp|facebookexternalhit|whatsapp|preview|headless|lighthouse|pingdom|uptime|monitor|curl|wget|python|axios|node-fetch|go-http|java\//i;
@@ -171,4 +244,8 @@ function json(res, code, body) {
   res.end(JSON.stringify(body));
 }
 
-module.exports = { redis, dayOf, hourOf, daysBack, authed, BOT, parseUA, sha, aggregate, readDay, merge, json, DAY_TTL };
+module.exports = {
+  redis, dayOf, hourOf, daysBack, authed, BOT, parseUA, sha, aggregate, readDay, merge, json, DAY_TTL,
+  COOKIE, normEmail, folderOf, adminEmails, setSessionCookie, clearSessionCookie, getUser, isAdminUser,
+  publicUser, hashPassword, verifyPassword, parseBody
+};

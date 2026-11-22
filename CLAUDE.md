@@ -3,7 +3,7 @@
 Contexto para Claude Code al trabajar en este repositorio.
 
 ## Qué es
-Web corporativa de Advantecnia (sistemas hospitalarios, ecosistema SmartHospital impulsado por Connect.IA) desplegada en Vercel como sitio estático + funciones Node en /api. Sin build, sin dependencias npm.
+Web corporativa de Advantecnia (sistemas hospitalarios, ecosistema SmartHospital impulsado por Connect.IA) desplegada en Vercel como sitio estático + funciones Node en /api. Sin build. Única dependencia npm: `@vercel/blob` (almacén de presentaciones). El cliente del navegador está ya empaquetado en `assets/vendor/blob-client-2.9.0.js`; si cambias la versión, vuelve a generarlo y renombra el archivo.
 
 ## Cómo está hecha
 - `index.html` y `dashboard.dc.html` son "Design Components": plantilla HTML con huecos `{{ ruta }}` dentro de `<x-dc>` y una clase `class Component extends DCLogic` en `<script type="text/x-dc" data-dc-script>`. `support.js` los renderiza (React por debajo). No editar `support.js`.
@@ -21,7 +21,14 @@ Teléfono web: +34 637 49 57 57. WhatsApp: +34 607 55 27 33. Formulario vía for
 ## Analítica
 Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un evento: `this.trk('nombre', { ... })` en index.html, luego agrégalo en `aggregate()` de `api/_lib.js` y, si debe verse, en `tableList()` de `dashboard.dc.html`.
 
+## Acceso y presentaciones
+- Sesiones: cookie `adv_sess` firmada con HMAC (`SESSION_SECRET`). Contraseñas con scrypt en Redis (`user:<email>`). Administradores: `ADMIN_EMAILS` o rol `admin`. La clave `DASHBOARD_PASSWORD` sigue valiendo como administración.
+- `authed(req)` en `api/_lib.js` es asíncrono y devuelve `'cron'`, un objeto de usuario o `null`. Todos los endpoints protegidos hacen `await authed(req)`.
+- Presentaciones: el navegador sube a Vercel Blob con `/api/blob-upload` (no pasa por la función). Después registra la subida en `/api/presentations`, que comprueba que la ruta sea de la carpeta del usuario. Enlace público: `/p/<token>` → `api/view.js`.
+- Pruebas: no hay suite en el repositorio. Los endpoints de acceso se probaron con un Redis simulado y el panel en Chromium; no se ha probado contra Vercel real.
+
 ## Pendientes conocidos
+- Acceso y presentaciones sin probar en Vercel real: token de Blob, `handleUpload` y el visor de Office (el visor necesita que el archivo sea públicamente accesible por URL).
 - Vídeo de la home 10,6 MB, comprimir a 3–4 MB.
 - Confirmar el formulario desde info@advantecnia.com (primer envío de formsubmit).
 - og:image apunta a https://advantecnia.com; cambiar si el dominio es otro.

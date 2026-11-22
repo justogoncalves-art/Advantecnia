@@ -1,8 +1,9 @@
 const { redis, daysBack, authed, aggregate, readDay, json, DAY_TTL } = require('./_lib');
 
 module.exports = async (req, res) => {
-  const by = authed(req);
-  if (!by) return json(res, 401, { error: 'No autorizado' });
+  const who = await authed(req);
+  if (!who) return json(res, 401, { error: 'No autorizado' });
+  const by = who === 'cron' ? 'cron' : 'manual';
   const n = Math.max(1, Math.min(400, parseInt((req.query && req.query.days) || '3', 10) || 3));
   try {
     const days = daysBack(n);

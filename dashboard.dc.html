@@ -28,13 +28,23 @@ a:hover{color:#0B6F79}
     <img src="assets/adv-logo-color.svg" alt="Advantecnia" style="width:170px;height:auto">
     <div style="display:grid;gap:6px">
       <h1 style="margin:0;font-size:22px;font-weight:800">Analítica web</h1>
-      <p style="margin:0;font-size:14px;line-height:1.5;color:#55636E">Introduce la contraseña del panel para ver los datos.</p>
+      <p style="margin:0;font-size:14px;line-height:1.5;color:#55636E">Entra con tu email y tu contraseña para ver la analítica y tus presentaciones.</p>
     </div>
+    <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Email
+      <input ref="{{ emailRef }}" type="email" onKeyDown="{{ pwKey }}" autocomplete="username" style="height:44px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:15px;color:#16374D">
+    </label>
     <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Contraseña
       <input ref="{{ pwRef }}" type="password" onKeyDown="{{ pwKey }}" autocomplete="current-password" style="height:44px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:15px;color:#16374D">
     </label>
     <sc-if value="{{ hasPwErr }}" hint-placeholder-val="{{ false }}"><p style="margin:-8px 0 0;font-size:13px;color:#B4443A">{{ pwErr }}</p></sc-if>
     <button onClick="{{ login }}" style="height:44px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:15px;cursor:pointer" style-hover="background:#0B6F79">Entrar</button>
+    <details style="font-size:13px;color:#55636E">
+      <summary style="cursor:pointer">Acceso de administración con clave</summary>
+      <div style="display:grid;gap:8px;margin-top:10px">
+        <input ref="{{ keyRef }}" type="password" autocomplete="off" placeholder="Clave de administración" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;color:#16374D">
+        <button onClick="{{ adminKey }}" style="height:36px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-weight:700;font-size:13px;cursor:pointer">Usar esta clave</button>
+      </div>
+    </details>
   </div>
 </div>
 </sc-if>
@@ -52,9 +62,26 @@ a:hover{color:#0B6F79}
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-      <span style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;background:#FFFFFF;border:1px solid #E3E9EA;font-size:13px;font-weight:700">
-        <span style="width:8px;height:8px;border-radius:999px;background:#1F9D6B"></span>{{ liveTxt }}
-      </span>
+      <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;gap:4px;padding:4px;border-radius:999px;background:#FFFFFF;border:1px solid #E3E9EA">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+            <button onClick="{{ t.go }}" style="height:28px;padding:0 14px;border:0;border-radius:999px;background:{{ t.bg }};color:{{ t.fg }};font:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ t.label }}</button>
+          </sc-for>
+        </div>
+      </sc-if>
+      <sc-if value="{{ canLogout }}" hint-placeholder-val="{{ false }}">
+        <span style="font-size:13px;color:#55636E">{{ userLabel }}</span>
+        <button onClick="{{ logout }}" style="height:36px;padding:0 12px;border:0;background:none;color:#55636E;font:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="color:#16374D">Salir</button>
+      </sc-if>
+    </div>
+  </header>
+
+  <sc-if value="{{ showAnalytics }}" hint-placeholder-val="{{ true }}">
+  <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
+    <span style="display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-radius:999px;background:#FFFFFF;border:1px solid #E3E9EA;font-size:13px;font-weight:700">
+      <span style="width:8px;height:8px;border-radius:999px;background:#1F9D6B"></span>{{ liveTxt }}
+    </span>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">
       <div style="display:flex;gap:4px;padding:4px;border-radius:999px;background:#FFFFFF;border:1px solid #E3E9EA">
         <sc-for list="{{ ranges }}" as="r" hint-placeholder-count="4">
           <button onClick="{{ r.go }}" style="height:28px;padding:0 12px;border:0;border-radius:999px;background:{{ r.bg }};color:{{ r.fg }};font:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ r.label }}</button>
@@ -62,12 +89,8 @@ a:hover{color:#0B6F79}
       </div>
       <button onClick="{{ refresh }}" style="height:36px;padding:0 16px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#0B6F79">{{ refreshLabel }}</button>
       <button onClick="{{ csv }}" style="height:36px;padding:0 16px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Exportar CSV</button>
-      <sc-if value="{{ canLogout }}" hint-placeholder-val="{{ false }}">
-        <button onClick="{{ logout }}" style="height:36px;padding:0 12px;border:0;background:none;color:#55636E;font:inherit;font-size:13px;font-weight:600;cursor:pointer" style-hover="color:#16374D">Salir</button>
-      </sc-if>
     </div>
-  </header>
-
+  </div>
   <div style="display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:#55636E">
     <span><strong style="color:#16374D;font-weight:700">Datos actualizados:</strong> {{ updatedTxt }}</span>
     <span>Actualización automática cada día a las 07:00 (hora de Madrid)</span>
@@ -175,26 +198,143 @@ a:hover{color:#0B6F79}
   </section>
 
   <p style="margin:8px 0 0;font-size:12px;line-height:1.6;color:#55636E;max-width:760px">Medición propia sin cookies. No se guardan direcciones IP ni datos personales: cada visitante se cuenta con un identificador anónimo que cambia cada día. Las cifras de visitantes de varios días suman visitantes únicos de cada día.</p>
+  </sc-if>
+
+  <sc-if value="{{ showPres }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:16px">
+      <div style="display:grid;gap:4px">
+        <h2 style="margin:0;font-size:16px;font-weight:800">Subir una presentación</h2>
+        <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">Sube un archivo PowerPoint (.pptx o .ppt, hasta 100 MB). Cada presentación tiene su propio enlace: quien lo tenga puede verla en el navegador.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;align-items:end">
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Título (opcional)
+          <input ref="{{ presTitleRef }}" type="text" placeholder="Por ejemplo: Propuesta Hospital de Salamanca" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+        </label>
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Archivo
+          <input ref="{{ fileRef }}" type="file" accept=".ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" style="font:inherit;font-size:14px;font-weight:400">
+        </label>
+        <button onClick="{{ uploadFile }}" style="height:40px;padding:0 18px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:14px;cursor:pointer" style-hover="background:#0B6F79">{{ uploadLabel }}</button>
+      </div>
+      <sc-if value="{{ hasUpMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ upMsgColor }}">{{ upMsg }}</p></sc-if>
+    </section>
+
+    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:14px">
+      <div style="display:grid;gap:4px">
+        <h2 style="margin:0;font-size:16px;font-weight:800">Presentaciones</h2>
+        <p style="margin:0;font-size:13px;color:#55636E">{{ presCountTxt }}</p>
+      </div>
+      <sc-if value="{{ presEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#55636E">Todavía no hay presentaciones. Sube la primera arriba.</p></sc-if>
+      <sc-for list="{{ presRows }}" as="p" hint-placeholder-count="3">
+        <div style="display:grid;gap:10px;padding:14px 16px;border:1px solid #E3E9EA;border-radius:12px">
+          <div style="display:grid;gap:2px">
+            <strong style="font-size:15px;font-weight:800;overflow-wrap:anywhere">{{ p.title }}</strong>
+            <span style="font-size:12px;color:#55636E">{{ p.meta }}</span>
+          </div>
+          <a href="{{ p.link }}" target="_blank" style="font-size:13px;overflow-wrap:anywhere">{{ p.link }}</a>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button onClick="{{ p.copy }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Copiar enlace</button>
+            <a href="{{ p.mailto }}" style="display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;background:#0E8C99;color:#FFFFFF;font-size:13px;font-weight:700;text-decoration:none" style-hover="background:#0B6F79">Enviar por email</a>
+            <button onClick="{{ p.del }}" style="height:34px;padding:0 12px;border:0;background:none;color:#B4443A;font:inherit;font-size:13px;font-weight:700;cursor:pointer">Borrar</button>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ hasPresMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ presMsgColor }};overflow-wrap:anywhere">{{ presMsg }}</p></sc-if>
+    </section>
+  </sc-if>
+
+  <sc-if value="{{ showUsers }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:14px">
+      <div style="display:grid;gap:4px">
+        <h2 style="margin:0;font-size:16px;font-weight:800">Crear una cuenta</h2>
+        <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">La contraseña inicial mínima son 10 caracteres. Compártela con la persona por un canal seguro y pídele que la cambie cuando pueda.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px;align-items:end">
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Email
+          <input ref="{{ nuEmailRef }}" type="email" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+        </label>
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Nombre
+          <input ref="{{ nuNameRef }}" type="text" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+        </label>
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Contraseña inicial
+          <input ref="{{ nuPwRef }}" type="text" autocomplete="off" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;height:40px;font-size:13px;font-weight:700">
+          <input ref="{{ nuAdminRef }}" type="checkbox" style="width:16px;height:16px"> Administrador
+        </label>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px">
+        <button onClick="{{ createUser }}" style="height:40px;padding:0 18px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:14px;cursor:pointer" style-hover="background:#0B6F79">{{ createLabel }}</button>
+      </div>
+    </section>
+
+    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:12px">
+      <h2 style="margin:0;font-size:16px;font-weight:800">Cuentas</h2>
+      <sc-if value="{{ hasUserMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ userMsgColor }};overflow-wrap:anywhere">{{ userMsg }}</p></sc-if>
+      <sc-for list="{{ usersRows }}" as="u" hint-placeholder-count="3">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:1px solid #E3E9EA;border-radius:12px">
+          <div style="display:grid;gap:2px;min-width:0">
+            <strong style="font-size:14px;font-weight:800">{{ u.name }}</strong>
+            <span style="font-size:13px;color:#55636E;overflow-wrap:anywhere">{{ u.email }}</span>
+            <span style="font-size:12px;color:#55636E">{{ u.role }} · alta {{ u.created }}</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button onClick="{{ u.pw }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Cambiar contraseña</button>
+            <button onClick="{{ u.del }}" style="height:34px;padding:0 12px;border:0;background:none;color:#B4443A;font:inherit;font-size:13px;font-weight:700;cursor:pointer">Eliminar</button>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+  </sc-if>
 </div>
 </sc-if>
 
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { key: null, range: 30, metric: 'v', data: null, loading: true, err: '', demo: false, refreshing: false, pwErr: '', login: false };
+  state = {
+    key: null, me: null, checking: true, login: false, tab: 'analytics', pwErr: '',
+    range: 30, metric: 'v', data: null, loading: true, err: '', demo: false, refreshing: false,
+    pres: [], presMsg: '', presOk: true, uploading: false, upMsg: '', upOk: true,
+    users: [], userMsg: '', userOk: true, usersBusy: false
+  };
   pwRef = React.createRef();
+  emailRef = React.createRef();
+  keyRef = React.createRef();
+  fileRef = React.createRef();
+  presTitleRef = React.createRef();
+  nuEmailRef = React.createRef();
+  nuNameRef = React.createRef();
+  nuPwRef = React.createRef();
+  nuAdminRef = React.createRef();
 
   componentDidMount() {
+    if (/[?&]demo=1/.test(location.search)) return this.setDemo();
     let k = null;
     try { k = localStorage.getItem('advdash-key'); } catch (e) {}
-    this.setState({ key: k }, () => this.load());
-    this._t = setInterval(() => { if (!this.state.demo && !this.state.login) this.load(true); }, 120000);
+    this.setState({ key: k }, () => this.start());
+    this._t = setInterval(() => { if (this.state.me && !this.state.demo && !this.state.login) this.load(true); }, 120000);
   }
   componentWillUnmount() { clearInterval(this._t); }
 
+  // Comprueba la sesión (cookie de usuario) o la clave de administración guardada.
+  async start() {
+    try {
+      const j = await this.api('/api/me');
+      this.setState({ me: j.user, login: false, checking: false, pwErr: '' }, () => this.load());
+    } catch (e) {
+      if (e.auth) this.setState({ login: true, me: null, checking: false, data: null, pwErr: this.state.key ? 'La clave de administración no es válida.' : '' });
+      else this.setDemo();
+    }
+  }
+
   async api(path, opts) {
+    const o = Object.assign({}, opts || {});
+    const headers = Object.assign({}, o.headers || {}, { 'x-dash-key': this.state.key || '' });
+    if (typeof o.body === 'string') headers['Content-Type'] = 'application/json';
+    o.headers = headers;
+    o.credentials = 'same-origin';
     let r;
-    try { r = await fetch(path, Object.assign({}, opts || {}, { headers: { 'x-dash-key': this.state.key || '' } })); }
+    try { r = await fetch(path, o); }
     catch (e) { const x = new Error('offline'); x.offline = true; throw x; }
     if (r.status === 401) { const x = new Error('auth'); x.auth = true; throw x; }
     const ct = r.headers.get('content-type') || '';
@@ -209,25 +349,214 @@ class Component extends DCLogic {
     if (!quiet) this.setState({ loading: true, err: '' });
     try {
       const d = await this.api('/api/stats?days=' + this.state.range);
-      this.setState({ data: d, loading: false, demo: false, login: false, err: '' });
+      this.setState({ data: d, loading: false, demo: false, err: '' });
     } catch (e) {
-      if (e.auth) this.setState({ login: true, loading: false, pwErr: this.state.key ? 'Contraseña incorrecta.' : '' });
+      if (e.auth) this.setState({ login: true, me: null, loading: false, data: null });
       else if (e.offline) this.setDemo();
       else this.setState({ loading: false, err: 'No se han podido cargar los datos: ' + e.message });
     }
   }
 
-  setDemo() { this.setState({ demo: true, login: false, loading: false, data: Component.demoData(this.state.range) }); }
-
-  login() {
-    const v = this.pwRef.current && this.pwRef.current.value;
-    if (!v) return this.setState({ pwErr: 'Escribe la contraseña.' });
-    try { localStorage.setItem('advdash-key', v); } catch (e) {}
-    this.setState({ key: v, pwErr: '' }, () => this.load());
+  setDemo() {
+    this.setState({ demo: true, login: false, checking: false, tab: 'analytics', me: { name: 'Vista de ejemplo', role: 'user' }, loading: false, data: Component.demoData(this.state.range) });
   }
-  logout() {
+
+  async login() {
+    const email = ((this.emailRef.current && this.emailRef.current.value) || '').trim();
+    const password = (this.pwRef.current && this.pwRef.current.value) || '';
+    if (!email || !password) return this.setState({ pwErr: 'Escribe el email y la contraseña.' });
+    try {
+      const r = await fetch('/api/login', { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) return this.setState({ pwErr: j.error || 'No se ha podido entrar.' });
+      if (this.pwRef.current) this.pwRef.current.value = '';
+      this.setState({ me: j.user, login: false, pwErr: '', tab: 'analytics' }, () => this.load());
+    } catch (e) {
+      this.setState({ pwErr: 'No hay conexión con el servidor. Inténtalo de nuevo.' });
+    }
+  }
+
+  adminKey() {
+    const v = this.keyRef.current && this.keyRef.current.value;
+    if (!v) return;
+    try { localStorage.setItem('advdash-key', v); } catch (e) {}
+    this.setState({ key: v, pwErr: '' }, () => this.start());
+  }
+
+  async logout() {
+    try { await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' }); } catch (e) {}
     try { localStorage.removeItem('advdash-key'); } catch (e) {}
-    this.setState({ key: null, login: true, data: null, pwErr: '' });
+    this.setState({ key: null, login: true, me: null, data: null, pres: [], users: [], pwErr: '', tab: 'analytics' });
+  }
+
+  setTab(t) {
+    this.setState({ tab: t }, () => {
+      if (t === 'pres') this.loadPres();
+      if (t === 'users') this.loadUsers();
+    });
+  }
+
+  // ----- Presentaciones -----
+  async loadPres() {
+    try {
+      const j = await this.api('/api/presentations');
+      this.setState({ pres: j.items || [] });
+    } catch (e) {
+      if (e.auth) return this.setState({ login: true, me: null });
+      this.setState({ presMsg: 'No se han podido cargar las presentaciones: ' + e.message, presOk: false });
+    }
+  }
+
+  copyLink(token) {
+    const link = location.origin + '/p/' + token;
+    const show = ok => this.setState({ presMsg: ok ? 'Enlace copiado: ' + link : 'Copia este enlace: ' + link, presOk: true });
+    try { navigator.clipboard.writeText(link).then(() => show(true), () => show(false)); }
+    catch (e) { show(false); }
+  }
+
+  async upload() {
+    const f = this.fileRef.current && this.fileRef.current.files && this.fileRef.current.files[0];
+    const me = this.state.me || {};
+    if (!f) return this.setState({ upMsg: 'Elige un archivo .pptx o .ppt.', upOk: false });
+    if (!/\.pptx?$/i.test(f.name)) return this.setState({ upMsg: 'Solo se admiten archivos PowerPoint (.pptx o .ppt).', upOk: false });
+    if (f.size > 100 * 1024 * 1024) return this.setState({ upMsg: 'El archivo supera los 100 MB.', upOk: false });
+    if (!me.folder) return this.setState({ upMsg: 'Necesitas una cuenta de usuario para subir presentaciones.', upOk: false });
+    const title = ((this.presTitleRef.current && this.presTitleRef.current.value) || '').trim() || f.name.replace(/\.pptx?$/i, '');
+    const pathname = 'presentations/' + me.folder + '/' + Date.now() + '-' + f.name.replace(/[^A-Za-z0-9._-]+/g, '-');
+    this.setState({ uploading: true, upMsg: 'Subiendo ' + f.name + '… no cierres esta página.', upOk: true });
+    try {
+      // Import dinámico del cliente de Vercel Blob servido desde /assets (sin CDN externo).
+      const importer = new Function('u', 'return import(u)');
+      const mod = await importer('/assets/vendor/blob-client-2.9.0.js');
+      const blob = await mod.upload(pathname, f, { access: 'public', handleUploadUrl: '/api/blob-upload', contentType: f.type || 'application/octet-stream' });
+      const j = await this.api('/api/presentations', { method: 'POST', body: JSON.stringify({ url: blob.url, pathname: blob.pathname, name: f.name, size: f.size, title }) });
+      if (this.fileRef.current) this.fileRef.current.value = '';
+      if (this.presTitleRef.current) this.presTitleRef.current.value = '';
+      this.setState({ uploading: false, upMsg: 'Presentación subida. Ya tienes su enlace en la lista.', upOk: true, pres: [j.item].concat(this.state.pres) });
+    } catch (e) {
+      this.setState({ uploading: false, upMsg: 'No se ha podido subir: ' + e.message, upOk: false });
+    }
+  }
+
+  async delPres(token) {
+    if (!window.confirm('¿Borrar esta presentación? Su enlace dejará de funcionar.')) return;
+    try {
+      await this.api('/api/presentations?token=' + encodeURIComponent(token), { method: 'DELETE' });
+      this.setState({ pres: this.state.pres.filter(p => p.token !== token), presMsg: 'Presentación borrada.', presOk: true });
+    } catch (e) {
+      this.setState({ presMsg: 'No se ha podido borrar: ' + e.message, presOk: false });
+    }
+  }
+
+  // ----- Usuarios (solo administración) -----
+  async loadUsers() {
+    try {
+      const j = await this.api('/api/users');
+      this.setState({ users: j.items || [] });
+    } catch (e) {
+      this.setState({ userMsg: 'No se han podido cargar las cuentas: ' + e.message, userOk: false });
+    }
+  }
+
+  async createUser() {
+    const val = r => ((r.current && r.current.value) || '');
+    const email = val(this.nuEmailRef).trim(), name = val(this.nuNameRef).trim(), password = val(this.nuPwRef);
+    const role = this.nuAdminRef.current && this.nuAdminRef.current.checked ? 'admin' : 'user';
+    if (!email || !password) return this.setState({ userMsg: 'Indica al menos el email y una contraseña.', userOk: false });
+    this.setState({ usersBusy: true, userMsg: '' });
+    try {
+      const j = await this.api('/api/users', { method: 'POST', body: JSON.stringify({ email, name, password, role }) });
+      [this.nuEmailRef, this.nuNameRef, this.nuPwRef].forEach(r => { if (r.current) r.current.value = ''; });
+      if (this.nuAdminRef.current) this.nuAdminRef.current.checked = false;
+      this.setState({ usersBusy: false, userOk: true, userMsg: 'Cuenta creada para ' + j.user.email + '. Compártele la contraseña por un canal seguro.', users: this.state.users.concat([j.user]) });
+    } catch (e) {
+      this.setState({ usersBusy: false, userOk: false, userMsg: 'No se ha podido crear la cuenta: ' + e.message });
+    }
+  }
+
+  async resetPw(email) {
+    const password = window.prompt('Nueva contraseña para ' + email + ' (mínimo 10 caracteres):');
+    if (!password) return;
+    try {
+      await this.api('/api/users', { method: 'PATCH', body: JSON.stringify({ email, password }) });
+      this.setState({ userOk: true, userMsg: 'Contraseña cambiada para ' + email + '.' });
+    } catch (e) {
+      this.setState({ userOk: false, userMsg: 'No se ha podido cambiar la contraseña: ' + e.message });
+    }
+  }
+
+  async delUser(email) {
+    if (!window.confirm('¿Eliminar la cuenta de ' + email + '? Dejará de poder entrar.')) return;
+    try {
+      await this.api('/api/users?email=' + encodeURIComponent(email), { method: 'DELETE' });
+      this.setState({ users: this.state.users.filter(u => u.email !== email), userOk: true, userMsg: 'Cuenta eliminada.' });
+    } catch (e) {
+      this.setState({ userOk: false, userMsg: 'No se ha podido eliminar: ' + e.message });
+    }
+  }
+
+  static fmtSize(b) {
+    if (!b) return '';
+    return b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' KB' : (b / 1048576).toLocaleString('es-ES', { maximumFractionDigits: 1 }) + ' MB';
+  }
+
+  // Valores de la sesión, pestañas, presentaciones y cuentas para la plantilla.
+  extraVals() {
+    const C = Component, me = this.state.me || {}, live = !this.state.demo, tab = this.state.tab;
+    const isAdmin = live && me.role === 'admin';
+    const T = (k, label) => ({ label, go: () => this.setTab(k), bg: tab === k ? '#16374D' : 'transparent', fg: tab === k ? '#FFFFFF' : '#16374D' });
+    const tabs = [T('analytics', 'Analítica')];
+    if (live) tabs.push(T('pres', 'Presentaciones'));
+    if (isAdmin) tabs.push(T('users', 'Usuarios'));
+
+    const fmtDate = s => s ? new Date(s).toLocaleDateString('es-ES', { dateStyle: 'medium' }) : '—';
+    const presRows = this.state.pres.map(p => {
+      const link = location.origin + '/p/' + p.token;
+      const subject = 'Presentación: ' + p.title;
+      const body = 'Hola,\n\nTe comparto la presentación "' + p.title + '". Puedes verla en este enlace:\n\n' + link + '\n\nUn saludo.';
+      const meta = [p.name, C.fmtSize(p.size), fmtDate(p.created), isAdmin ? 'De ' + (p.ownerName || p.owner) : ''].filter(Boolean).join(' · ');
+      return {
+        title: p.title, meta, link,
+        mailto: 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body),
+        copy: () => this.copyLink(p.token), del: () => this.delPres(p.token)
+      };
+    });
+    const usersRows = this.state.users.map(u => ({
+      name: u.name, email: u.email, role: u.role === 'admin' ? 'Administrador' : 'Usuario', created: fmtDate(u.created),
+      pw: () => this.resetPw(u.email), del: () => this.delUser(u.email)
+    }));
+    const presCount = this.state.pres.length;
+    const upColor = this.state.upOk ? '#1F7A55' : '#B4443A';
+
+    return {
+      showLogin: this.state.login,
+      showMain: !this.state.login && !this.state.checking,
+      showTabs: live,
+      showAnalytics: tab === 'analytics',
+      showPres: tab === 'pres' && live,
+      showUsers: tab === 'users' && isAdmin,
+      pwRef: this.pwRef, emailRef: this.emailRef, keyRef: this.keyRef,
+      pwKey: e => { if (e.key === 'Enter') this.login(); },
+      login: () => this.login(), adminKey: () => this.adminKey(),
+      hasPwErr: !!this.state.pwErr, pwErr: this.state.pwErr,
+      tabs,
+      canLogout: live && !!this.state.me,
+      userLabel: (me.name || '') + (isAdmin ? ' · administrador' : ''),
+      logout: () => this.logout(),
+      fileRef: this.fileRef, presTitleRef: this.presTitleRef,
+      uploadFile: () => this.upload(),
+      uploadLabel: this.state.uploading ? 'Subiendo…' : 'Subir presentación',
+      hasUpMsg: !!this.state.upMsg, upMsg: this.state.upMsg, upMsgColor: upColor,
+      presCountTxt: presCount + (presCount === 1 ? ' presentación' : ' presentaciones') + ' · cada una con su propio enlace',
+      presEmpty: presCount === 0,
+      presRows,
+      hasPresMsg: !!this.state.presMsg, presMsg: this.state.presMsg, presMsgColor: this.state.presOk ? '#1F7A55' : '#B4443A',
+      nuEmailRef: this.nuEmailRef, nuNameRef: this.nuNameRef, nuPwRef: this.nuPwRef, nuAdminRef: this.nuAdminRef,
+      createUser: () => this.createUser(),
+      createLabel: this.state.usersBusy ? 'Creando…' : 'Crear cuenta',
+      hasUserMsg: !!this.state.userMsg, userMsg: this.state.userMsg, userMsgColor: this.state.userOk ? '#1F7A55' : '#B4443A',
+      usersRows
+    };
   }
 
   async refresh() {
@@ -398,6 +727,7 @@ class Component extends DCLogic {
       refreshLabel: this.state.refreshing ? 'Actualizando…' : 'Actualizar ahora',
       demo: this.state.demo, hasErr: !!this.state.err, err: this.state.err
     };
+    Object.assign(base, this.extraVals());
     if (!d) return Object.assign(base, { liveTxt: 'Cargando…', updatedTxt: '…', periodTxt: '…', kpis: [], bars: [], hours: [], convRows: [], funnel: [], tables: [], metrics: [], chartTitle: '', chartMax: '', showMetrics: false });
 
     const c = d.cur;

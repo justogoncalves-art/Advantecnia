@@ -1,7 +1,7 @@
 const { redis, daysBack, dayOf, authed, merge, json } = require('./_lib');
 
 module.exports = async (req, res) => {
-  if (!authed(req)) return json(res, 401, { error: 'No autorizado' });
+  if (!(await authed(req))) return json(res, 401, { error: 'No autorizado' });
   const n = Math.max(1, Math.min(365, parseInt((req.query && req.query.days) || '30', 10) || 30));
   try {
     const cur = daysBack(n);

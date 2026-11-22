@@ -12,9 +12,17 @@ assets/at.js          Etiquetado: envía los eventos a /api/track
 api/track.js          Recibe eventos y los guarda en Redis
 api/refresh.js        Recalcula los totales por día (cron diario y botón manual)
 api/stats.js          Devuelve los datos al panel
-api/_lib.js           Funciones comunes (no es un endpoint)
+api/login.js          Entrada de usuarios (email y contraseña) y cookie de sesión
+api/logout.js         Cierra la sesión
+api/me.js             Quién está conectado
+api/users.js          Cuentas de usuario (solo administración)
+api/presentations.js  Lista, registra y borra presentaciones
+api/blob-upload.js    Permiso para que el navegador suba el PowerPoint a Vercel Blob
+api/view.js           Página pública de cada presentación (/p/<enlace>)
+api/_lib.js           Funciones comunes: Redis, sesiones, contraseñas (no es un endpoint)
+assets/vendor/        Cliente de Vercel Blob para el navegador (versión fija en el nombre)
 vercel.json           Rutas, cron diario y cabeceras
-robots.txt            Excluye /dashboard y /api de buscadores
+robots.txt            Excluye /dashboard, /p y /api de buscadores
 ```
 
 ## Publicar en Vercel
@@ -22,13 +30,26 @@ robots.txt            Excluye /dashboard y /api de buscadores
 1. Sube el contenido de esta carpeta a la raíz del repositorio de GitHub.
 2. En Vercel: **Add New → Project**, importa el repositorio. Framework: **Other**. Sin comando de build. Output: `/`.
 3. Base de datos: en el proyecto de Vercel, **Storage → Create → Upstash (Redis)**, plan gratuito, y conéctala al proyecto. Vercel añade solo `KV_REST_API_URL` y `KV_REST_API_TOKEN`.
-4. **Settings → Environment Variables**, añade:
-   - `DASHBOARD_PASSWORD`: contraseña para entrar en /dashboard.
+4. Almacén de archivos: **Storage → Create → Blob**, y conéctalo al proyecto. Vercel añade `BLOB_READ_WRITE_TOKEN`. Las presentaciones se guardan ahí.
+5. **Settings → Environment Variables**, añade:
+   - `DASHBOARD_PASSWORD`: clave de administración (sirve también para entrar con la opción «Acceso de administración con clave»).
+   - `SESSION_SECRET`: texto aleatorio de al menos 32 caracteres. Firma las sesiones; si cambia, todos tienen que volver a entrar.
+   - `ADMIN_EMAILS`: emails de los administradores, separados por comas. Tienen acceso a la pestaña Usuarios.
    - `CRON_SECRET`: cualquier texto largo aleatorio. Vercel lo usa para autorizar el cron.
    - `ANALYTICS_SALT`: otro texto aleatorio (anonimiza a los visitantes).
    - `ALLOWED_ORIGINS` (opcional): `https://advantecnia.com,https://www.advantecnia.com` si la web y la API están en dominios distintos.
-5. **Redeploy** para que tome las variables.
-6. Dominio: **Settings → Domains**, añade `advantecnia.com`. El panel queda en `https://advantecnia.com/dashboard`.
+6. **Redeploy** para que tome las variables.
+7. Dominio: **Settings → Domains**, añade `advantecnia.com`. El panel queda en `https://advantecnia.com/dashboard`.
+
+## Usuarios y presentaciones
+
+- Entrar: `/dashboard` pide email y contraseña. La sesión dura 7 días.
+- Crear cuentas: un administrador entra, abre la pestaña **Usuarios** y crea la cuenta con una contraseña inicial de al menos 10 caracteres. Compártela por un canal seguro.
+- Cambiar una contraseña o eliminar una cuenta: también desde **Usuarios**. Cambiar la contraseña desbloquea la cuenta si se bloqueó por intentos fallidos (10 errores en 15 minutos).
+- Presentaciones: cualquier usuario sube un `.pptx` o `.ppt` de hasta 100 MB en la pestaña **Presentaciones**. Cada una tiene un enlace `https://advantecnia.com/p/<código>` que abre la presentación en el visor de Microsoft Office. Quien tenga el enlace puede verla; el código es aleatorio y no se puede adivinar.
+- Botón **Enviar por email**: abre el cliente de correo con el enlace listo para enviar.
+- Las presentaciones de cada usuario se listan solo para él; el administrador las ve todas.
+- Al subir, el archivo queda en Vercel Blob con acceso público por URL. Borrar una presentación borra el archivo y el enlace.
 
 ## Actualización de datos
 

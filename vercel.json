@@ -2,7 +2,8 @@
   "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/dashboard", "destination": "/dashboard.dc.html" }
+    { "source": "/dashboard", "destination": "/dashboard.dc.html" },
+    { "source": "/p/:token", "destination": "/api/view?token=:token" }
   ],
   "crons": [
     { "path": "/api/refresh?days=3", "schedule": "0 6 * * *" }
@@ -18,6 +19,10 @@
     },
     {
       "source": "/dashboard(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }, { "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/p/(.*)",
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }, { "key": "Cache-Control", "value": "no-store" }]
     }
   ]
