@@ -27,8 +27,16 @@ Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un ev
 - Presentaciones: el navegador sube a Vercel Blob con `/api/blob-upload` (no pasa por la función). Después registra la subida en `/api/presentations`, que comprueba que la ruta sea de la carpeta del usuario. Enlace público: `/p/<token>` → `api/view.js`.
 - Pruebas: no hay suite en el repositorio. Los endpoints de acceso se probaron con un Redis simulado y el panel en Chromium; no se ha probado contra Vercel real.
 
+## Mailings
+- Módulo `mailings` (en `MODULES` de `_lib.js`). Endpoints: `api/mailings.js` (crear, enviar por lotes de 100 con `?action=send&id=`, prueba con `?action=test`, historial) y `api/unsubscribe.js` (ruta `/baja`).
+- Envío con la API por lotes de Resend (`sendBatch` en `_lib.js`, requiere `RESEND_API_KEY`). `buildMail` personaliza `{{nombre}}`, `{{email}}`, `{{baja}}` y añade el pie y las cabeceras `List-Unsubscribe`.
+- Redis: `camps` (set de ids), `camp:<id>` (datos), `camp:<id>:q` (cola de destinatarios), `camp:<id>:fail` (errores), `suppressed` (bajas, set de emails).
+- Token de baja: HMAC del email con `SESSION_SECRET` (`unsubUrl`, `unsubOk`).
+- Excel/CSV: se lee en el navegador con SheetJS (`assets/vendor/xlsx-0.18.5.js`, bundle de `xlsx` 0.18.5 generado con esbuild, como el de Blob). Parser `Component.parseRows` en `dashboard.dc.html`.
+
 ## Pendientes conocidos
 - Acceso y presentaciones sin probar en Vercel real: token de Blob, `handleUpload` y el visor de Office (el visor necesita que el archivo sea públicamente accesible por URL).
+- Mailings sin probar con Resend real: falta verificar el dominio advantecnia.com y `RESEND_API_KEY`; la prueba de envío real es el primer paso tras desplegar.
 - Vídeo de la home 10,6 MB, comprimir a 3–4 MB.
 - Confirmar el formulario desde info@advantecnia.com (primer envío de formsubmit).
 - og:image apunta a https://advantecnia.com; cambiar si el dominio es otro.

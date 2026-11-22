@@ -109,7 +109,8 @@ function safeEq(a, b) {
 // Módulos que se habilitan por usuario. Para añadir uno: agrégalo aquí y su parte en el panel.
 const MODULES = [
   { key: 'analitica', label: 'Analítica web' },
-  { key: 'presentaciones', label: 'Presentaciones' }
+  { key: 'presentaciones', label: 'Presentaciones' },
+  { key: 'mailings', label: 'Mailings' }
 ];
 const MODULE_KEYS = MODULES.map(m => m.key);
 const cleanModules = list => (Array.isArray(list) ? list : []).filter((k, i, a) => MODULE_KEYS.includes(k) && a.indexOf(k) === i);
@@ -320,6 +321,57 @@ function merge(list) {
   return M;
 }
 
+// ---------- Correo (Resend) y bajas ----------
+const MAIL_FROM = process.env.MAIL_FROM || 'Advantecnia <news@advantecnia.com>';
+const MAIL_REPLY = process.env.MAIL_REPLY_TO || 'info@advantecnia.com';
+const SITE = (process.env.PUBLIC_URL || 'https://advantecnia.com').replace(/\/$/, '');
+const EMAIL_OK = e => e.length <= 254 && /^[^\s@<>,;:"'()[\]\\]+@[^\s@<>,;:"'()[\]\\]+\.[^\s@<>,;:"'()[\]\\]{2,}$/.test(e);
+const escHtml = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// Token de baja: HMAC del email con SESSION_SECRET. Sin ese secreto no se puede dar de baja a otra persona.
+const unsubToken = email => crypto.createHmac('sha256', sessSecret()).update('unsub:' + normEmail(email)).digest('base64url').slice(0, 32);
+const unsubUrl = email => SITE + '/baja?e=' + encodeURIComponent(normEmail(email)) + '&t=' + unsubToken(email);
+const unsubOk = (email, t) => safeEq(String(t || ''), unsubToken(email));
+
+const toText = h => h.replace(/<head[\s\S]*?<\/head>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, '')
+  .replace(/<br\s*\/?>/gi, '\n').replace(/<\/(p|div|h[1-6]|li|tr)>/gi, '\n').replace(/<[^>]+>/g, '')
+  .replace(/&nbsp;/g, ' ').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&')
+  .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+
+// Mensaje final para un destinatario: variables {{nombre}} {{email}} {{baja}}, pie con enlace de baja y cabeceras de baja de un clic.
+function buildMail(c, to, name) {
+  const vars = { nombre: name || '', email: to, baja: unsubUrl(to) };
+  const fill = (s, html) => String(s).replace(/\{\s*\{\s*(nombre|email|baja)\s*\}\s*\}/g, (_, k) => (html ? escHtml(vars[k]) : vars[k]));
+  const foot = '<div style="margin-top:32px;padding-top:16px;border-top:1px solid #E3E9EA;font-family:Arial,sans-serif;font-size:12px;line-height:1.5;color:#55636E">' +
+    'Recibes este correo porque te suscribiste o eres contacto de Advantecnia. <a href="' + escHtml(vars.baja) + '" style="color:#0E8C99">Darte de baja</a>' +
+    '<br>Advantecnia · advantecnia.com · info@advantecnia.com</div>';
+  let body = fill(c.html, true);
+  body = /<\/body>/i.test(body) ? body.replace(/<\/body>/i, foot + '</body>') : body + foot;
+  return {
+    to,
+    subject: fill(c.subject, false).replace(/[\r\n]+/g, ' ').trim(),
+    html: body,
+    text: toText(body),
+    headers: { 'List-Unsubscribe': '<' + vars.baja + '>, <mailto:' + MAIL_REPLY + '?subject=baja>', 'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click' }
+  };
+}
+
+// Envía un lote (máximo 100) con la API por lotes de Resend. Devuelve un resultado por mensaje: { ok, error? }.
+async function sendBatch(msgs) {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) throw new Error('Falta la variable RESEND_API_KEY (clave de Resend).');
+  const body = msgs.map(m => ({ from: MAIL_FROM, to: [m.to], reply_to: MAIL_REPLY, subject: m.subject, html: m.html, text: m.text, headers: m.headers }));
+  const r = await fetch('https://api.resend.com/emails/batch', {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json', 'x-batch-validation': 'permissive' },
+    body: JSON.stringify(body)
+  });
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error('Resend ' + r.status + ': ' + (j.message || j.name || 'error'));
+  const res = msgs.map(() => ({ ok: true }));
+  (j.errors || []).forEach(e => { if (res[e.index]) res[e.index] = { ok: false, error: e.message || 'rechazado' }; });
+  return res;
+}
+
 function json(res, code, body) {
   res.statusCode = code;
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -330,5 +382,6 @@ function json(res, code, body) {
 module.exports = {
   redis, dayOf, hourOf, daysBack, authed, BOT, parseUA, sha, aggregate, readDay, merge, json, DAY_TTL,
   COOKIE, normEmail, folderOf, adminEmails, setSessionCookie, clearSessionCookie, getUser, isAdminUser,
-  publicUser, hashPassword, verifyPassword, parseBody, MODULES, MODULE_KEYS, cleanModules, hasModule
+  publicUser, hashPassword, verifyPassword, parseBody, MODULES, MODULE_KEYS, cleanModules, hasModule,
+  EMAIL_OK, escHtml, unsubUrl, unsubOk, buildMail, sendBatch
 };

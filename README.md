@@ -38,6 +38,10 @@ robots.txt            Excluye /dashboard, /p y /api de buscadores
    - `CRON_SECRET`: cualquier texto largo aleatorio. Vercel lo usa para autorizar el cron.
    - `ANALYTICS_SALT`: otro texto aleatorio (anonimiza a los visitantes).
    - `ALLOWED_ORIGINS` (opcional): `https://advantecnia.com,https://www.advantecnia.com` si la web y la API están en dominios distintos.
+   - `RESEND_API_KEY` (para los mailings): clave de [Resend](https://resend.com). Antes verifica el dominio `advantecnia.com` en Resend (registros SPF y DKIM en el DNS) para poder enviar desde `news@advantecnia.com`.
+   - `MAIL_FROM` (opcional): remitente. Por defecto `Advantecnia <news@advantecnia.com>`.
+   - `MAIL_REPLY_TO` (opcional): respuesta. Por defecto `info@advantecnia.com`.
+   - `PUBLIC_URL` (opcional): dominio público para los enlaces de baja. Por defecto `https://advantecnia.com`.
 6. **Redeploy** para que tome las variables.
 7. Dominio: **Settings → Domains**, añade `advantecnia.com`. El panel queda en `https://advantecnia.com/dashboard`.
 
@@ -50,6 +54,16 @@ robots.txt            Excluye /dashboard, /p y /api de buscadores
 - Botón **Enviar por email**: abre el cliente de correo con el enlace listo para enviar.
 - Las presentaciones de cada usuario se listan solo para él; el administrador las ve todas.
 - Al subir, el archivo queda en Vercel Blob con acceso público por URL. Borrar una presentación borra el archivo y el enlace.
+
+## Mailings
+
+- Solo lo ve quien tenga habilitada la parte **Mailings** (los administradores la tienen siempre). Se activa por usuario en la pestaña **Usuarios**.
+- Enviar: en **Mailings** se escribe el asunto y el contenido HTML, se sube el Excel o CSV de destinatarios (una columna de email y otra de nombre; la primera fila puede ser de encabezados) y se pulsa **Enviar**. Se envía desde `news@advantecnia.com` en lotes de 100.
+- Variables en el HTML y en el asunto: `{{nombre}}`, `{{email}}` y `{{baja}}`. El pie con el enlace de baja se añade solo a cada correo.
+- Antes de enviar a todos, usa **Enviar prueba** con tu propio email y revisa la vista previa.
+- Bajas: el enlace `https://advantecnia.com/baja` pide confirmación y deja a la persona fuera de todos los envíos futuros. Las cabeceras de baja de un clic (Gmail y Outlook) funcionan igual.
+- Límites: 5.000 destinatarios por envío y 400 KB de HTML. Los duplicados, las direcciones no válidas y las dadas de baja se excluyen y se cuentan al crear el envío.
+- Si un envío se corta (se cierra la pestaña o falla la conexión), aparece en el historial como pendiente y se puede **reanudar** sin volver a enviar a quien ya recibió el correo.
 
 ## Actualización de datos
 

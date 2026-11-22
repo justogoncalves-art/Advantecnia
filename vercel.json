@@ -3,7 +3,8 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/dashboard", "destination": "/dashboard.dc.html" },
-    { "source": "/p/:token", "destination": "/api/view?token=:token" }
+    { "source": "/p/:token", "destination": "/api/view?token=:token" },
+    { "source": "/baja", "destination": "/api/unsubscribe" }
   ],
   "crons": [
     { "path": "/api/refresh?days=3", "schedule": "0 6 * * *" }
@@ -16,6 +17,10 @@
     {
       "source": "/assets/at.js",
       "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+    },
+    {
+      "source": "/baja",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }, { "key": "Cache-Control", "value": "no-store" }]
     },
     {
       "source": "/dashboard(.*)",

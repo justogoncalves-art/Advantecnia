@@ -242,6 +242,68 @@ a:hover{color:#0B6F79}
     </section>
   </sc-if>
 
+  <sc-if value="{{ showMail }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:16px">
+      <div style="display:grid;gap:4px">
+        <h2 style="margin:0;font-size:16px;font-weight:800">Nuevo mailing</h2>
+        <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">Se envía desde <strong style="color:#16374D">news@advantecnia.com</strong>. Cada correo lleva al final un enlace de baja que se respeta solo: quien se da de baja ya no recibe los siguientes envíos.</p>
+      </div>
+      <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Asunto
+        <input ref="{{ mailSubjRef }}" type="text" placeholder="Por ejemplo: Novedades de primavera" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+      </label>
+      <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Contenido en HTML
+        <textarea ref="{{ mailHtmlRef }}" rows="12" spellcheck="false" style="border:1px solid #CBD9DE;border-radius:8px;padding:10px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;color:#16374D;resize:vertical"></textarea>
+      </label>
+      <p style="margin:-8px 0 0;font-size:12px;line-height:1.6;color:#55636E">Variables disponibles: nombre, email y baja. Se escriben entre dobles llaves. El enlace de baja se añade al final de cada correo de forma automática.</p>
+
+      <div style="display:grid;gap:8px;padding:14px 16px;border:1px dashed #CBD9DE;border-radius:12px">
+        <span style="font-size:13px;font-weight:700">Destinatarios desde Excel</span>
+        <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">Excel o CSV con una columna de email y otra de nombre. La primera fila puede ser de encabezados (Nombre, Email). Los duplicados y las direcciones dadas de baja se quitan al enviar.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+          <input ref="{{ mailXlsRef }}" type="file" accept=".xlsx,.xls,.csv" style="font:inherit;font-size:14px">
+          <button onClick="{{ importExcel }}" style="height:36px;padding:0 16px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Subir destinatarios</button>
+        </div>
+        <sc-if value="{{ hasRcpt }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;font-weight:700;color:#16374D">{{ rcptTxt }}</p></sc-if>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:end">
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Prueba a este email
+          <input ref="{{ mailTestRef }}" type="email" placeholder="tu@correo.com" style="height:40px;width:240px;max-width:100%;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+        </label>
+        <button onClick="{{ testMail }}" style="height:40px;padding:0 16px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Enviar prueba</button>
+        <button onClick="{{ previewMail }}" style="height:40px;padding:0 16px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Vista previa</button>
+        <button onClick="{{ sendMail }}" style="height:40px;padding:0 18px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:14px;cursor:pointer" style-hover="background:#0B6F79">{{ sendLabel }}</button>
+      </div>
+      <sc-if value="{{ hasMailMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ mailMsgColor }};overflow-wrap:anywhere">{{ mailMsg }}</p></sc-if>
+      <sc-if value="{{ hasMailProg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;font-weight:700;color:#16374D">{{ mailProg }}</p></sc-if>
+      <sc-if value="{{ hasPreview }}" hint-placeholder-val="{{ false }}">
+        <div style="display:grid;gap:6px">
+          <span style="font-size:13px;font-weight:700">Vista previa</span>
+          <iframe ref="{{ previewRef }}" sandbox="" title="Vista previa del mailing" style="width:100%;height:460px;border:1px solid #E3E9EA;border-radius:12px;background:#FFFFFF"></iframe>
+        </div>
+      </sc-if>
+    </section>
+
+    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:14px">
+      <h2 style="margin:0;font-size:16px;font-weight:800">Envíos</h2>
+      <sc-if value="{{ mailEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#55636E">Todavía no hay envíos.</p></sc-if>
+      <sc-for list="{{ mailRows }}" as="c" hint-placeholder-count="3">
+        <div style="display:grid;gap:8px;padding:14px 16px;border:1px solid #E3E9EA;border-radius:12px">
+          <div style="display:grid;gap:2px">
+            <strong style="font-size:15px;font-weight:800;overflow-wrap:anywhere">{{ c.subject }}</strong>
+            <span style="font-size:12px;color:#55636E">{{ c.meta }}</span>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+            <span style="font-size:12px;font-weight:700;color:{{ c.stColor }}">{{ c.status }}</span>
+            <button onClick="{{ c.showErr }}" style="height:34px;padding:0 12px;border:0;background:none;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="color:#0E8C99">Ver errores</button>
+            <sc-if value="{{ c.canResume }}" hint-placeholder-val="{{ false }}"><button onClick="{{ c.resume }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Reanudar envío</button></sc-if>
+          </div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ hasMailErr }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:#55636E;overflow-wrap:anywhere">{{ mailErr }}</p></sc-if>
+    </section>
+  </sc-if>
+
   <sc-if value="{{ showNoMods }}" hint-placeholder-val="{{ false }}">
     <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:24px;display:grid;gap:8px">
       <h2 style="margin:0;font-size:16px;font-weight:800">Todavía no tienes partes habilitadas</h2>
@@ -332,7 +394,8 @@ class Component extends DCLogic {
     range: 30, metric: 'v', data: null, loading: true, err: '', demo: false, refreshing: false,
     pres: [], presMsg: '', presOk: true, uploading: false, upMsg: '', upOk: true,
     users: [], userMsg: '', userOk: true, usersBusy: false,
-    modCatalog: [], selEmail: null, selMods: [], newMods: ['analitica']
+    modCatalog: [], selEmail: null, selMods: [], newMods: ['analitica'],
+    mailCamps: [], mailMsg: '', mailOk: true, mailProg: '', mailRcpt: null, mailInvalid: 0, mailBusy: false, previewUrl: '', mailErr: ''
   };
   pwRef = React.createRef();
   emailRef = React.createRef();
@@ -343,6 +406,11 @@ class Component extends DCLogic {
   nuNameRef = React.createRef();
   nuPwRef = React.createRef();
   nuAdminRef = React.createRef();
+  mailSubjRef = React.createRef();
+  mailHtmlRef = React.createRef();
+  mailXlsRef = React.createRef();
+  mailTestRef = React.createRef();
+  previewRef = React.createRef();
 
   componentDidMount() {
     if (/[?&]demo=1/.test(location.search)) return this.setDemo();
@@ -431,6 +499,7 @@ class Component extends DCLogic {
     this.setState({ tab: t }, () => {
       if (t === 'pres') this.loadPres();
       if (t === 'users') this.loadUsers();
+      if (t === 'mailings') this.loadMailings();
     });
   }
 
@@ -488,8 +557,12 @@ class Component extends DCLogic {
 
   // ----- Usuarios (solo administración) -----
   canUse(key) { const me = this.state.me || {}; return me.role === 'admin' || (me.modules || []).includes(key); }
-  tabFor(me) { const ok = k => me.role === 'admin' || (me.modules || []).includes(k); return ok('analitica') ? 'analytics' : ok('presentaciones') ? 'pres' : 'none'; }
-  afterLogin() { this.load(); if (this.canUse('presentaciones') && this.state.tab === 'pres') this.loadPres(); }
+  tabFor(me) { const ok = k => me.role === 'admin' || (me.modules || []).includes(k); return ok('analitica') ? 'analytics' : ok('presentaciones') ? 'pres' : ok('mailings') ? 'mailings' : 'none'; }
+  afterLogin() {
+    this.load();
+    if (this.canUse('presentaciones') && this.state.tab === 'pres') this.loadPres();
+    if (this.canUse('mailings') && this.state.tab === 'mailings') this.loadMailings();
+  }
 
   async loadUsers() {
     try {
@@ -556,6 +629,152 @@ class Component extends DCLogic {
     }
   }
 
+  // ----- Mailings (solo con la parte habilitada) -----
+  setMailMsg(msg, ok) { this.setState({ mailMsg: msg, mailOk: ok !== false }); }
+  mailFields() {
+    const v = r => ((r.current && r.current.value) || '');
+    return { subject: v(this.mailSubjRef).trim(), html: v(this.mailHtmlRef), to: v(this.mailTestRef).trim() };
+  }
+
+  async loadMailings() {
+    try {
+      const j = await this.api('/api/mailings');
+      this.setState({ mailCamps: j.items || [] });
+    } catch (e) {
+      if (e.auth) return this.setState({ login: true, me: null });
+      this.setMailMsg('No se han podido cargar los envíos: ' + e.message, false);
+    }
+  }
+
+  // Lee el Excel (o CSV) en el navegador con SheetJS. No sube el archivo al servidor.
+  async importExcel() {
+    const f = this.mailXlsRef.current && this.mailXlsRef.current.files && this.mailXlsRef.current.files[0];
+    if (!f) return this.setMailMsg('Elige un archivo Excel (.xlsx, .xls) o CSV.', false);
+    if (f.size > 5 * 1024 * 1024) return this.setMailMsg('El archivo supera los 5 MB.', false);
+    this.setState({ mailBusy: true, mailMsg: 'Leyendo ' + f.name + '…', mailOk: true });
+    try {
+      const mod = await new Function('u', 'return import(u)')('/assets/vendor/xlsx-0.18.5.js');
+      const wb = mod.read(await f.arrayBuffer(), { type: 'array' });
+      const rows = mod.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: '', raw: false });
+      const p = Component.parseRows(rows);
+      if (this.mailXlsRef.current) this.mailXlsRef.current.value = '';
+      this.setState({
+        mailBusy: false, mailRcpt: p.list, mailInvalid: p.invalid,
+        mailMsg: p.list.length ? '' : 'No he encontrado direcciones de email en ' + f.name + '. Revisa la columna de email.',
+        mailOk: p.list.length > 0
+      });
+    } catch (e) {
+      this.setState({ mailBusy: false, mailMsg: 'No se ha podido leer el archivo: ' + e.message, mailOk: false });
+    }
+  }
+
+  previewMail() {
+    const html = this.mailFields().html;
+    if (!html.trim()) return this.setMailMsg('Escribe el contenido HTML para ver la vista previa.', false);
+    // Ejemplo de variables; el pie con el enlace de baja se añade solo al enviar.
+    const doc = html
+      .replace(/\{\s*\{\s*nombre\s*\}\s*\}/g, 'Nombre de ejemplo')
+      .replace(/\{\s*\{\s*email\s*\}\s*\}/g, 'ejemplo@correo.com')
+      .replace(/\{\s*\{\s*baja\s*\}\s*\}/g, '#');
+    if (this.state.previewUrl) { try { URL.revokeObjectURL(this.state.previewUrl); } catch (e) {} }
+    const url = URL.createObjectURL(new Blob([doc], { type: 'text/html;charset=utf-8' }));
+    this.setState({ previewUrl: url }, () => {
+      if (this.previewRef.current) this.previewRef.current.src = url;
+    });
+    this.setMailMsg('Vista previa actualizada. El pie con el enlace de baja se añade solo al enviar.', true);
+  }
+
+  async testMail() {
+    const f = this.mailFields();
+    if (!f.to) return this.setMailMsg('Escribe el email al que enviar la prueba.', false);
+    if (!f.subject || !f.html.trim()) return this.setMailMsg('Escribe el asunto y el contenido HTML antes de la prueba.', false);
+    this.setState({ mailBusy: true, mailMsg: 'Enviando la prueba a ' + f.to + '…', mailOk: true });
+    try {
+      await this.api('/api/mailings?action=test', { method: 'POST', body: JSON.stringify({ subject: f.subject, html: f.html, to: f.to }) });
+      this.setState({ mailBusy: false, mailMsg: 'Prueba enviada a ' + f.to + '. Si no llega, revisa la carpeta de spam.', mailOk: true });
+    } catch (e) {
+      this.setState({ mailBusy: false, mailMsg: 'No se ha podido enviar la prueba: ' + e.message, mailOk: false });
+    }
+  }
+
+  async sendMail() {
+    const f = this.mailFields();
+    const list = this.state.mailRcpt || [];
+    if (!f.subject) return this.setMailMsg('Escribe el asunto.', false);
+    if (!f.html.trim()) return this.setMailMsg('Escribe el contenido HTML.', false);
+    if (!list.length) return this.setMailMsg('Sube primero el Excel con los destinatarios.', false);
+    if (!window.confirm('¿Enviar "' + f.subject + '" a ' + list.length + ' destinatarios desde news@advantecnia.com? Los que ya se han dado de baja se excluyen solos.')) return;
+    this.setState({ mailBusy: true, mailMsg: 'Creando el envío…', mailOk: true });
+    let c;
+    try {
+      const j = await this.api('/api/mailings', { method: 'POST', body: JSON.stringify({ subject: f.subject, html: f.html, recipients: list }) });
+      c = j.camp;
+    } catch (e) {
+      return this.setState({ mailBusy: false, mailMsg: 'No se ha podido crear el envío: ' + e.message, mailOk: false });
+    }
+    const skip = c.stats && c.stats.unsubscribed ? ' (' + c.stats.unsubscribed + ' dados de baja excluidos)' : '';
+    this.setState({ mailRcpt: null, mailInvalid: 0, mailMsg: 'Envío creado para ' + c.total + ' destinatarios' + skip + '. Enviando…' });
+    await this.runSend(c.id);
+  }
+
+  // Envía lote a lote (100 por petición) hasta terminar. Si se corta, se puede reanudar desde el historial.
+  async runSend(id) {
+    this.setState({ mailBusy: true, mailOk: true, mailProg: 'Enviando…' });
+    let c = null;
+    try {
+      for (let guard = 0; guard < 500; guard++) {
+        const j = await this.api('/api/mailings?action=send&id=' + encodeURIComponent(id), { method: 'POST' });
+        c = j.camp;
+        this.setState({ mailProg: 'Enviados ' + c.sent + ' de ' + c.total + (c.failed ? ' · con error ' + c.failed : '') + '…' });
+        if (j.done) break;
+        await new Promise(r => setTimeout(r, 500));
+      }
+      const done = !!c && c.status === 'done';
+      const text = !c ? '' : done
+        ? 'Envío terminado: ' + c.sent + ' correos enviados' + (c.failed ? ', ' + c.failed + ' con error (ver errores en el historial)' : '') + '.'
+        : 'El envío sigue sin terminar. Puedes reanudarlo desde el historial.';
+      this.setState({ mailBusy: false, mailProg: '', mailOk: !!c && !c.failed, mailMsg: text });
+    } catch (e) {
+      this.setState({ mailBusy: false, mailProg: '', mailOk: false, mailMsg: 'El envío se ha detenido: ' + e.message + '. Puedes reanudarlo desde el historial.' });
+    }
+    this.loadMailings();
+  }
+
+  async showErrors(id) {
+    try {
+      const j = await this.api('/api/mailings?id=' + encodeURIComponent(id));
+      const f = j.failed || [];
+      this.setState({ mailErr: f.length ? 'Direcciones con error: ' + f.map(x => x.e + ' (' + x.m + ')').join(', ') : 'Este envío no tiene errores.' });
+    } catch (e) {
+      this.setState({ mailErr: 'No se han podido cargar los errores: ' + e.message });
+    }
+  }
+
+  // Lee un Excel o CSV: detecta columnas de email y de nombre (por encabezado o por contenido).
+  static parseRows(rows) {
+    const EM = /^[^\s@<>,;:"'()\[\]\\]+@[^\s@<>,;:"'()\[\]\\]+\.[^\s@<>,;:"'()\[\]\\]{2,}$/;
+    const clean = v => String(v == null ? '' : v).trim();
+    const head = ((rows && rows[0]) || []).map(h => clean(h).toLowerCase());
+    const ci = head.findIndex(h => /mail|correo/.test(h));
+    const ni = head.findIndex(h => /nombre|name/.test(h));
+    const list = [];
+    let invalid = 0;
+    for (let i = (ci >= 0 || ni >= 0) ? 1 : 0; i < (rows || []).length; i++) {
+      const r = rows[i] || [];
+      const ei = ci >= 0 ? ci : r.findIndex(v => EM.test(clean(v)));
+      const email = ei >= 0 ? clean(r[ei]) : '';
+      let name = ni >= 0 ? clean(r[ni]) : '';
+      if (ni < 0) {
+        const j = r.findIndex((v, k) => k !== ei && clean(v) !== '' && !EM.test(clean(v)));
+        name = j >= 0 ? clean(r[j]) : '';
+      }
+      if (!email && !name) continue;
+      if (!EM.test(email)) { invalid++; continue; }
+      list.push({ email, name });
+    }
+    return { list, invalid };
+  }
+
   static fmtSize(b) {
     if (!b) return '';
     return b < 1048576 ? Math.max(1, Math.round(b / 1024)) + ' KB' : (b / 1048576).toLocaleString('es-ES', { maximumFractionDigits: 1 }) + ' MB';
@@ -567,10 +786,12 @@ class Component extends DCLogic {
     const isAdmin = live && me.role === 'admin';
     const canAna = this.state.demo || this.canUse('analitica');
     const canPres = live && this.canUse('presentaciones');
+    const canMail = live && this.canUse('mailings');
     const T = (k, label) => ({ label, go: () => this.setTab(k), bg: tab === k ? '#16374D' : 'transparent', fg: tab === k ? '#FFFFFF' : '#16374D' });
     const tabs = [];
     if (canAna) tabs.push(T('analytics', 'Analítica'));
     if (canPres) tabs.push(T('pres', 'Presentaciones'));
+    if (canMail) tabs.push(T('mailings', 'Mailings'));
     if (isAdmin) tabs.push(T('users', 'Usuarios'));
 
     const fmtDate = s => s ? new Date(s).toLocaleDateString('es-ES', { dateStyle: 'medium' }) : '—';
@@ -603,6 +824,24 @@ class Component extends DCLogic {
     });
     const sel = this.state.users.find(u => u.email === this.state.selEmail) || null;
 
+    const mailRows = this.state.mailCamps.map(c => {
+      const done = c.status === 'done';
+      const extra = [c.skipped ? c.skipped + ' dados de baja' : '', c.failed ? c.failed + ' con error' : ''].filter(Boolean);
+      return {
+        subject: c.subject,
+        meta: fmtDate(c.created) + ' · ' + c.total + (c.total === 1 ? ' destinatario' : ' destinatarios') + ' · ' + c.sent + ' enviados' + (extra.length ? ' · ' + extra.join(' · ') : ''),
+        status: done ? 'Enviado' : (c.next ? 'Envío a medias: ' + c.next + ' de ' + c.total : 'Sin enviar'),
+        stColor: done ? '#1F7A55' : '#8A5A00',
+        canResume: !done,
+        resume: () => this.runSend(c.id),
+        showErr: () => this.showErrors(c.id)
+      };
+    });
+    const nRc = (this.state.mailRcpt || []).length;
+    const rcptTxt = nRc + (nRc === 1 ? ' destinatario listo' : ' destinatarios listos') +
+      (this.state.mailInvalid ? ' · ' + this.state.mailInvalid + ' filas sin email válido (se ignoran)' : '') +
+      '. Los duplicados y las bajas se quitan al enviar.';
+
     const presCount = this.state.pres.length;
     return {
       showLogin: this.state.login,
@@ -611,6 +850,7 @@ class Component extends DCLogic {
       showAnalytics: tab === 'analytics' && canAna,
       showPres: tab === 'pres' && canPres,
       showUsers: tab === 'users' && isAdmin,
+      showMail: tab === 'mailings' && canMail,
       showNoMods: live && !this.state.login && !this.state.checking && tabs.length === 0,
       pwRef: this.pwRef, emailRef: this.emailRef, keyRef: this.keyRef,
       pwKey: e => { if (e.key === 'Enter') this.login(); },
@@ -642,7 +882,17 @@ class Component extends DCLogic {
       modRows,
       saveMods: () => this.saveMods(),
       selPw: () => this.resetPw(this.state.selEmail),
-      selDel: () => this.delUser(this.state.selEmail)
+      selDel: () => this.delUser(this.state.selEmail),
+      mailSubjRef: this.mailSubjRef, mailHtmlRef: this.mailHtmlRef, mailXlsRef: this.mailXlsRef, mailTestRef: this.mailTestRef,
+      importExcel: () => this.importExcel(),
+      hasRcpt: nRc > 0, rcptTxt,
+      testMail: () => this.testMail(), previewMail: () => this.previewMail(), sendMail: () => this.sendMail(),
+      sendLabel: this.state.mailBusy ? 'Trabajando…' : (nRc ? 'Enviar a ' + nRc + (nRc === 1 ? ' persona' : ' personas') : 'Enviar mailing'),
+      hasMailMsg: !!this.state.mailMsg, mailMsg: this.state.mailMsg, mailMsgColor: this.state.mailOk ? '#1F7A55' : '#B4443A',
+      hasMailProg: !!this.state.mailProg, mailProg: this.state.mailProg,
+      hasPreview: !!this.state.previewUrl, previewRef: this.previewRef,
+      mailEmpty: this.state.mailCamps.length === 0, mailRows,
+      hasMailErr: !!this.state.mailErr, mailErr: this.state.mailErr
     };
   }
 
