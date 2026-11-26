@@ -12,9 +12,7 @@ assets/at.js          Etiquetado: envía los eventos a /api/track
 api/track.js          Recibe eventos y los guarda en Redis
 api/refresh.js        Recalcula los totales por día (cron diario y botón manual)
 api/stats.js          Devuelve los datos al panel
-api/login.js          Entrada de usuarios (email y contraseña) y cookie de sesión
-api/logout.js         Cierra la sesión
-api/me.js             Quién está conectado
+api/session.js        Entrada (/api/login), salida (/api/logout) y quién está conectado (/api/me), en una sola función
 api/users.js          Cuentas de usuario (solo administración)
 api/presentations.js  Lista, registra y borra presentaciones
 api/blob-upload.js    Permiso para que el navegador suba el PowerPoint a Vercel Blob

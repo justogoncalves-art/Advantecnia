@@ -25,6 +25,7 @@ Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un ev
 - Sesiones: cookie `adv_sess` firmada con HMAC (`SESSION_SECRET`). Contraseñas con scrypt en Redis (`user:<email>`). Administradores: `ADMIN_EMAILS` o rol `admin`. La clave `DASHBOARD_PASSWORD` sigue valiendo como administración.
 - `authed(req)` en `api/_lib.js` es asíncrono y devuelve `'cron'`, un objeto de usuario o `null`. Todos los endpoints protegidos hacen `await authed(req)`.
 - Presentaciones: el navegador sube a Vercel Blob con `/api/blob-upload` (no pasa por la función). Después registra la subida en `/api/presentations`, que comprueba que la ruta sea de la carpeta del usuario. Enlace público: `/p/<token>` → `api/view.js`.
+- Límite de Vercel Hobby: 12 funciones por despliegue (cada archivo de `api/` sin `_` delante es una). Hay 11. `/api/login`, `/api/logout` y `/api/me` son una sola función, `api/session.js`, mediante reescrituras en `vercel.json`. Antes de añadir un endpoint, agrúpalo con otro si se supera el límite.
 - Pruebas: no hay suite en el repositorio. Los endpoints de acceso se probaron con un Redis simulado y el panel en Chromium; no se ha probado contra Vercel real.
 
 ## Central de desarrollos (Inicio y Desarrollos)
