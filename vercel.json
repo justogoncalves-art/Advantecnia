@@ -3,6 +3,9 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/dashboard", "destination": "/dashboard.dc.html" },
+    { "source": "/api/login", "destination": "/api/session?action=login" },
+    { "source": "/api/logout", "destination": "/api/session?action=logout" },
+    { "source": "/api/me", "destination": "/api/session?action=me" },
     { "source": "/p/:token", "destination": "/api/view?token=:token" },
     { "source": "/baja", "destination": "/api/unsubscribe" }
   ],

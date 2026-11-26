@@ -110,7 +110,8 @@ function safeEq(a, b) {
 const MODULES = [
   { key: 'analitica', label: 'Analítica web' },
   { key: 'presentaciones', label: 'Presentaciones' },
-  { key: 'mailings', label: 'Mailings' }
+  { key: 'mailings', label: 'Mailings' },
+  { key: 'desarrollos', label: 'Desarrollos' }
 ];
 const MODULE_KEYS = MODULES.map(m => m.key);
 const cleanModules = list => (Array.isArray(list) ? list : []).filter((k, i, a) => MODULE_KEYS.includes(k) && a.indexOf(k) === i);

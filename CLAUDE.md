@@ -25,7 +25,15 @@ Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un ev
 - Sesiones: cookie `adv_sess` firmada con HMAC (`SESSION_SECRET`). Contraseñas con scrypt en Redis (`user:<email>`). Administradores: `ADMIN_EMAILS` o rol `admin`. La clave `DASHBOARD_PASSWORD` sigue valiendo como administración.
 - `authed(req)` en `api/_lib.js` es asíncrono y devuelve `'cron'`, un objeto de usuario o `null`. Todos los endpoints protegidos hacen `await authed(req)`.
 - Presentaciones: el navegador sube a Vercel Blob con `/api/blob-upload` (no pasa por la función). Después registra la subida en `/api/presentations`, que comprueba que la ruta sea de la carpeta del usuario. Enlace público: `/p/<token>` → `api/view.js`.
+- Límite de Vercel Hobby: 12 funciones por despliegue (cada archivo de `api/` sin `_` delante es una). Hay 11. `/api/login`, `/api/logout` y `/api/me` son una sola función, `api/session.js`, mediante reescrituras en `vercel.json`. Antes de añadir un endpoint, agrúpalo con otro si se supera el límite.
 - Pruebas: no hay suite en el repositorio. Los endpoints de acceso se probaron con un Redis simulado y el panel en Chromium; no se ha probado contra Vercel real.
+
+## Central de desarrollos (Inicio y Desarrollos)
+- El panel (`/dashboard`) es la central de la empresa. Al entrar se abre **Inicio**: una tarjeta por cada parte habilitada (Desarrollos, Analítica, Presentaciones, Mailings, Usuarios y la web) con su cifra clave, y los desarrollos actualizados más recientemente. `loadHome()` carga lo necesario según los módulos del usuario.
+- Módulo `desarrollos` (en `MODULES` de `_lib.js`). Endpoint `api/desarrollos.js`: GET lista todo, POST crea, PATCH edita (los campos que no llegan conservan su valor), DELETE `?id=` borra (quien lo creó o un administrador). Cualquiera con el módulo ve y edita todos.
+- Campos: nombre (obligatorio), estado (`idea`, `desarrollo`, `pruebas`, `produccion`, `pausado`), área (`interno`, `producto`, `web`, `cliente`), responsable, enlace, repositorio, próximo paso y descripción. Los enlaces solo se aceptan http(s).
+- Redis: `devs` (set de ids) y `dev:<id>` (JSON). Etiquetas y colores de los estados en `Component.DEV_STATUS` de `dashboard.dc.html`.
+- Para añadir una herramienta nueva a la central: su módulo en `MODULES`, su pestaña en `extraVals()` y su tarjeta en `hubCards`.
 
 ## Mailings
 - Módulo `mailings` (en `MODULES` de `_lib.js`). Endpoints: `api/mailings.js` (crear, enviar por lotes de 100 con `?action=send&id=`, prueba con `?action=test`, historial) y `api/unsubscribe.js` (ruta `/baja`).
