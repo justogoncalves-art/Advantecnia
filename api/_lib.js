@@ -380,7 +380,25 @@ function json(res, code, body) {
   res.end(JSON.stringify(body));
 }
 
+// ---------- Presentaciones: formatos admitidos ----------
+// view: 'office' se abre con el visor de Microsoft, 'pdf' en el navegador, 'none' solo descarga.
+const PRES_FORMATS = {
+  pptx: { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', view: 'office' },
+  ppt: { type: 'application/vnd.ms-powerpoint', view: 'office' },
+  pptm: { type: 'application/vnd.ms-powerpoint.presentation.macroenabled.12', view: 'office' },
+  ppsx: { type: 'application/vnd.openxmlformats-officedocument.presentationml.slideshow', view: 'office' },
+  pps: { type: 'application/vnd.ms-powerpoint', view: 'office' },
+  ppsm: { type: 'application/vnd.ms-powerpoint.slideshow.macroenabled.12', view: 'office' },
+  potx: { type: 'application/vnd.openxmlformats-officedocument.presentationml.template', view: 'office' },
+  pot: { type: 'application/vnd.ms-powerpoint', view: 'office' },
+  odp: { type: 'application/vnd.oasis.opendocument.presentation', view: 'office' },
+  pdf: { type: 'application/pdf', view: 'pdf' },
+  key: { type: 'application/x-iwork-keynote-sffkey', view: 'none' }
+};
+const presExt = name => { const m = /\.([a-z0-9]+)$/i.exec(String(name || '')); return m && PRES_FORMATS[m[1].toLowerCase()] ? m[1].toLowerCase() : null; };
+
 module.exports = {
+  PRES_FORMATS, presExt, readSession,
   redis, dayOf, hourOf, daysBack, authed, BOT, parseUA, sha, aggregate, readDay, merge, json, DAY_TTL,
   COOKIE, normEmail, folderOf, adminEmails, setSessionCookie, clearSessionCookie, getUser, isAdminUser,
   publicUser, hashPassword, verifyPassword, parseBody, MODULES, MODULE_KEYS, cleanModules, hasModule,

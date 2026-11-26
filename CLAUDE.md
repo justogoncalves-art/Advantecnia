@@ -24,7 +24,9 @@ Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un ev
 ## Acceso y presentaciones
 - Sesiones: cookie `adv_sess` firmada con HMAC (`SESSION_SECRET`). Contraseñas con scrypt en Redis (`user:<email>`). Administradores: `ADMIN_EMAILS` o rol `admin`. La clave `DASHBOARD_PASSWORD` sigue valiendo como administración.
 - `authed(req)` en `api/_lib.js` es asíncrono y devuelve `'cron'`, un objeto de usuario o `null`. Todos los endpoints protegidos hacen `await authed(req)`.
-- Presentaciones: el navegador sube a Vercel Blob con `/api/blob-upload` (no pasa por la función). Después registra la subida en `/api/presentations`, que comprueba que la ruta sea de la carpeta del usuario. Enlace público: `/p/<token>` → `api/view.js`.
+- Presentaciones: el navegador sube a Vercel Blob con `/api/blob-upload` (no pasa por la función) con `access: 'private'`: **el almacén es privado** y una subida pública falla. Después registra la subida en `/api/presentations`, que comprueba que la ruta sea de la carpeta del usuario. Formatos en `PRES_FORMATS` de `_lib.js` (y su copia `Component.PRES_TYPES` en el panel).
+- Enlace público: `/p/<token>` → `api/view.js` (página; caduca según `expires`, AAAA-MM-DD, hora de Madrid). `/p/<token>/archivo` → redirige a una URL firmada (`issueSignedToken` + `presignUrl`, 2 h); si falla, entrega el archivo por la función con `get`. La página avisa de la apertura con `sendBeacon` a `POST /api/view?token=…&ev=open`, que descarta robots, escáneres de correo, recargas en 30 min y sesiones del panel.
+- Redis: `pres:<token>`, `presby:<email>`, `presall`, `presblob:<pathname>` (enlaces que comparten archivo), `presopens:<token>` (contador), `presopen:<token>` (últimas 100 aperturas), `presseen:<token>:<hash>` (30 min).
 - Límite de Vercel Hobby: 12 funciones por despliegue (cada archivo de `api/` sin `_` delante es una). Hay 11. `/api/login`, `/api/logout` y `/api/me` son una sola función, `api/session.js`, mediante reescrituras en `vercel.json`. Antes de añadir un endpoint, agrúpalo con otro si se supera el límite.
 - Pruebas: no hay suite en el repositorio. Los endpoints de acceso se probaron con un Redis simulado y el panel en Chromium; no se ha probado contra Vercel real.
 
@@ -43,7 +45,7 @@ Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un ev
 - Excel/CSV: se lee en el navegador con SheetJS (`assets/vendor/xlsx-0.18.5.js`, bundle de `xlsx` 0.18.5 generado con esbuild, como el de Blob). Parser `Component.parseRows` en `dashboard.dc.html`.
 
 ## Pendientes conocidos
-- Acceso y presentaciones sin probar en Vercel real: token de Blob, `handleUpload` y el visor de Office (el visor necesita que el archivo sea públicamente accesible por URL).
+- Presentaciones sin probar en Vercel real: subida privada a Blob, URL firmada (`issueSignedToken`/`presignUrl`) y que el visor de Office y el PDF en iframe sigan la redirección a esa URL. Probado con Redis y Blob simulados y el panel en Chromium.
 - Mailings sin probar con Resend real: falta verificar el dominio advantecnia.com y `RESEND_API_KEY`; la prueba de envío real es el primer paso tras desplegar.
 - Vídeo de la home 10,6 MB, comprimir a 3–4 MB.
 - Confirmar el formulario desde info@advantecnia.com (primer envío de formsubmit).

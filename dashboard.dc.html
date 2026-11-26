@@ -201,44 +201,109 @@ a:hover{color:#0B6F79}
   </sc-if>
 
   <sc-if value="{{ showPres }}" hint-placeholder-val="{{ false }}">
-    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:16px">
+    <section style="background:#FFFFFF;border:1px solid {{ presFormBorder }};border-radius:16px;padding:20px;display:grid;gap:16px">
       <div style="display:grid;gap:4px">
-        <h2 style="margin:0;font-size:16px;font-weight:800">Subir una presentación</h2>
-        <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">Sube un archivo PowerPoint (.pptx o .ppt, hasta 100 MB). Cada presentación tiene su propio enlace: quien lo tenga puede verla en el navegador.</p>
+        <h2 style="margin:0;font-size:16px;font-weight:800">{{ presFormTitle }}</h2>
+        <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">{{ presFormHelp }}</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;align-items:end">
+        <sc-if value="{{ presNeedsFile }}" hint-placeholder-val="{{ true }}">
+          <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Archivo
+            <input ref="{{ fileRef }}" type="file" accept="{{ presAccept }}" style="font:inherit;font-size:14px;font-weight:400">
+          </label>
+        </sc-if>
         <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Título (opcional)
-          <input ref="{{ presTitleRef }}" type="text" placeholder="Por ejemplo: Propuesta Hospital de Salamanca" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+          <input ref="{{ presTitleRef }}" type="text" maxlength="120" placeholder="Por ejemplo: Propuesta SmartRoom" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
         </label>
-        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Archivo
-          <input ref="{{ fileRef }}" type="file" accept=".ppt,.pptx,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.presentationml.presentation" style="font:inherit;font-size:14px;font-weight:400">
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Para quién es
+          <input ref="{{ presToRef }}" type="text" maxlength="120" placeholder="Por ejemplo: Dra. López, Hospital de Salamanca" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
         </label>
-        <button onClick="{{ uploadFile }}" style="height:40px;padding:0 18px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:14px;cursor:pointer" style-hover="background:#0B6F79">{{ uploadLabel }}</button>
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Vence el (opcional)
+          <input ref="{{ presExpRef }}" type="date" min="{{ todayIso }}" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+        </label>
       </div>
-      <sc-if value="{{ hasUpMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ upMsgColor }}">{{ upMsg }}</p></sc-if>
+      <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Comentarios
+        <textarea ref="{{ presNotesRef }}" rows="3" maxlength="2000" placeholder="Contexto del envío, qué le interesa, próximos pasos…" style="border:1px solid #CBD9DE;border-radius:8px;padding:10px 12px;font:inherit;font-size:14px;font-weight:400;line-height:1.5;color:#16374D;resize:vertical"></textarea>
+      </label>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+        <button onClick="{{ uploadFile }}" style="height:40px;padding:0 18px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:14px;cursor:pointer" style-hover="background:#0B6F79">{{ uploadLabel }}</button>
+        <sc-if value="{{ presLinkMode }}" hint-placeholder-val="{{ false }}"><button onClick="{{ cancelLinkFrom }}" style="height:36px;padding:0 14px;border:0;background:none;color:#55636E;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="color:#16374D">Cancelar</button></sc-if>
+      </div>
+      <sc-if value="{{ hasUpMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ upMsgColor }};overflow-wrap:anywhere">{{ upMsg }}</p></sc-if>
     </section>
 
     <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:14px">
-      <div style="display:grid;gap:4px">
-        <h2 style="margin:0;font-size:16px;font-weight:800">Presentaciones</h2>
-        <p style="margin:0;font-size:13px;color:#55636E">{{ presCountTxt }}</p>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+        <div style="display:grid;gap:4px">
+          <h2 style="margin:0;font-size:16px;font-weight:800">Enlaces enviados</h2>
+          <p style="margin:0;font-size:13px;color:#55636E">{{ presCountTxt }}</p>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700">Buscar
+          <input type="search" onInput="{{ presSearch }}" placeholder="Título, destinatario…" style="height:36px;width:220px;max-width:100%;border:1px solid #CBD9DE;border-radius:999px;padding:0 14px;font:inherit;font-size:13px;font-weight:400;color:#16374D">
+        </label>
       </div>
-      <sc-if value="{{ presEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#55636E">Todavía no hay presentaciones. Sube la primera arriba.</p></sc-if>
+      <sc-if value="{{ hasPresMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ presMsgColor }};overflow-wrap:anywhere">{{ presMsg }}</p></sc-if>
+      <sc-if value="{{ presEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#55636E">{{ presEmptyTxt }}</p></sc-if>
       <sc-for list="{{ presRows }}" as="p" hint-placeholder-count="3">
-        <div style="display:grid;gap:10px;padding:14px 16px;border:1px solid #E3E9EA;border-radius:12px">
-          <div style="display:grid;gap:2px">
-            <strong style="font-size:15px;font-weight:800;overflow-wrap:anywhere">{{ p.title }}</strong>
-            <span style="font-size:12px;color:#55636E">{{ p.meta }}</span>
+        <article style="display:grid;gap:12px;padding:16px;border:1px solid #E3E9EA;border-radius:12px">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start">
+            <div style="display:grid;gap:2px;min-width:0">
+              <h3 style="margin:0;font-size:15px;font-weight:800;overflow-wrap:anywhere">{{ p.title }}</h3>
+              <span style="font-size:13px;font-weight:700;color:#16374D;overflow-wrap:anywhere">{{ p.to }}</span>
+              <span style="font-size:12px;color:#55636E;overflow-wrap:anywhere">{{ p.meta }}</span>
+            </div>
+            <span style="height:24px;display:inline-flex;align-items:center;padding:0 10px;border-radius:999px;background:{{ p.stBg }};color:{{ p.stFg }};font-size:12px;font-weight:700;white-space:nowrap">{{ p.status }}</span>
           </div>
-          <a href="{{ p.link }}" target="_blank" style="font-size:13px;overflow-wrap:anywhere">{{ p.link }}</a>
-          <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <div style="display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:#44525C">
+            <span>{{ p.lastTxt }}</span>
+            <sc-if value="{{ p.hasExp }}" hint-placeholder-val="{{ true }}"><span style="color:{{ p.expColor }};font-weight:600">{{ p.expTxt }}</span></sc-if>
+          </div>
+          <sc-if value="{{ p.hasNotes }}" hint-placeholder-val="{{ true }}"><p style="margin:0;padding:10px 12px;border-radius:10px;background:#F4F7F8;font-size:13px;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere">{{ p.notes }}</p></sc-if>
+          <a href="{{ p.link }}" target="_blank" rel="noopener" style="font-size:13px;overflow-wrap:anywhere">{{ p.link }}</a>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
             <button onClick="{{ p.copy }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Copiar enlace</button>
             <a href="{{ p.mailto }}" style="display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;background:#0E8C99;color:#FFFFFF;font-size:13px;font-weight:700;text-decoration:none" style-hover="background:#0B6F79">Enviar por email</a>
+            <button onClick="{{ p.toggleOpens }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">{{ p.opensLabel }}</button>
+            <button onClick="{{ p.edit }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Editar</button>
+            <button onClick="{{ p.another }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Otro enlace</button>
             <button onClick="{{ p.del }}" style="height:34px;padding:0 12px;border:0;background:none;color:#B4443A;font:inherit;font-size:13px;font-weight:700;cursor:pointer">Borrar</button>
           </div>
-        </div>
+
+          <sc-if value="{{ p.showOpens }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;gap:6px;padding:12px;border-radius:10px;background:#F4F7F8">
+              <span style="font-size:13px;font-weight:700">Aperturas</span>
+              <sc-if value="{{ p.opensEmpty }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#55636E">{{ p.opensEmptyTxt }}</span></sc-if>
+              <sc-for list="{{ p.opensList }}" as="o" hint-placeholder-count="3">
+                <span style="font-size:13px;line-height:1.5;color:#16374D">{{ o.txt }}</span>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ p.editing }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;gap:12px;padding:14px;border:1px solid #0E8C99;border-radius:12px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px;align-items:end">
+                <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Título
+                  <input ref="{{ peTitleRef }}" type="text" maxlength="120" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+                </label>
+                <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Para quién es
+                  <input ref="{{ peToRef }}" type="text" maxlength="120" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+                </label>
+                <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Vence el
+                  <input ref="{{ peExpRef }}" type="date" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+                </label>
+              </div>
+              <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Comentarios
+                <textarea ref="{{ peNotesRef }}" rows="3" maxlength="2000" style="border:1px solid #CBD9DE;border-radius:8px;padding:10px 12px;font:inherit;font-size:14px;font-weight:400;line-height:1.5;color:#16374D;resize:vertical"></textarea>
+              </label>
+              <p style="margin:0;font-size:12px;color:#55636E">Deja la fecha vacía para que el enlace no caduque. Una fecha pasada desactiva el enlace.</p>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+                <button onClick="{{ savePresEdit }}" style="height:38px;padding:0 16px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:13px;cursor:pointer" style-hover="background:#0B6F79">Guardar cambios</button>
+                <button onClick="{{ cancelPresEdit }}" style="height:36px;padding:0 14px;border:0;background:none;color:#55636E;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="color:#16374D">Cancelar</button>
+              </div>
+            </div>
+          </sc-if>
+        </article>
       </sc-for>
-      <sc-if value="{{ hasPresMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ presMsgColor }};overflow-wrap:anywhere">{{ presMsg }}</p></sc-if>
     </section>
   </sc-if>
 
@@ -561,7 +626,7 @@ class Component extends DCLogic {
   state = {
     key: null, me: null, checking: true, login: false, tab: 'home', pwErr: '',
     range: 30, metric: 'v', data: null, loading: true, err: '', demo: false, refreshing: false,
-    pres: [], presMsg: '', presOk: true, uploading: false, upMsg: '', upOk: true,
+    pres: [], presMsg: '', presOk: true, uploading: false, upMsg: '', upOk: true, presQ: '', presEdit: null, presOpensFor: null, presOpens: null, linkFrom: null,
     users: [], userMsg: '', userOk: true, usersBusy: false,
     modCatalog: [], selEmail: null, selMods: [], newMods: ['analitica', 'desarrollos'],
     devs: [], devsLoaded: false, devEdit: null, devFilter: 'all', devQ: '', devMsg: '', devOk: true, devFormMsg: '', devBusy: false, mailLoaded: false, presLoaded: false, usersLoaded: false,
@@ -572,6 +637,13 @@ class Component extends DCLogic {
   keyRef = React.createRef();
   fileRef = React.createRef();
   presTitleRef = React.createRef();
+  presToRef = React.createRef();
+  presExpRef = React.createRef();
+  presNotesRef = React.createRef();
+  peTitleRef = React.createRef();
+  peToRef = React.createRef();
+  peExpRef = React.createRef();
+  peNotesRef = React.createRef();
   nuEmailRef = React.createRef();
   nuNameRef = React.createRef();
   nuPwRef = React.createRef();
@@ -675,7 +747,7 @@ class Component extends DCLogic {
   }
 
   setTab(t) {
-    this.setState({ tab: t, devQ: '' }, () => {
+    this.setState({ tab: t, devQ: '', presQ: '' }, () => {
       if (t === 'pres') this.loadPres();
       if (t === 'users') this.loadUsers();
       if (t === 'mailings') this.loadMailings();
@@ -702,38 +774,126 @@ class Component extends DCLogic {
     catch (e) { show(false); }
   }
 
+  // Formatos admitidos (mismo listado que PRES_FORMATS en api/_lib.js) y su tipo MIME.
+  static PRES_TYPES = {
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', ppt: 'application/vnd.ms-powerpoint',
+    pptm: 'application/vnd.ms-powerpoint.presentation.macroenabled.12', ppsx: 'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
+    pps: 'application/vnd.ms-powerpoint', ppsm: 'application/vnd.ms-powerpoint.slideshow.macroenabled.12',
+    potx: 'application/vnd.openxmlformats-officedocument.presentationml.template', pot: 'application/vnd.ms-powerpoint',
+    odp: 'application/vnd.oasis.opendocument.presentation', pdf: 'application/pdf', key: 'application/x-iwork-keynote-sffkey'
+  };
+  static presExt(name) { const m = /\.([a-z0-9]+)$/i.exec(name || ''); return m && Component.PRES_TYPES[m[1].toLowerCase()] ? m[1].toLowerCase() : null; }
+  static todayIso() { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid' }).format(new Date()); }
+
+  presForm() {
+    const v = r => ((r.current && r.current.value) || '');
+    return { title: v(this.presTitleRef).trim(), recipient: v(this.presToRef).trim(), expires: v(this.presExpRef), notes: v(this.presNotesRef).trim() };
+  }
+  clearPresForm() {
+    [this.fileRef, this.presTitleRef, this.presToRef, this.presExpRef, this.presNotesRef].forEach(r => { if (r.current) r.current.value = ''; });
+  }
+
   async upload() {
-    const f = this.fileRef.current && this.fileRef.current.files && this.fileRef.current.files[0];
+    if (this.state.uploading) return;
     const me = this.state.me || {};
-    if (!f) return this.setState({ upMsg: 'Elige un archivo .pptx o .ppt.', upOk: false });
-    if (!/\.pptx?$/i.test(f.name)) return this.setState({ upMsg: 'Solo se admiten archivos PowerPoint (.pptx o .ppt).', upOk: false });
+    const form = this.presForm();
+    if (form.expires && form.expires < Component.todayIso()) return this.setState({ upMsg: 'La fecha de vencimiento ya ha pasado.', upOk: false });
+    if (!me.folder) return this.setState({ upMsg: 'Necesitas una cuenta de usuario para crear enlaces.', upOk: false });
+
+    // Otro enlace para un archivo ya subido: no se vuelve a subir.
+    if (this.state.linkFrom) {
+      this.setState({ uploading: true, upMsg: '', upOk: true });
+      try {
+        const j = await this.api('/api/presentations', { method: 'POST', body: JSON.stringify(Object.assign({ from: this.state.linkFrom }, form)) });
+        this.clearPresForm();
+        this.setState({ uploading: false, linkFrom: null, upMsg: 'Enlace creado' + (j.item.recipient ? ' para ' + j.item.recipient : '') + '. Ya lo tienes en la lista para copiarlo o enviarlo.', upOk: true, pres: [j.item].concat(this.state.pres) });
+      } catch (e) {
+        this.setState({ uploading: false, upMsg: 'No se ha podido crear el enlace: ' + e.message, upOk: false });
+      }
+      return;
+    }
+
+    const f = this.fileRef.current && this.fileRef.current.files && this.fileRef.current.files[0];
+    if (!f) return this.setState({ upMsg: 'Elige el archivo de la presentación.', upOk: false });
+    const ext = Component.presExt(f.name);
+    if (!ext) return this.setState({ upMsg: 'Formato no admitido. Sube un PowerPoint (.pptx, .ppt, .ppsx…), Keynote (.key), OpenDocument (.odp) o PDF.', upOk: false });
     if (f.size > 100 * 1024 * 1024) return this.setState({ upMsg: 'El archivo supera los 100 MB.', upOk: false });
-    if (!me.folder) return this.setState({ upMsg: 'Necesitas una cuenta de usuario para subir presentaciones.', upOk: false });
-    const title = ((this.presTitleRef.current && this.presTitleRef.current.value) || '').trim() || f.name.replace(/\.pptx?$/i, '');
     const pathname = 'presentations/' + me.folder + '/' + Date.now() + '-' + f.name.replace(/[^A-Za-z0-9._-]+/g, '-');
     this.setState({ uploading: true, upMsg: 'Subiendo ' + f.name + '… no cierres esta página.', upOk: true });
     try {
       // Import dinámico del cliente de Vercel Blob servido desde /assets (sin CDN externo).
-      const importer = new Function('u', 'return import(u)');
-      const mod = await importer('/assets/vendor/blob-client-2.9.0.js');
-      const blob = await mod.upload(pathname, f, { access: 'public', handleUploadUrl: '/api/blob-upload', contentType: f.type || 'application/octet-stream' });
-      const j = await this.api('/api/presentations', { method: 'POST', body: JSON.stringify({ url: blob.url, pathname: blob.pathname, name: f.name, size: f.size, title }) });
-      if (this.fileRef.current) this.fileRef.current.value = '';
-      if (this.presTitleRef.current) this.presTitleRef.current.value = '';
-      this.setState({ uploading: false, upMsg: 'Presentación subida. Ya tienes su enlace en la lista.', upOk: true, pres: [j.item].concat(this.state.pres) });
+      const mod = await new Function('u', 'return import(u)')('/assets/vendor/blob-client-2.9.0.js');
+      // El almacén es privado: el archivo solo se entrega a través del enlace /p/<código>.
+      const blob = await mod.upload(pathname, f, { access: 'private', handleUploadUrl: '/api/blob-upload', contentType: Component.PRES_TYPES[ext] });
+      const j = await this.api('/api/presentations', { method: 'POST', body: JSON.stringify(Object.assign({ url: blob.url, pathname: blob.pathname, name: f.name, size: f.size }, form)) });
+      this.clearPresForm();
+      this.setState({ uploading: false, upMsg: 'Presentación subida. Ya tienes su enlace en la lista para copiarlo o enviarlo.', upOk: true, pres: [j.item].concat(this.state.pres) });
     } catch (e) {
       this.setState({ uploading: false, upMsg: 'No se ha podido subir: ' + e.message, upOk: false });
     }
   }
 
+  linkFromPres(token) {
+    const p = this.state.pres.find(x => x.token === token);
+    if (!p) return;
+    this.clearPresForm();
+    this.setState({ linkFrom: token, upMsg: '', presEdit: null }, () => {
+      if (this.presTitleRef.current) this.presTitleRef.current.value = p.title;
+      if (this.presToRef.current) { this.presToRef.current.focus(); this.presToRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+    });
+  }
+
+  editPres(token) {
+    const p = this.state.pres.find(x => x.token === token);
+    if (!p) return;
+    this.setState({ presEdit: this.state.presEdit === token ? null : token, presMsg: '' }, () => {
+      const set = (r, v) => { if (r.current) r.current.value = v || ''; };
+      set(this.peTitleRef, p.title); set(this.peToRef, p.recipient); set(this.peExpRef, p.expires); set(this.peNotesRef, p.notes);
+    });
+  }
+
+  async savePresEdit() {
+    const token = this.state.presEdit;
+    if (!token) return;
+    const v = r => ((r.current && r.current.value) || '');
+    const body = { token, title: v(this.peTitleRef).trim(), recipient: v(this.peToRef).trim(), expires: v(this.peExpRef), notes: v(this.peNotesRef).trim() };
+    try {
+      const j = await this.api('/api/presentations', { method: 'PATCH', body: JSON.stringify(body) });
+      this.setState({ presEdit: null, pres: this.state.pres.map(p => p.token === token ? j.item : p), presMsg: 'Cambios guardados.', presOk: true });
+    } catch (e) {
+      this.setState({ presMsg: 'No se han podido guardar los cambios: ' + e.message, presOk: false });
+    }
+  }
+
+  async toggleOpens(token) {
+    if (this.state.presOpensFor === token) return this.setState({ presOpensFor: null, presOpens: null });
+    this.setState({ presOpensFor: token, presOpens: null });
+    try {
+      const j = await this.api('/api/presentations?opens=1&token=' + encodeURIComponent(token));
+      if (this.state.presOpensFor === token) this.setState({ presOpens: j.items || [] });
+    } catch (e) {
+      this.setState({ presOpensFor: null, presMsg: 'No se han podido cargar las aperturas: ' + e.message, presOk: false });
+    }
+  }
+
   async delPres(token) {
-    if (!window.confirm('¿Borrar esta presentación? Su enlace dejará de funcionar.')) return;
+    const p = this.state.pres.find(x => x.token === token);
+    if (!window.confirm('¿Borrar este enlace' + (p && p.recipient ? ' (' + p.recipient + ')' : '') + '? Dejará de funcionar y se perderá su seguimiento.')) return;
     try {
       await this.api('/api/presentations?token=' + encodeURIComponent(token), { method: 'DELETE' });
-      this.setState({ pres: this.state.pres.filter(p => p.token !== token), presMsg: 'Presentación borrada.', presOk: true });
+      this.setState({ pres: this.state.pres.filter(x => x.token !== token), presMsg: 'Enlace borrado.', presOk: true, linkFrom: this.state.linkFrom === token ? null : this.state.linkFrom });
     } catch (e) {
       this.setState({ presMsg: 'No se ha podido borrar: ' + e.message, presOk: false });
     }
+  }
+
+  // Texto de una apertura: fecha, lugar y dispositivo.
+  static openTxt(o) {
+    if (!o) return '';
+    let place = '';
+    try { place = [o.city, o.cc ? new Intl.DisplayNames(['es'], { type: 'region' }).of(o.cc) : ''].filter(Boolean).join(', '); } catch (e) { place = [o.city, o.cc].filter(Boolean).join(', '); }
+    const when = new Date(o.at).toLocaleString('es-ES', { timeZone: 'Europe/Madrid', dateStyle: 'medium', timeStyle: 'short' });
+    return [when, place, [o.dev, o.br].filter(Boolean).join(' · ')].filter(Boolean).join(' · ');
   }
 
   // ----- Usuarios (solo administración) -----
@@ -1064,17 +1224,38 @@ class Component extends DCLogic {
     if (live && tabs.length) tabs.unshift(T('home', 'Inicio'));
 
     const fmtDate = s => s ? new Date(s).toLocaleDateString('es-ES', { dateStyle: 'medium' }) : '—';
-    const presRows = this.state.pres.map(p => {
+    const fmtExp = s => { const [y, m, d] = s.split('-'); return d + '/' + m + '/' + y; };
+    const pq = this.state.presQ.trim().toLowerCase();
+    const presShown = this.state.pres.filter(p => !pq || [p.title, p.recipient, p.notes, p.name, p.ownerName].join(' ').toLowerCase().includes(pq));
+    const presRows = presShown.map(p => {
       const link = location.origin + '/p/' + p.token;
-      const subject = 'Presentación: ' + p.title;
-      const body = 'Hola,\n\nTe comparto la presentación "' + p.title + '". Puedes verla en este enlace:\n\n' + link + '\n\nUn saludo.';
-      const meta = [p.name, C.fmtSize(p.size), fmtDate(p.created), isAdmin ? 'De ' + (p.ownerName || p.owner) : ''].filter(Boolean).join(' · ');
+      const st = p.expired ? { t: 'Caducado', bg: '#FBEDEB', fg: '#8A2F25' }
+        : p.opens ? { t: p.opens === 1 ? 'Abierto 1 vez' : 'Abierto ' + p.opens + ' veces', bg: '#E8F5EE', fg: '#1B6B4A' }
+        : { t: 'Sin abrir', bg: '#EEF3F5', fg: '#44525C' };
+      const hello = 'Hola' + (p.recipient ? ' ' + p.recipient.split(',')[0].trim() : '') + ',';
+      const body = hello + '\n\nTe comparto la presentación "' + p.title + '". Puedes verla en este enlace:\n\n' + link +
+        (p.expires ? '\n\nEl enlace estará disponible hasta el ' + fmtExp(p.expires) + '.' : '') + '\n\nUn saludo.';
+      const meta = [p.name, C.fmtSize(p.size), 'creado el ' + fmtDate(p.created), isAdmin ? 'por ' + (p.ownerName || p.owner) : ''].filter(Boolean).join(' · ');
+      const openOn = this.state.presOpensFor === p.token, opens = openOn ? this.state.presOpens : null;
       return {
-        title: p.title, meta, link,
-        mailto: 'mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body),
-        copy: () => this.copyLink(p.token), del: () => this.delPres(p.token)
+        title: p.title, to: p.recipient ? 'Para: ' + p.recipient : 'Sin destinatario indicado', meta, link,
+        status: st.t, stBg: st.bg, stFg: st.fg,
+        lastTxt: p.lastOpen ? 'Última apertura: ' + C.openTxt(p.lastOpen) : 'Todavía no se ha abierto',
+        hasExp: !!p.expires, expTxt: p.expires ? (p.expired ? 'Caducó el ' + fmtExp(p.expires) : 'Vence el ' + fmtExp(p.expires)) : '',
+        expColor: p.expired ? '#8A2F25' : '#44525C',
+        hasNotes: !!p.notes, notes: p.notes,
+        mailto: 'mailto:?subject=' + encodeURIComponent('Presentación: ' + p.title) + '&body=' + encodeURIComponent(body),
+        copy: () => this.copyLink(p.token), del: () => this.delPres(p.token),
+        edit: () => this.editPres(p.token), another: () => this.linkFromPres(p.token),
+        toggleOpens: () => this.toggleOpens(p.token), opensLabel: openOn ? 'Ocultar aperturas' : 'Ver aperturas',
+        showOpens: openOn, opensEmpty: openOn && (!opens || !opens.length),
+        opensEmptyTxt: opens ? 'Todavía nadie ha abierto este enlace.' : 'Cargando…',
+        opensList: (opens || []).map(o => ({ txt: C.openTxt(o) })),
+        editing: this.state.presEdit === p.token
       };
     });
+    const linkSrc = this.state.linkFrom ? this.state.pres.find(x => x.token === this.state.linkFrom) : null;
+    const presOpened = this.state.pres.filter(p => p.opens > 0).length;
 
     const cat = this.state.modCatalog || [];
     const catLabel = k => ((cat.find(m => m.key === k) || { label: k }).label);
@@ -1151,8 +1332,8 @@ class Component extends DCLogic {
       value: this.state.devsLoaded ? C.fmt(nDev) : wait, sub: this.state.devsLoaded ? countSt('desarrollo') + ' en desarrollo · ' + countSt('pruebas') + ' en pruebas' : '', cta: 'Abrir desarrollos' });
     if (canAna) card({ tab: 'analytics', kicker: 'Web', title: 'Analítica web', desc: 'Visitas, conversiones y comportamiento en advantecnia.com, sin cookies.',
       value: d0 ? C.fmt(d0.cur.visitors) : (this.state.err ? '—' : wait), sub: d0 ? 'visitantes ' + (this.state.range === 1 ? 'hoy' : 'en los últimos ' + this.state.range + ' días') + ' · ' + C.fmt(d0.live) + ' ahora' : '', cta: 'Ver analítica' });
-    if (canPres) card({ tab: 'pres', kicker: 'Comercial', title: 'Presentaciones', desc: 'PowerPoint con enlace propio para compartir con clientes.',
-      value: this.state.presLoaded ? C.fmt(presCount) : wait, sub: this.state.presLoaded ? (isAdmin ? 'de todo el equipo' : 'subidas por ti') : '', cta: 'Abrir presentaciones' });
+    if (canPres) card({ tab: 'pres', kicker: 'Comercial', title: 'Presentaciones', desc: 'Enlaces únicos para enviar presentaciones y saber cuándo se abren.',
+      value: this.state.presLoaded ? C.fmt(presCount) : wait, sub: this.state.presLoaded ? (presCount === 1 ? 'enlace' : 'enlaces') + ' · ' + presOpened + ' abiertos' + (isAdmin ? ' (todo el equipo)' : '') : '', cta: 'Abrir presentaciones' });
     if (canMail) card({ tab: 'mailings', kicker: 'Marketing', title: 'Mailings', desc: 'Envíos desde news@advantecnia.com con baja automática.',
       value: this.state.mailLoaded ? C.fmt(nMail) : wait, sub: this.state.mailLoaded ? (lastMail ? 'último el ' + fmtDay(lastMail.created) : 'todavía sin envíos') : '', cta: 'Abrir mailings' });
     if (isAdmin) card({ tab: 'users', kicker: 'Administración', title: 'Usuarios', desc: 'Cuentas del equipo y partes que tiene habilitadas cada una.',
@@ -1205,10 +1386,24 @@ class Component extends DCLogic {
       logout: () => this.logout(),
       fileRef: this.fileRef, presTitleRef: this.presTitleRef,
       uploadFile: () => this.upload(),
-      uploadLabel: this.state.uploading ? 'Subiendo…' : 'Subir presentación',
+      uploadLabel: this.state.uploading ? (linkSrc ? 'Creando…' : 'Subiendo…') : (linkSrc ? 'Crear enlace' : 'Subir y crear enlace'),
+      presFormTitle: linkSrc ? 'Otro enlace para «' + linkSrc.title + '»' : 'Nueva presentación',
+      presFormHelp: linkSrc
+        ? 'Se usa el mismo archivo (' + linkSrc.name + ') sin volver a subirlo. Este enlace tiene su propio seguimiento: indica para quién es.'
+        : 'PowerPoint (.pptx, .ppt, .ppsx, .pptm…), Keynote (.key), OpenDocument (.odp) o PDF, hasta 100 MB. Cada enlace es único y registra cuándo se abre.',
+      presFormBorder: linkSrc ? '#0E8C99' : '#E3E9EA',
+      presNeedsFile: !linkSrc, presLinkMode: !!linkSrc,
+      cancelLinkFrom: () => { this.clearPresForm(); this.setState({ linkFrom: null, upMsg: '' }); },
+      presAccept: Object.keys(C.PRES_TYPES).map(k => '.' + k).join(','),
+      todayIso: C.todayIso(),
+      presToRef: this.presToRef, presExpRef: this.presExpRef, presNotesRef: this.presNotesRef,
+      peTitleRef: this.peTitleRef, peToRef: this.peToRef, peExpRef: this.peExpRef, peNotesRef: this.peNotesRef,
+      savePresEdit: () => this.savePresEdit(), cancelPresEdit: () => this.setState({ presEdit: null }),
+      presSearch: e => this.setState({ presQ: e.target.value }),
+      presEmptyTxt: presCount ? 'Ningún enlace coincide con la búsqueda.' : 'Todavía no hay enlaces. Sube la primera presentación arriba.',
       hasUpMsg: !!this.state.upMsg, upMsg: this.state.upMsg, upMsgColor: this.state.upOk ? '#1F7A55' : '#B4443A',
-      presCountTxt: presCount + (presCount === 1 ? ' presentación' : ' presentaciones') + ' · cada una con su propio enlace',
-      presEmpty: presCount === 0,
+      presCountTxt: presCount + (presCount === 1 ? ' enlace' : ' enlaces') + ' · ' + presOpened + ' abiertos · ' + (presCount - presOpened) + ' sin abrir',
+      presEmpty: presRows.length === 0,
       presRows,
       hasPresMsg: !!this.state.presMsg, presMsg: this.state.presMsg, presMsgColor: this.state.presOk ? '#1F7A55' : '#B4443A',
       nuEmailRef: this.nuEmailRef, nuNameRef: this.nuNameRef, nuPwRef: this.nuPwRef, nuAdminRef: this.nuAdminRef,
