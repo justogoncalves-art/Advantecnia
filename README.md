@@ -14,9 +14,9 @@ api/refresh.js        Recalcula los totales por día (cron diario y botón manua
 api/stats.js          Devuelve los datos al panel
 api/session.js        Entrada (/api/login), salida (/api/logout) y quién está conectado (/api/me), en una sola función
 api/users.js          Cuentas de usuario (solo administración)
-api/presentations.js  Lista, registra y borra presentaciones
+api/presentations.js  Enlaces de presentaciones: crear, editar, otro enlace del mismo archivo, aperturas y borrar
 api/blob-upload.js    Permiso para que el navegador suba el PowerPoint a Vercel Blob
-api/view.js           Página pública de cada presentación (/p/<enlace>)
+api/view.js           Página pública de cada presentación (/p/<enlace>), entrega del archivo y registro de aperturas
 api/desarrollos.js    Registro de desarrollos de la empresa (central del panel)
 api/_lib.js           Funciones comunes: Redis, sesiones, contraseñas (no es un endpoint)
 assets/vendor/        Cliente de Vercel Blob para el navegador (versión fija en el nombre)
@@ -49,10 +49,14 @@ robots.txt            Excluye /dashboard, /p y /api de buscadores
 - Entrar: `/dashboard` pide email y contraseña. La sesión dura 7 días.
 - Crear cuentas: un administrador entra, abre la pestaña **Usuarios** y crea la cuenta con una contraseña inicial de al menos 10 caracteres. Compártela por un canal seguro.
 - Cambiar una contraseña o eliminar una cuenta: también desde **Usuarios**. Cambiar la contraseña desbloquea la cuenta si se bloqueó por intentos fallidos (10 errores en 15 minutos).
-- Presentaciones: cualquier usuario sube un `.pptx` o `.ppt` de hasta 100 MB en la pestaña **Presentaciones**. Cada una tiene un enlace `https://advantecnia.com/p/<código>` que abre la presentación en el visor de Microsoft Office. Quien tenga el enlace puede verla; el código es aleatorio y no se puede adivinar.
-- Botón **Enviar por email**: abre el cliente de correo con el enlace listo para enviar.
-- Las presentaciones de cada usuario se listan solo para él; el administrador las ve todas.
-- Al subir, el archivo queda en Vercel Blob con acceso público por URL. Borrar una presentación borra el archivo y el enlace.
+- Presentaciones: en la pestaña **Presentaciones** se sube un PowerPoint (`.pptx`, `.ppt`, `.pptm`, `.ppsx`, `.pps`, `.ppsm`, `.potx`, `.pot`), Keynote (`.key`), OpenDocument (`.odp`) o PDF de hasta 100 MB. Se indica para quién es (nombre de referencia), una fecha de vencimiento opcional y comentarios internos.
+- Cada envío tiene un enlace único `https://advantecnia.com/p/<código>`. Los PowerPoint y ODP se ven con el visor de Microsoft Office, los PDF en el navegador y los Keynote se descargan. El código es aleatorio y no se puede adivinar.
+- **Enviar por email** abre tu programa de correo con el enlace y un saludo al destinatario; el correo lo envías tú.
+- **Otro enlace**: el mismo archivo para otra persona, con su propio seguimiento, sin volver a subirlo.
+- Seguimiento: cada enlace cuenta las veces que se abre y guarda las últimas 100 aperturas (fecha, ciudad, país, dispositivo y navegador). No cuentan los robots, los escáneres de correo (Outlook, Proofpoint, Mimecast…), las recargas de la misma persona en 30 minutos ni las visitas del equipo con sesión iniciada en el panel.
+- Vencimiento: el enlace funciona hasta el final del día indicado (hora de Madrid). Después muestra «Este enlace ha caducado» y no entrega el archivo. Se puede cambiar o quitar con **Editar**; una fecha pasada desactiva el enlace.
+- Los enlaces de cada usuario se listan solo para él; el administrador ve todos.
+- El almacén de Vercel Blob es privado: los archivos no tienen URL pública. `/p/<código>/archivo` comprueba el enlace y redirige a una URL firmada válida 2 horas. Borrar un enlace borra el archivo cuando ningún otro enlace lo usa.
 
 ## Central de desarrollos
 
