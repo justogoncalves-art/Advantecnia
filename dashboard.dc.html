@@ -768,7 +768,7 @@ class Component extends DCLogic {
   }
 
   copyLink(token) {
-    const link = location.origin + '/p/' + token;
+    const link = Component.publicOrigin() + '/p/' + token;
     const show = ok => this.setState({ presMsg: ok ? 'Enlace copiado: ' + link : 'Copia este enlace: ' + link, presOk: true });
     try { navigator.clipboard.writeText(link).then(() => show(true), () => show(false)); }
     catch (e) { show(false); }
@@ -783,6 +783,8 @@ class Component extends DCLogic {
     odp: 'application/vnd.oasis.opendocument.presentation', pdf: 'application/pdf', key: 'application/x-iwork-keynote-sffkey'
   };
   static presExt(name) { const m = /\.([a-z0-9]+)$/i.exec(name || ''); return m && Component.PRES_TYPES[m[1].toLowerCase()] ? m[1].toLowerCase() : null; }
+  // Los enlaces siempre van al dominio público: las direcciones *.vercel.app (vistas previas) piden cuenta de Vercel.
+  static publicOrigin() { return /\.vercel\.app$/.test(location.hostname) ? 'https://advantecnia.com' : location.origin; }
   static todayIso() { return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Madrid' }).format(new Date()); }
 
   presForm() {
@@ -1228,7 +1230,7 @@ class Component extends DCLogic {
     const pq = this.state.presQ.trim().toLowerCase();
     const presShown = this.state.pres.filter(p => !pq || [p.title, p.recipient, p.notes, p.name, p.ownerName].join(' ').toLowerCase().includes(pq));
     const presRows = presShown.map(p => {
-      const link = location.origin + '/p/' + p.token;
+      const link = C.publicOrigin() + '/p/' + p.token;
       const st = p.expired ? { t: 'Caducado', bg: '#FBEDEB', fg: '#8A2F25' }
         : p.opens ? { t: p.opens === 1 ? 'Abierto 1 vez' : 'Abierto ' + p.opens + ' veces', bg: '#E8F5EE', fg: '#1B6B4A' }
         : { t: 'Sin abrir', bg: '#EEF3F5', fg: '#44525C' };
