@@ -9,7 +9,7 @@
 <x-dc>
 <helmet>
 <meta name="robots" content="noindex,nofollow">
-<title>Advantecnia · Analítica web</title>
+<title>Advantecnia · Central</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
@@ -27,8 +27,8 @@ a:hover{color:#0B6F79}
   <div style="width:100%;max-width:380px;background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:32px;display:grid;gap:20px">
     <img src="assets/adv-logo-color.svg" alt="Advantecnia" style="width:170px;height:auto">
     <div style="display:grid;gap:6px">
-      <h1 style="margin:0;font-size:22px;font-weight:800">Analítica web</h1>
-      <p style="margin:0;font-size:14px;line-height:1.5;color:#55636E">Entra con tu email y tu contraseña para ver la analítica y tus presentaciones.</p>
+      <h1 style="margin:0;font-size:22px;font-weight:800">Central Advantecnia</h1>
+      <p style="margin:0;font-size:14px;line-height:1.5;color:#55636E">Entra con tu email y tu contraseña para acceder a los desarrollos y herramientas de la empresa.</p>
     </div>
     <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Email
       <input ref="{{ emailRef }}" type="email" onKeyDown="{{ pwKey }}" autocomplete="username" style="height:44px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:15px;color:#16374D">
@@ -57,17 +57,17 @@ a:hover{color:#0B6F79}
       <a href="/" style="display:flex"><img src="assets/adv-logo-color.svg" alt="Advantecnia" style="width:150px;height:auto"></a>
       <span style="width:1px;height:30px;background:#CBD9DE"></span>
       <div>
-        <h1 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em">Analítica web</h1>
-        <p style="margin:2px 0 0;font-size:13px;color:#55636E">advantecnia.com</p>
+        <h1 style="margin:0;font-size:20px;font-weight:800;letter-spacing:-.01em">{{ headTitle }}</h1>
+        <p style="margin:2px 0 0;font-size:13px;color:#55636E">{{ headSub }}</p>
       </div>
     </div>
     <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
       <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
-        <div style="display:flex;gap:4px;padding:4px;border-radius:999px;background:#FFFFFF;border:1px solid #E3E9EA">
-          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+        <nav aria-label="Secciones del panel" style="display:flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:20px;background:#FFFFFF;border:1px solid #E3E9EA">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
             <button onClick="{{ t.go }}" style="height:28px;padding:0 14px;border:0;border-radius:999px;background:{{ t.bg }};color:{{ t.fg }};font:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ t.label }}</button>
           </sc-for>
-        </div>
+        </nav>
       </sc-if>
       <sc-if value="{{ canLogout }}" hint-placeholder-val="{{ false }}">
         <span style="font-size:13px;color:#55636E">{{ userLabel }}</span>
@@ -307,6 +307,172 @@ a:hover{color:#0B6F79}
     </section>
   </sc-if>
 
+  <sc-if value="{{ showHome }}" hint-placeholder-val="{{ false }}">
+    <section style="display:grid;gap:4px">
+      <h2 style="margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em">{{ hello }}</h2>
+      <p style="margin:0;font-size:14px;line-height:1.5;color:#55636E">Todo lo que desarrollamos y usamos en Advantecnia, en un solo sitio.</p>
+    </section>
+
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px">
+      <sc-for list="{{ hubCards }}" as="h" hint-placeholder-count="5">
+        <div style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:14px;align-content:space-between">
+          <div style="display:grid;gap:6px">
+            <span style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0B6F79">{{ h.kicker }}</span>
+            <h3 style="margin:0;font-size:17px;font-weight:800">{{ h.title }}</h3>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">{{ h.desc }}</p>
+          </div>
+          <div style="display:grid;gap:2px">
+            <span style="font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1.1;overflow-wrap:anywhere">{{ h.value }}</span>
+            <span style="font-size:12px;font-weight:600;color:#55636E">{{ h.sub }}</span>
+          </div>
+          <sc-if value="{{ h.isTab }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ h.go }}" style="justify-self:start;height:36px;padding:0 16px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">{{ h.cta }}</button>
+          </sc-if>
+          <sc-if value="{{ h.isLink }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ h.href }}" target="_blank" rel="noopener" style="justify-self:start;display:inline-flex;align-items:center;height:36px;padding:0 16px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font-size:13px;font-weight:700;text-decoration:none" style-hover="border-color:#0E8C99;color:#0E8C99">{{ h.cta }}</a>
+          </sc-if>
+        </div>
+      </sc-for>
+    </section>
+
+    <sc-if value="{{ homeDevs }}" hint-placeholder-val="{{ true }}">
+      <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:16px">
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+          <div style="display:grid;gap:4px">
+            <h2 style="margin:0;font-size:16px;font-weight:800">Desarrollos recientes</h2>
+            <p style="margin:0;font-size:13px;color:#55636E">{{ devCountTxt }}</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <button onClick="{{ newDevFromHome }}" style="height:36px;padding:0 16px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#0B6F79">Nuevo desarrollo</button>
+            <button onClick="{{ goDevs }}" style="height:36px;padding:0 16px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Ver todos</button>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <sc-for list="{{ devStatusSum }}" as="s" hint-placeholder-count="5">
+            <span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 12px;border-radius:999px;background:{{ s.bg }};color:{{ s.fg }};font-size:12px;font-weight:700">{{ s.label }} <strong style="font-weight:800">{{ s.n }}</strong></span>
+          </sc-for>
+        </div>
+        <sc-if value="{{ devRecentEmpty }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:14px;color:#55636E">Todavía no hay desarrollos registrados. Añade el primero para que todo el equipo lo tenga a mano.</p></sc-if>
+        <div style="display:grid;gap:8px">
+          <sc-for list="{{ devRecent }}" as="d" hint-placeholder-count="4">
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center;padding:12px 14px;border:1px solid #E3E9EA;border-radius:12px">
+              <strong style="font-size:14px;font-weight:800;overflow-wrap:anywhere">{{ d.name }}</strong>
+              <span style="justify-self:end;height:24px;display:inline-flex;align-items:center;padding:0 10px;border-radius:999px;background:{{ d.stBg }};color:{{ d.stFg }};font-size:12px;font-weight:700;white-space:nowrap">{{ d.stLabel }}</span>
+              <span style="grid-column:1 / -1;font-size:12px;line-height:1.5;color:#55636E;overflow-wrap:anywhere">{{ d.line }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </sc-if>
+  </sc-if>
+
+  <sc-if value="{{ showDevs }}" hint-placeholder-val="{{ false }}">
+    <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:16px">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px">
+        <div style="display:grid;gap:4px">
+          <h2 style="margin:0;font-size:16px;font-weight:800">Desarrollos de la empresa</h2>
+          <p style="margin:0;font-size:13px;color:#55636E">{{ devCountTxt }}</p>
+        </div>
+        <button onClick="{{ newDev }}" style="height:36px;padding:0 16px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#0B6F79">Nuevo desarrollo</button>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px">
+        <div style="display:flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:20px;background:#F4F7F8">
+          <sc-for list="{{ devFilters }}" as="f" hint-placeholder-count="6">
+            <button onClick="{{ f.go }}" style="height:28px;padding:0 12px;border:0;border-radius:999px;background:{{ f.bg }};color:{{ f.fg }};font:inherit;font-size:13px;font-weight:700;cursor:pointer">{{ f.label }} · {{ f.n }}</button>
+          </sc-for>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700">Buscar
+          <input type="search" onInput="{{ devSearch }}" placeholder="Nombre, responsable…" style="height:36px;width:220px;max-width:100%;border:1px solid #CBD9DE;border-radius:999px;padding:0 14px;font:inherit;font-size:13px;font-weight:400;color:#16374D">
+        </label>
+      </div>
+      <sc-if value="{{ hasDevMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:{{ devMsgColor }};overflow-wrap:anywhere">{{ devMsg }}</p></sc-if>
+    </section>
+
+    <sc-if value="{{ showDevForm }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#FFFFFF;border:1px solid #0E8C99;border-radius:16px;padding:20px;display:grid;gap:16px">
+        <div style="display:grid;gap:4px">
+          <h2 style="margin:0;font-size:16px;font-weight:800">{{ devFormTitle }}</h2>
+          <p style="margin:0;font-size:13px;line-height:1.5;color:#55636E">Lo ve todo el equipo con acceso a Desarrollos. Solo el nombre es obligatorio.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;align-items:end">
+          <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Nombre
+            <input ref="{{ devNameRef }}" type="text" maxlength="100" placeholder="Por ejemplo: App NurIA para enfermería" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+          </label>
+          <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Estado
+            <select ref="{{ devStatusRef }}" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 10px;font:inherit;font-size:14px;font-weight:400;color:#16374D;background:#FFFFFF">
+              <option value="idea">Idea</option>
+              <option value="desarrollo">En desarrollo</option>
+              <option value="pruebas">En pruebas</option>
+              <option value="produccion">En producción</option>
+              <option value="pausado">Pausado</option>
+            </select>
+          </label>
+          <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Área
+            <select ref="{{ devAreaRef }}" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 10px;font:inherit;font-size:14px;font-weight:400;color:#16374D;background:#FFFFFF">
+              <option value="interno">Herramienta interna</option>
+              <option value="producto">Producto</option>
+              <option value="web">Web</option>
+              <option value="cliente">Proyecto de cliente</option>
+            </select>
+          </label>
+          <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Responsable
+            <input ref="{{ devOwnerRef }}" type="text" maxlength="80" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+          </label>
+          <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Enlace
+            <input ref="{{ devUrlRef }}" type="url" placeholder="https://" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+          </label>
+          <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Repositorio
+            <input ref="{{ devRepoRef }}" type="url" placeholder="https://github.com/…" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+          </label>
+        </div>
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Próximo paso
+          <input ref="{{ devNextRef }}" type="text" maxlength="240" placeholder="Por ejemplo: probar con el Hospital de Salamanca" style="height:40px;border:1px solid #CBD9DE;border-radius:8px;padding:0 12px;font:inherit;font-size:14px;font-weight:400;color:#16374D">
+        </label>
+        <label style="display:grid;gap:6px;font-size:13px;font-weight:700">Descripción
+          <textarea ref="{{ devSummaryRef }}" rows="4" maxlength="1200" style="border:1px solid #CBD9DE;border-radius:8px;padding:10px 12px;font:inherit;font-size:14px;font-weight:400;line-height:1.5;color:#16374D;resize:vertical"></textarea>
+        </label>
+        <sc-if value="{{ hasDevFormMsg }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font-size:13px;line-height:1.5;color:#B4443A">{{ devFormMsg }}</p></sc-if>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+          <button onClick="{{ saveDev }}" style="height:40px;padding:0 18px;border:0;border-radius:999px;background:#0E8C99;color:#FFFFFF;font:inherit;font-weight:700;font-size:14px;cursor:pointer" style-hover="background:#0B6F79">{{ devSaveLabel }}</button>
+          <button onClick="{{ cancelDev }}" style="height:36px;padding:0 14px;border:0;background:none;color:#55636E;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="color:#16374D">Cancelar</button>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{ devListEmpty }}" hint-placeholder-val="{{ false }}">
+      <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:24px">
+        <p style="margin:0;font-size:14px;line-height:1.6;color:#55636E">{{ devEmptyTxt }}</p>
+      </section>
+    </sc-if>
+    <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px;align-items:start">
+      <sc-for list="{{ devRows }}" as="d" hint-placeholder-count="4">
+        <article style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:20px;display:grid;gap:12px">
+          <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start">
+            <div style="display:grid;gap:2px;min-width:0">
+              <h3 style="margin:0;font-size:16px;font-weight:800;overflow-wrap:anywhere">{{ d.name }}</h3>
+              <span style="font-size:12px;color:#55636E;overflow-wrap:anywhere">{{ d.meta }}</span>
+            </div>
+            <span style="height:24px;display:inline-flex;align-items:center;padding:0 10px;border-radius:999px;background:{{ d.stBg }};color:{{ d.stFg }};font-size:12px;font-weight:700;white-space:nowrap">{{ d.stLabel }}</span>
+          </div>
+          <sc-if value="{{ d.hasSummary }}" hint-placeholder-val="{{ true }}"><p style="margin:0;font-size:14px;line-height:1.55;white-space:pre-line;overflow-wrap:anywhere">{{ d.summary }}</p></sc-if>
+          <sc-if value="{{ d.hasNext }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;gap:2px;padding:10px 12px;border-radius:10px;background:#F4F7F8">
+              <span style="font-size:12px;font-weight:700;color:#55636E">Próximo paso</span>
+              <span style="font-size:13px;line-height:1.5;overflow-wrap:anywhere">{{ d.next }}</span>
+            </div>
+          </sc-if>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+            <sc-if value="{{ d.hasUrl }}" hint-placeholder-val="{{ true }}"><a href="{{ d.url }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;height:34px;padding:0 14px;border-radius:999px;background:#0E8C99;color:#FFFFFF;font-size:13px;font-weight:700;text-decoration:none" style-hover="background:#0B6F79">Abrir</a></sc-if>
+            <sc-if value="{{ d.hasRepo }}" hint-placeholder-val="{{ false }}"><a href="{{ d.repo }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font-size:13px;font-weight:700;text-decoration:none" style-hover="border-color:#0E8C99;color:#0E8C99">Repositorio</a></sc-if>
+            <button onClick="{{ d.edit }}" style="height:34px;padding:0 14px;border:1px solid #CBD9DE;border-radius:999px;background:#FFFFFF;color:#16374D;font:inherit;font-size:13px;font-weight:700;cursor:pointer" style-hover="border-color:#0E8C99;color:#0E8C99">Editar</button>
+            <sc-if value="{{ d.canDel }}" hint-placeholder-val="{{ false }}"><button onClick="{{ d.del }}" style="height:34px;padding:0 12px;border:0;background:none;color:#B4443A;font:inherit;font-size:13px;font-weight:700;cursor:pointer">Borrar</button></sc-if>
+          </div>
+          <span style="font-size:12px;color:#55636E">{{ d.updated }}</span>
+        </article>
+      </sc-for>
+    </section>
+  </sc-if>
+
   <sc-if value="{{ showNoMods }}" hint-placeholder-val="{{ false }}">
     <section style="background:#FFFFFF;border:1px solid #E3E9EA;border-radius:16px;padding:24px;display:grid;gap:8px">
       <h2 style="margin:0;font-size:16px;font-weight:800">Todavía no tienes partes habilitadas</h2>
@@ -393,11 +559,12 @@ a:hover{color:#0B6F79}
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = {
-    key: null, me: null, checking: true, login: false, tab: 'analytics', pwErr: '',
+    key: null, me: null, checking: true, login: false, tab: 'home', pwErr: '',
     range: 30, metric: 'v', data: null, loading: true, err: '', demo: false, refreshing: false,
     pres: [], presMsg: '', presOk: true, uploading: false, upMsg: '', upOk: true,
     users: [], userMsg: '', userOk: true, usersBusy: false,
-    modCatalog: [], selEmail: null, selMods: [], newMods: ['analitica'],
+    modCatalog: [], selEmail: null, selMods: [], newMods: ['analitica', 'desarrollos'],
+    devs: [], devsLoaded: false, devEdit: null, devFilter: 'all', devQ: '', devMsg: '', devOk: true, devFormMsg: '', devBusy: false, mailLoaded: false, presLoaded: false, usersLoaded: false,
     mailCamps: [], mailMsg: '', mailOk: true, mailProg: '', mailRcpt: null, mailInvalid: 0, mailBusy: false, previewUrl: '', mailErr: ''
   };
   pwRef = React.createRef();
@@ -415,6 +582,14 @@ class Component extends DCLogic {
   mailTestRef = React.createRef();
   previewRef = React.createRef();
   mailHerRef = React.createRef();
+  devNameRef = React.createRef();
+  devStatusRef = React.createRef();
+  devAreaRef = React.createRef();
+  devOwnerRef = React.createRef();
+  devUrlRef = React.createRef();
+  devRepoRef = React.createRef();
+  devNextRef = React.createRef();
+  devSummaryRef = React.createRef();
 
   componentDidMount() {
     if (/[?&]demo=1/.test(location.search)) return this.setDemo();
@@ -496,14 +671,16 @@ class Component extends DCLogic {
   async logout() {
     try { await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' }); } catch (e) {}
     try { localStorage.removeItem('advdash-key'); } catch (e) {}
-    this.setState({ key: null, login: true, me: null, data: null, pres: [], users: [], pwErr: '', tab: 'analytics' });
+    this.setState({ key: null, login: true, me: null, data: null, pres: [], users: [], devs: [], devsLoaded: false, devEdit: null, mailCamps: [], mailLoaded: false, presLoaded: false, usersLoaded: false, pwErr: '', tab: 'home' });
   }
 
   setTab(t) {
-    this.setState({ tab: t }, () => {
+    this.setState({ tab: t, devQ: '' }, () => {
       if (t === 'pres') this.loadPres();
       if (t === 'users') this.loadUsers();
       if (t === 'mailings') this.loadMailings();
+      if (t === 'devs') this.loadDevs();
+      if (t === 'home') this.loadHome();
     });
   }
 
@@ -511,7 +688,7 @@ class Component extends DCLogic {
   async loadPres() {
     try {
       const j = await this.api('/api/presentations');
-      this.setState({ pres: j.items || [] });
+      this.setState({ pres: j.items || [], presLoaded: true });
     } catch (e) {
       if (e.auth) return this.setState({ login: true, me: null });
       this.setState({ presMsg: 'No se han podido cargar las presentaciones: ' + e.message, presOk: false });
@@ -561,9 +738,11 @@ class Component extends DCLogic {
 
   // ----- Usuarios (solo administración) -----
   canUse(key) { const me = this.state.me || {}; return me.role === 'admin' || (me.modules || []).includes(key); }
-  tabFor(me) { const ok = k => me.role === 'admin' || (me.modules || []).includes(k); return ok('analitica') ? 'analytics' : ok('presentaciones') ? 'pres' : ok('mailings') ? 'mailings' : 'none'; }
+  // Con alguna parte habilitada se entra por Inicio; sin ninguna, se muestra el aviso.
+  tabFor(me) { return me.role === 'admin' || (me.modules || []).length ? 'home' : 'none'; }
   afterLogin() {
     this.load();
+    if (this.state.tab === 'home') this.loadHome();
     if (this.canUse('presentaciones') && this.state.tab === 'pres') this.loadPres();
     if (this.canUse('mailings') && this.state.tab === 'mailings') this.loadMailings();
   }
@@ -571,7 +750,7 @@ class Component extends DCLogic {
   async loadUsers() {
     try {
       const j = await this.api('/api/users');
-      this.setState({ users: j.items || [], modCatalog: j.modules || [] });
+      this.setState({ users: j.items || [], modCatalog: j.modules || [], usersLoaded: true });
     } catch (e) {
       this.setState({ userMsg: 'No se han podido cargar las cuentas: ' + e.message, userOk: false });
     }
@@ -633,6 +812,82 @@ class Component extends DCLogic {
     }
   }
 
+  // ----- Inicio: cifras de cada parte habilitada -----
+  loadHome() {
+    if (this.canUse('desarrollos')) this.loadDevs();
+    if (this.canUse('presentaciones')) this.loadPres();
+    if (this.canUse('mailings')) this.loadMailings();
+    if ((this.state.me || {}).role === 'admin') this.loadUsers();
+  }
+
+  // ----- Desarrollos (registro común de proyectos, apps y herramientas) -----
+  async loadDevs() {
+    try {
+      const j = await this.api('/api/desarrollos');
+      this.setState({ devs: j.items || [], devsLoaded: true });
+    } catch (e) {
+      if (e.auth) return this.setState({ login: true, me: null });
+      this.setState({ devMsg: 'No se han podido cargar los desarrollos: ' + e.message, devOk: false });
+    }
+  }
+
+  // Abre el formulario vacío (id 'new') o con los datos de un desarrollo, y rellena los campos tras pintarlo.
+  openDev(id) {
+    const d = this.state.devs.find(x => x.id === id) || {};
+    this.setState({ tab: 'devs', devEdit: id, devFormMsg: '', devMsg: '' }, () => {
+      const set = (r, v) => { if (r.current) r.current.value = v || ''; };
+      set(this.devNameRef, d.name); set(this.devOwnerRef, d.owner); set(this.devUrlRef, d.url);
+      set(this.devRepoRef, d.repo); set(this.devNextRef, d.next); set(this.devSummaryRef, d.summary);
+      if (this.devStatusRef.current) this.devStatusRef.current.value = d.status || 'idea';
+      if (this.devAreaRef.current) this.devAreaRef.current.value = d.area || 'interno';
+      if (!this.state.devsLoaded) this.loadDevs();
+      if (this.devNameRef.current) { this.devNameRef.current.focus(); this.devNameRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+    });
+  }
+
+  async saveDev() {
+    if (this.state.devBusy) return;
+    const v = r => ((r.current && r.current.value) || '');
+    const body = {
+      name: v(this.devNameRef).trim(), status: v(this.devStatusRef), area: v(this.devAreaRef),
+      owner: v(this.devOwnerRef).trim(), url: v(this.devUrlRef).trim(), repo: v(this.devRepoRef).trim(),
+      next: v(this.devNextRef).trim(), summary: v(this.devSummaryRef).trim()
+    };
+    if (!body.name) return this.setState({ devFormMsg: 'Escribe el nombre del desarrollo.' });
+    const isNew = this.state.devEdit === 'new';
+    if (!isNew) body.id = this.state.devEdit;
+    this.setState({ devBusy: true, devFormMsg: '' });
+    try {
+      const j = await this.api('/api/desarrollos', { method: isNew ? 'POST' : 'PATCH', body: JSON.stringify(body) });
+      const rest = this.state.devs.filter(x => x.id !== j.item.id);
+      this.setState({ devBusy: false, devEdit: null, devs: [j.item].concat(rest), devOk: true, devMsg: (isNew ? 'Desarrollo añadido: ' : 'Cambios guardados en ') + j.item.name + '.' });
+    } catch (e) {
+      this.setState({ devBusy: false, devFormMsg: 'No se ha podido guardar: ' + e.message });
+    }
+  }
+
+  async delDev(id) {
+    const d = this.state.devs.find(x => x.id === id);
+    if (!d || !window.confirm('¿Borrar "' + d.name + '" del registro de desarrollos?')) return;
+    try {
+      await this.api('/api/desarrollos?id=' + encodeURIComponent(id), { method: 'DELETE' });
+      this.setState({ devs: this.state.devs.filter(x => x.id !== id), devEdit: this.state.devEdit === id ? null : this.state.devEdit, devOk: true, devMsg: 'Desarrollo borrado.' });
+    } catch (e) {
+      this.setState({ devOk: false, devMsg: 'No se ha podido borrar: ' + e.message });
+    }
+  }
+
+  // Estados y áreas del registro. Colores de texto con contraste AA sobre su fondo.
+  static DEV_STATUS = [
+    { k: 'idea', label: 'Idea', bg: '#EEF3F5', fg: '#44525C' },
+    { k: 'desarrollo', label: 'En desarrollo', bg: '#E7F3F4', fg: '#0B5F68' },
+    { k: 'pruebas', label: 'En pruebas', bg: '#FFF6E5', fg: '#7A4F00' },
+    { k: 'produccion', label: 'En producción', bg: '#E8F5EE', fg: '#1B6B4A' },
+    { k: 'pausado', label: 'Pausado', bg: '#FBEDEB', fg: '#8A2F25' }
+  ];
+  static DEV_AREA = { interno: 'Herramienta interna', producto: 'Producto', web: 'Web', cliente: 'Proyecto de cliente' };
+  static devSt(k) { return Component.DEV_STATUS.find(s => s.k === k) || Component.DEV_STATUS[0]; }
+
   // ----- Mailings (solo con la parte habilitada) -----
   setMailMsg(msg, ok) { this.setState({ mailMsg: msg, mailOk: ok !== false }); }
   // Destinatarios del Excel y, si la casilla está marcada, Heriberto. El servidor quita los duplicados.
@@ -650,7 +905,7 @@ class Component extends DCLogic {
   async loadMailings() {
     try {
       const j = await this.api('/api/mailings');
-      this.setState({ mailCamps: j.items || [] });
+      this.setState({ mailCamps: j.items || [], mailLoaded: true });
     } catch (e) {
       if (e.auth) return this.setState({ login: true, me: null });
       this.setMailMsg('No se han podido cargar los envíos: ' + e.message, false);
@@ -798,12 +1053,15 @@ class Component extends DCLogic {
     const canAna = this.state.demo || this.canUse('analitica');
     const canPres = live && this.canUse('presentaciones');
     const canMail = live && this.canUse('mailings');
+    const canDevs = live && this.canUse('desarrollos');
     const T = (k, label) => ({ label, go: () => this.setTab(k), bg: tab === k ? '#16374D' : 'transparent', fg: tab === k ? '#FFFFFF' : '#16374D' });
     const tabs = [];
+    if (canDevs) tabs.push(T('devs', 'Desarrollos'));
     if (canAna) tabs.push(T('analytics', 'Analítica'));
     if (canPres) tabs.push(T('pres', 'Presentaciones'));
     if (canMail) tabs.push(T('mailings', 'Mailings'));
     if (isAdmin) tabs.push(T('users', 'Usuarios'));
+    if (live && tabs.length) tabs.unshift(T('home', 'Inicio'));
 
     const fmtDate = s => s ? new Date(s).toLocaleDateString('es-ES', { dateStyle: 'medium' }) : '—';
     const presRows = this.state.pres.map(p => {
@@ -854,7 +1112,81 @@ class Component extends DCLogic {
       '. Los duplicados y las bajas se quitan al enviar.';
 
     const presCount = this.state.pres.length;
+
+    // Desarrollos: filtro por estado y búsqueda por texto.
+    const devs = this.state.devs, q = this.state.devQ.trim().toLowerCase(), flt = this.state.devFilter;
+    const countSt = k => devs.filter(d => d.status === k).length;
+    const fmtDay = s => s ? new Date(s).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+    const devFilters = [{ k: 'all', label: 'Todos', n: devs.length }].concat(C.DEV_STATUS.map(x => ({ k: x.k, label: x.label, n: countSt(x.k) })))
+      .map(f => ({ label: f.label, n: f.n, go: () => this.setState({ devFilter: f.k }), bg: flt === f.k ? '#FFFFFF' : 'transparent', fg: flt === f.k ? '#0B6F79' : '#44525C' }));
+    const shown = devs.filter(d => (flt === 'all' || d.status === flt) &&
+      (!q || [d.name, d.summary, d.owner, d.next, C.DEV_AREA[d.area]].join(' ').toLowerCase().includes(q)));
+    const devRows = shown.map(d => {
+      const st = C.devSt(d.status);
+      return {
+        name: d.name, stLabel: st.label, stBg: st.bg, stFg: st.fg,
+        meta: [C.DEV_AREA[d.area] || 'Herramienta interna', d.owner ? 'Responsable: ' + d.owner : ''].filter(Boolean).join(' · '),
+        summary: d.summary || '', hasSummary: !!d.summary,
+        next: d.next || '', hasNext: !!d.next,
+        url: d.url || '', hasUrl: !!d.url, repo: d.repo || '', hasRepo: !!d.repo,
+        updated: 'Actualizado el ' + fmtDay(d.updated) + (d.updatedBy ? ' por ' + d.updatedBy : ''),
+        edit: () => this.openDev(d.id), del: () => this.delDev(d.id),
+        canDel: isAdmin || (!!me.email && me.email === d.creator)
+      };
+    });
+    const devRecent = devs.slice(0, 5).map(d => {
+      const st = C.devSt(d.status);
+      return { name: d.name, stLabel: st.label, stBg: st.bg, stFg: st.fg,
+        line: [d.next ? 'Próximo paso: ' + d.next : '', d.owner, 'actualizado el ' + fmtDay(d.updated)].filter(Boolean).join(' · ') };
+    });
+    const nDev = devs.length;
+    const devCountTxt = !this.state.devsLoaded ? 'Cargando…' : nDev + (nDev === 1 ? ' desarrollo registrado' : ' desarrollos registrados') + ' · ' + countSt('desarrollo') + ' en desarrollo · ' + countSt('produccion') + ' en producción';
+
+    // Inicio: una tarjeta por parte habilitada, con su cifra clave.
+    const d0 = this.state.data, wait = '…';
+    const nMail = this.state.mailCamps.length, lastMail = this.state.mailCamps[0];
+    const hubCards = [];
+    const card = (o) => hubCards.push(Object.assign({ isTab: !!o.tab, isLink: !!o.href, go: o.tab ? () => this.setTab(o.tab) : null }, o));
+    if (canDevs) card({ tab: 'devs', kicker: 'Central', title: 'Desarrollos', desc: 'Proyectos, apps y herramientas que estamos construyendo, con su estado y responsable.',
+      value: this.state.devsLoaded ? C.fmt(nDev) : wait, sub: this.state.devsLoaded ? countSt('desarrollo') + ' en desarrollo · ' + countSt('pruebas') + ' en pruebas' : '', cta: 'Abrir desarrollos' });
+    if (canAna) card({ tab: 'analytics', kicker: 'Web', title: 'Analítica web', desc: 'Visitas, conversiones y comportamiento en advantecnia.com, sin cookies.',
+      value: d0 ? C.fmt(d0.cur.visitors) : (this.state.err ? '—' : wait), sub: d0 ? 'visitantes ' + (this.state.range === 1 ? 'hoy' : 'en los últimos ' + this.state.range + ' días') + ' · ' + C.fmt(d0.live) + ' ahora' : '', cta: 'Ver analítica' });
+    if (canPres) card({ tab: 'pres', kicker: 'Comercial', title: 'Presentaciones', desc: 'PowerPoint con enlace propio para compartir con clientes.',
+      value: this.state.presLoaded ? C.fmt(presCount) : wait, sub: this.state.presLoaded ? (isAdmin ? 'de todo el equipo' : 'subidas por ti') : '', cta: 'Abrir presentaciones' });
+    if (canMail) card({ tab: 'mailings', kicker: 'Marketing', title: 'Mailings', desc: 'Envíos desde news@advantecnia.com con baja automática.',
+      value: this.state.mailLoaded ? C.fmt(nMail) : wait, sub: this.state.mailLoaded ? (lastMail ? 'último el ' + fmtDay(lastMail.created) : 'todavía sin envíos') : '', cta: 'Abrir mailings' });
+    if (isAdmin) card({ tab: 'users', kicker: 'Administración', title: 'Usuarios', desc: 'Cuentas del equipo y partes que tiene habilitadas cada una.',
+      value: this.state.usersLoaded ? C.fmt(this.state.users.length) : wait, sub: this.state.usersLoaded ? 'cuentas con acceso' : '', cta: 'Gestionar usuarios' });
+    if (live) card({ href: '/', kicker: 'En línea', title: 'Web advantecnia.com', desc: 'La web pública en español e inglés. Los cambios se hacen desde el repositorio.',
+      value: 'advantecnia.com', sub: 'abre en otra pestaña', cta: 'Ver la web' });
+
+    const SUBS = { home: 'Herramientas y desarrollos de la empresa', devs: 'Registro de desarrollos', analytics: 'Analítica web · advantecnia.com', pres: 'Presentaciones', mailings: 'Mailings', users: 'Usuarios', none: 'Herramientas y desarrollos de la empresa' };
+    const first = String(me.name || '').trim().split(/\s+/)[0];
+
     return {
+      headTitle: live ? 'Central Advantecnia' : 'Analítica web',
+      headSub: live ? (SUBS[tab] || SUBS.home) : 'advantecnia.com',
+      showHome: live && tab === 'home' && tabs.length > 0,
+      hello: me.email && first ? 'Hola, ' + first : 'Bienvenido a la central',
+      hubCards,
+      homeDevs: canDevs,
+      newDevFromHome: () => this.openDev('new'), goDevs: () => this.setTab('devs'),
+      devStatusSum: C.DEV_STATUS.map(x => ({ label: x.label, n: countSt(x.k), bg: x.bg, fg: x.fg })),
+      devRecent, devRecentEmpty: this.state.devsLoaded && nDev === 0, devCountTxt,
+      showDevs: tab === 'devs' && canDevs,
+      newDev: () => this.openDev('new'),
+      devFilters, devSearch: e => this.setState({ devQ: e.target.value }),
+      hasDevMsg: !!this.state.devMsg, devMsg: this.state.devMsg, devMsgColor: this.state.devOk ? '#1F7A55' : '#B4443A',
+      showDevForm: !!this.state.devEdit,
+      devFormTitle: this.state.devEdit === 'new' ? 'Nuevo desarrollo' : 'Editar desarrollo',
+      devNameRef: this.devNameRef, devStatusRef: this.devStatusRef, devAreaRef: this.devAreaRef, devOwnerRef: this.devOwnerRef,
+      devUrlRef: this.devUrlRef, devRepoRef: this.devRepoRef, devNextRef: this.devNextRef, devSummaryRef: this.devSummaryRef,
+      hasDevFormMsg: !!this.state.devFormMsg, devFormMsg: this.state.devFormMsg,
+      saveDev: () => this.saveDev(), cancelDev: () => this.setState({ devEdit: null, devFormMsg: '' }),
+      devSaveLabel: this.state.devBusy ? 'Guardando…' : (this.state.devEdit === 'new' ? 'Añadir desarrollo' : 'Guardar cambios'),
+      devRows,
+      devListEmpty: this.state.devsLoaded && devRows.length === 0,
+      devEmptyTxt: nDev === 0 ? 'Todavía no hay desarrollos. Pulsa «Nuevo desarrollo» para registrar el primero.' : 'Ningún desarrollo coincide con el filtro o la búsqueda.',
       showLogin: this.state.login,
       showMain: !this.state.login && !this.state.checking,
       showTabs: live,

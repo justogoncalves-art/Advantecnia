@@ -27,6 +27,13 @@ Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un ev
 - Presentaciones: el navegador sube a Vercel Blob con `/api/blob-upload` (no pasa por la función). Después registra la subida en `/api/presentations`, que comprueba que la ruta sea de la carpeta del usuario. Enlace público: `/p/<token>` → `api/view.js`.
 - Pruebas: no hay suite en el repositorio. Los endpoints de acceso se probaron con un Redis simulado y el panel en Chromium; no se ha probado contra Vercel real.
 
+## Central de desarrollos (Inicio y Desarrollos)
+- El panel (`/dashboard`) es la central de la empresa. Al entrar se abre **Inicio**: una tarjeta por cada parte habilitada (Desarrollos, Analítica, Presentaciones, Mailings, Usuarios y la web) con su cifra clave, y los desarrollos actualizados más recientemente. `loadHome()` carga lo necesario según los módulos del usuario.
+- Módulo `desarrollos` (en `MODULES` de `_lib.js`). Endpoint `api/desarrollos.js`: GET lista todo, POST crea, PATCH edita (los campos que no llegan conservan su valor), DELETE `?id=` borra (quien lo creó o un administrador). Cualquiera con el módulo ve y edita todos.
+- Campos: nombre (obligatorio), estado (`idea`, `desarrollo`, `pruebas`, `produccion`, `pausado`), área (`interno`, `producto`, `web`, `cliente`), responsable, enlace, repositorio, próximo paso y descripción. Los enlaces solo se aceptan http(s).
+- Redis: `devs` (set de ids) y `dev:<id>` (JSON). Etiquetas y colores de los estados en `Component.DEV_STATUS` de `dashboard.dc.html`.
+- Para añadir una herramienta nueva a la central: su módulo en `MODULES`, su pestaña en `extraVals()` y su tarjeta en `hubCards`.
+
 ## Mailings
 - Módulo `mailings` (en `MODULES` de `_lib.js`). Endpoints: `api/mailings.js` (crear, enviar por lotes de 100 con `?action=send&id=`, prueba con `?action=test`, historial) y `api/unsubscribe.js` (ruta `/baja`).
 - Envío con la API por lotes de Resend (`sendBatch` en `_lib.js`, requiere `RESEND_API_KEY`). `buildMail` personaliza `{{nombre}}`, `{{email}}`, `{{baja}}` y añade el pie y las cabeceras `List-Unsubscribe`.

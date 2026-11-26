@@ -6,7 +6,7 @@ Web corporativa de Advantecnia con medición propia sin cookies y un panel de an
 
 ```
 index.html            Web (una sola página con navegación interna)
-dashboard.dc.html     Panel de analítica (se sirve en /dashboard)
+dashboard.dc.html     Central de la empresa: inicio, desarrollos, analítica y herramientas (se sirve en /dashboard)
 support.js            Motor que pinta index.html y dashboard.dc.html
 assets/at.js          Etiquetado: envía los eventos a /api/track
 api/track.js          Recibe eventos y los guarda en Redis
@@ -19,6 +19,7 @@ api/users.js          Cuentas de usuario (solo administración)
 api/presentations.js  Lista, registra y borra presentaciones
 api/blob-upload.js    Permiso para que el navegador suba el PowerPoint a Vercel Blob
 api/view.js           Página pública de cada presentación (/p/<enlace>)
+api/desarrollos.js    Registro de desarrollos de la empresa (central del panel)
 api/_lib.js           Funciones comunes: Redis, sesiones, contraseñas (no es un endpoint)
 assets/vendor/        Cliente de Vercel Blob para el navegador (versión fija en el nombre)
 vercel.json           Rutas, cron diario y cabeceras
@@ -54,6 +55,13 @@ robots.txt            Excluye /dashboard, /p y /api de buscadores
 - Botón **Enviar por email**: abre el cliente de correo con el enlace listo para enviar.
 - Las presentaciones de cada usuario se listan solo para él; el administrador las ve todas.
 - Al subir, el archivo queda en Vercel Blob con acceso público por URL. Borrar una presentación borra el archivo y el enlace.
+
+## Central de desarrollos
+
+- Al entrar en `/dashboard` se abre **Inicio**: un resumen con una tarjeta por cada herramienta que tienes habilitada y los últimos desarrollos actualizados.
+- **Desarrollos** es el registro común de proyectos, apps y herramientas de la empresa: nombre, estado (Idea, En desarrollo, En pruebas, En producción, Pausado), área, responsable, enlace, repositorio, próximo paso y descripción. Se filtra por estado y se busca por texto.
+- Lo ve y lo edita cualquiera con la parte **Desarrollos** habilitada (los administradores la tienen siempre; las cuentas nuevas la traen marcada). Borrar solo puede quien lo creó o un administrador.
+- Las cuentas que ya existían no la tienen: actívala en **Usuarios** para cada persona.
 
 ## Mailings
 
