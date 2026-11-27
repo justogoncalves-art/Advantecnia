@@ -16,7 +16,7 @@ Manrope; navy #16374D; teal #0E8C99 (acción); texto secundario #55636E; bordes 
 Copy: tú en marketing, nosotros como empresa, sin guiones largos, sin exclamaciones salvo la burbuja de WhatsApp.
 
 ## Contacto
-Teléfono web: +34 637 49 57 57. WhatsApp: +34 607 55 27 33. Formulario vía formsubmit.co a info@advantecnia.com.
+Teléfono web: +34 637 49 57 57. WhatsApp: +34 637 49 57 57 (el mismo que el teléfono). Formulario vía formsubmit.co a info@advantecnia.com.
 
 ## Analítica
 Ver README.md (tabla de eventos, variables de entorno, cron). Para añadir un evento: `this.trk('nombre', { ... })` en index.html, luego agrégalo en `aggregate()` de `api/_lib.js` y, si debe verse, en `tableList()` de `dashboard.dc.html`.
